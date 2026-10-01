@@ -14,7 +14,7 @@ export default function Login() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-
+    console.log("testing saving");
     const data = await res.json();
     if (data.token) {
       localStorage.setItem("token", data.token);
