@@ -1,4 +1,4 @@
-export const API_URL = 'https://finance-backend-production-7438.up.railway.app';
+export const API_URL = "http://localhost:5000";
 
 export function authHeader() {
   return {

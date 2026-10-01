@@ -9,11 +9,10 @@ export default function Login() {
 
   async function submit(e) {
     e.preventDefault();
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+    const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials:'include',
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password }),
     });
 
     const data = await res.json();
@@ -24,11 +23,28 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundImage: "url('/login-wallpaper.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: "20px",
+        transition: "filter 0.3s ease",
+        position: "relative",
+      }}
+    >
       <h1>Login</h1>
       <form onSubmit={submit}>
-        <input placeholder="email" onChange={e => setEmail(e.target.value)} />
-        <input placeholder="password" type="password" onChange={e => setPassword(e.target.value)} />
+        <input placeholder="email" onChange={(e) => setEmail(e.target.value)} />
+        <input
+          placeholder="password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <button>Login</button>
       </form>
     </div>
