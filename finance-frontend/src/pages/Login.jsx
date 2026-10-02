@@ -15,15 +15,15 @@ export default function Login() {
     }
     setLoading(true);
     const res = await api.post("/auth/login", { email, password });
-    if (!res.token) {
-      setError("error loggin in");
+
+    if (!res.data.token) {
+      setError("error logging in");
       setLoading(false);
       return;
     }
     nav("/dashboard");
     setLoading(false);
   }
-
   return (
     <div
       style={{
