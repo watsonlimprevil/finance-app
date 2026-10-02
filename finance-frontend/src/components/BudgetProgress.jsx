@@ -16,7 +16,6 @@ export default function BudgetProgress({ progress }) {
 
       {open && (
         <div className="collapse-content">
-
           {/* Monthly Budget */}
           {monthly && (
             <div className="budget-item">
@@ -32,7 +31,7 @@ export default function BudgetProgress({ progress }) {
                   className="progress-fill"
                   style={{
                     width: `${monthly.percent}%`,
-                    background: monthly.exceeded ? "red" : "green"
+                    background: monthly.exceeded ? "red" : "green",
                   }}
                 />
               </div>
@@ -48,11 +47,9 @@ export default function BudgetProgress({ progress }) {
           {/* Category Budgets */}
           <h3 style={{ marginTop: 20 }}>Category Budgets</h3>
 
-          {progress.categories.length === 0 && (
-            <p>No category budgets set.</p>
-          )}
+          {progress.categories.length === 0 && <p>No category budgets set.</p>}
 
-          {progress.categories.map(cat => (
+          {progress.categories.map((cat) => (
             <div key={cat.category} className="budget-item">
               <span className="icon">🏷️</span>
               <span className="category">{cat.category}</span>
@@ -66,7 +63,7 @@ export default function BudgetProgress({ progress }) {
                   className="progress-fill"
                   style={{
                     width: `${cat.percent}%`,
-                    background: cat.exceeded ? "red" : "green"
+                    background: cat.exceeded ? "red" : "green",
                   }}
                 />
               </div>

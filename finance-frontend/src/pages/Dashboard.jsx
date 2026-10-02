@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_URL, authHeader } from "../utils/api.js";
+import api from "../utils/api.js";
 import Summary from "../components/Summary.jsx";
 import Transactions from "../components/Transactions.jsx";
 import CategoryPieChart from "../components/CategoryPieChart.jsx";
@@ -21,18 +21,13 @@ export default function Dashboard() {
   }
 
   async function loadSummary() {
-    const res = await fetch(`${API_URL}/transactions/summary`, {
-      headers: authHeader()
-    });
-    setSummary(await res.json());
+    const res = await api.get("/transactions/summary");
+    setSummary(res.data);
   }
 
   async function loadTransactions() {
-    const res = await fetch(`${API_URL}/transactions`, {
-      headers: authHeader()
-    });
-    const data = await res.json();
-    setTransactions(data.transactions);
+    const res = await api.get("/transactions");
+    setTransactions(res.data.transactions);
   }
 
   return (
@@ -45,14 +40,17 @@ export default function Dashboard() {
 
       <AddTransaction reload={reloadAll} />
 
-      <EditTransaction editing={editing} cancel={() => setEditing(null)} reload={reloadAll} />
+      <EditTransaction
+        editing={editing}
+        cancel={() => setEditing(null)}
+        reload={reloadAll}
+      />
 
       <Transactions
         transactions={transactions}
         reload={reloadAll}
-        startEdit={t => setEditing(t)}
+        startEdit={(t) => setEditing(t)}
       />
     </div>
   );
 }
-

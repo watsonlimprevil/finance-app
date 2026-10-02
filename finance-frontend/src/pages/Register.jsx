@@ -20,6 +20,7 @@ export default function Register() {
       return;
     }
     nav("/");
+    setError(null);
   }
 
   return (
@@ -134,6 +135,7 @@ export default function Register() {
           >
             Register
           </button>
+          {error && <div>{error}</div>}
           <span
             onClick={() => {
               nav("/");
