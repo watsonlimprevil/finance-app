@@ -18,10 +18,10 @@ export default function Login() {
 
     if (!res.data.token) {
       setError("error logging in");
-      localStorage.setItem("token", res.data.token);
       setLoading(false);
       return;
     }
+    localStorage.setItem("token", res.data.token);
     nav("/dashboard");
     setLoading(false);
   }
