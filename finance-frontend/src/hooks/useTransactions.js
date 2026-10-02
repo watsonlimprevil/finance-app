@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import api, { API_URL, authHeader } from "../utils/api";
+import api from "../utils/api";
 
 export default function useTransactions() {
   const [transactions, setTransactions] = useState(null);
