@@ -13,12 +13,14 @@ export default function Login() {
       setError("Email and password must be set");
       return;
     }
+    setLoading(true);
     const res = await api.post("/auth/login", { email, password });
     if (!res.token) {
       setError("error loggin in");
       return;
     }
     nav("/dashboard");
+    setLoading(false);
   }
 
   return (
