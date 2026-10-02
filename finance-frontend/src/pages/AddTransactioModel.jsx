@@ -15,7 +15,7 @@ export default function AddTransactionModal({ show, onClose, onAdd }) {
       type,
       category,
       date,
-      description
+      description,
     });
 
     onClose();

@@ -10,22 +10,13 @@ export default function AddTransaction({ reload }) {
 
   async function submit(e) {
     e.preventDefault();
-
-    (await api.post(`/transactions`),
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...authHeader(),
-        },
-        body: JSON.stringify({
-          amount,
-          type,
-          category,
-          date,
-          description,
-        }),
-      });
+    await api.post("/transactions", {
+      amount,
+      category,
+      date,
+      type,
+      description,
+    });
 
     reload();
   }

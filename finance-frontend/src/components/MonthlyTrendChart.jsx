@@ -6,7 +6,7 @@ import {
   LinearScale,
   PointElement,
   Legend,
-  Tooltip
+  Tooltip,
 } from "chart.js";
 
 ChartJS.register(
@@ -15,38 +15,38 @@ ChartJS.register(
   LinearScale,
   PointElement,
   Legend,
-  Tooltip
+  Tooltip,
 );
 
 export default function MonthlyTrendChart({ data }) {
   if (!data || data.length === 0) return null;
 
   const chartData = {
-    labels: data.map(d => d.month),
+    labels: data.map((d) => d.month),
     datasets: [
       {
         label: "Income",
-        data: data.map(d => d.income),
+        data: data.map((d) => d.income),
         borderColor: "green",
-        backgroundColor: "rgba(0, 255, 0, 0.2)"
+        backgroundColor: "rgba(0, 255, 0, 0.2)",
       },
       {
         label: "Expenses",
-        data: data.map(d => d.expenses),
+        data: data.map((d) => d.expenses),
         borderColor: "red",
-        backgroundColor: "rgba(255, 0, 0, 0.2)"
+        backgroundColor: "rgba(255, 0, 0, 0.2)",
       },
       {
         label: "Net",
-        data: data.map(d => d.net),
+        data: data.map((d) => d.net),
         borderColor: "blue",
-        backgroundColor: "rgba(0, 0, 255, 0.2)"
-      }
-    ]
+        backgroundColor: "rgba(0, 0, 255, 0.2)",
+      },
+    ],
   };
 
   return (
-    <div className='chart-container' >
+    <div className="chart-container">
       <h3>Monthly Trends</h3>
       <Line data={chartData} />
     </div>

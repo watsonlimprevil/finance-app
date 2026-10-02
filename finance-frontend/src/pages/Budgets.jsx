@@ -32,11 +32,9 @@ export default function Budgets() {
   }
 
   async function deleteBudget(id) {
-    await fetch(`${import.meta.env.VITE_API_URL}/transactions/budgets/${id}`, {
-      method: "DELETE",
-      headers: authHeader(),
-    });
-    loadBudgets();
+    await api.delete("/transactions/budgets");
+    setBudgets((prev) => prev.filter((b) => b.id !== id));
+    await loadBudgets();
   }
 
   return (

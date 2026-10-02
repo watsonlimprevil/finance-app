@@ -24,7 +24,9 @@ export default function Insights({ summary }) {
 
           <div className="insight-item">
             <span className="icon">📅</span>
-            <span>Average Daily Spending: ${summary?.averageDailySpending || 0}</span>
+            <span>
+              Average Daily Spending: ${summary?.averageDailySpending || 0}
+            </span>
           </div>
 
           <div className="insight-item">
