@@ -78,7 +78,7 @@ export default function Login() {
         />
 
         <input
-          placeholder="enter email"
+          placeholder="enter password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           style={{
