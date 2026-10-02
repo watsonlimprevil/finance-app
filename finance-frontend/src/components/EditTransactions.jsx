@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { API_URL, authHeader } from "../utils/api";
+
 import api from "../utils/api";
 export default function EditTransaction({ editing, cancel, reload }) {
   const [form, setForm] = useState({
