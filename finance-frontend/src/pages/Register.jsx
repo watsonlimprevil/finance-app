@@ -30,7 +30,7 @@ export default function Register() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: "url('/login-wallpaper.jpg')",
+        backgroundImage: "url('/login-wallpaper.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative",
