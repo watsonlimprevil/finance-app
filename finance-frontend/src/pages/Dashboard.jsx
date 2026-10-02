@@ -87,9 +87,9 @@ export default function Dashboard() {
     const res = await api.get(
       `/transactions?page=${page}&limit=${limit}&type=${typeFilter}&category=${categoryFilter}&startDate=${startDate}&endDate=${endDate}&sort=${sort}&order=${order}`,
     );
-    const data = await res.data;
-    setTransactions(data.transactions);
-    setTotalPages(Math.ceil(data.total / limit));
+    const result = await res.data;
+    setTransactions(result.transactions);
+    setTotalPages(Math.ceil(result.total / limit));
   }
   useEffect(() => {
     loadTransactions();
@@ -107,8 +107,8 @@ export default function Dashboard() {
   async function loadTrends() {
     const res = await api.get(`/transactions/trends`);
 
-    const data = await res.json();
-    setTrends(data.trends);
+    const result = res.data;
+    setTrends(result.trends);
   }
 
   function claerSEarch() {
