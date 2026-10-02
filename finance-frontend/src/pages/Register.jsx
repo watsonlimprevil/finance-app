@@ -19,6 +19,7 @@ export default function Register() {
       setError("unable to complete login");
       return;
     }
+    localStorage.setItem("token", res.data.token);
     nav("/");
     setError(null);
   }
