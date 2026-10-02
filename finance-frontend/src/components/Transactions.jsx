@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api, { authHeader } from "../utils/api.js";
+import api from "../utils/api";
 
 export default function Transactions({
   transactions = [],
