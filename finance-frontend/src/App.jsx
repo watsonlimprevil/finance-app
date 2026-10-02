@@ -7,7 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Transactions from "./components/Transactions";
 import Insights from "./pages/Insights";
 import Settings from "./components/Settings";
-import Signup from "./pages/Signup";
+import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import AddTransaction from "./components/AddTransactions";
 import Budgets from "./pages/Budgets";
@@ -16,8 +16,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Login />} />
 
         <Route
           path="/dashboard"
