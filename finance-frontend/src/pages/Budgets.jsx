@@ -15,12 +15,9 @@ export default function Budgets() {
 
   async function loadBudgets() {
     setLoading(true);
-    const res = await api.get(
-      `${import.meta.env.VITE_API_URL}/transactions/budgets`,
-    );
+    const res = await api.get(`/transactions/budgets`);
 
-    const data = await res.json();
-    setBudgets(data.budgets);
+    setBudgets(res.data.budgets);
     setLoading(false);
   }
 
