@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import api from "../utils/api";
+
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 
 export default function Budgets() {
   const [budgets, setBudgets] = useState([]);
@@ -17,21 +18,22 @@ export default function Budgets() {
     setLoading(true);
     const res = await api.get(`/transactions/budgets`);
 
-    setBudgets(res.data.budgets);
+    const result = await res.data;
+    setBudgets(result.budgets);
     setLoading(false);
   }
 
   async function addBudget() {
-    const res = await api.post("/transactions/budgets", { category, amount });
+    const res = await api.post(`/transactions/budgets`, { category, amount });
+
     await loadBudgets();
     setAmount("");
     setCategory("");
   }
 
   async function deleteBudget(id) {
-    await api.delete("/transactions/budgets");
-    setBudgets((prev) => prev.filter((b) => b.id !== id));
-    await loadBudgets();
+    await api.delete(`/transactions/budgets/${id}`);
+    loadBudgets();
   }
 
   return (

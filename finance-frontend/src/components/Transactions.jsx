@@ -1,29 +1,59 @@
-import api from "../utils/api";
+import { useEffect, useState } from "react";
+import api, { authHeader } from "../utils/api.js";
 
-export default function Transactions({ transactions = [], reload, startEdit }) {
-  async function remove(id) {
-    await api.delete(`/transactions/${id}`);
-    reload();
+export default function Transactions({
+  transactions = [],
+  reload,
+  startEdit,
+  remove,
+}) {
+  const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState(null);
+
+  async function handleSearch() {
+    if (!search.trim()) return;
+
+    const res = await api.post(`/transactions/search?q=${search}`);
+
+    const data = await res.data;
+    setSearchResults(data.results);
   }
 
-  return (
-    <div>
-      <h2>Your Transactions</h2>
+  function handleClear() {
+    setSearch("");
+    setSearchResults(null);
+  }
 
-      {transactions.map((t) => (
-        <div key={t.id} style={{ marginBottom: "10px" }}>
-          {t.date} — {t.type} — {t.category} — ${t.amount}
-          <button style={{ marginLeft: "10px" }} onClick={() => startEdit(t)}>
-            Edit
-          </button>
-          <button
-            style={{ marginLeft: "10px", color: "red" }}
-            onClick={() => remove(t.id)}
-          >
-            Delete
-          </button>
-        </div>
-      ))}
+  const listToShow = searchResults || transactions;
+
+  useEffect(() => {
+    const interval = setTimeout(() => {
+      handleSearch();
+    }, 300);
+    return () => clearTimeout(interval);
+  }, [search]);
+
+  return (
+    <div className="transactions section">
+      <input
+        value={search}
+        type="text"
+        placeholder="search transaction"
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleClear}>Clear</button>
+
+      <div>
+        {listToShow.map((t) => (
+          <div key={t.id}>
+            {t.date} — {t.type} — {t.category} — ${t.amount}
+            <button onClick={() => startEdit(t)}>Edit</button>
+            <button onClick={() => remove(t.id)}>Delete</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

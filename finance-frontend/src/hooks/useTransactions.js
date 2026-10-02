@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import api from "../utils/api";
+import api, { API_URL, authHeader } from "../utils/api";
 
 export default function useTransactions() {
   const [transactions, setTransactions] = useState(null);
 
   useEffect(() => {
-    async function loadTransactions() {
-      const res = await api.get(`/transactions`);
-      setTransactions(res.data.transactions);
+    async function loadtransactions() {
+      const res = await api.get("/transactions");
+      setTransactions(res.data);
     }
-    loadTransactions();
+    loadtransactions();
   }, []);
   return transactions;
 }
