@@ -17,6 +17,7 @@ export default function Login() {
     const res = await api.post("/auth/login", { email, password });
     if (!res.token) {
       setError("error loggin in");
+      setLoading(false);
       return;
     }
     nav("/dashboard");
