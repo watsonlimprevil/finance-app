@@ -2,8 +2,6 @@ import { useState } from "react";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 export default function Settings() {
-  const API_URL = import.meta.env.VITE_API_URL;
-
   const [monthlyBudget, setMonthlyBudget] = useState("");
   const [currency, setCurrency] = useState("USD");
   const [theme, setTheme] = useState("dark");
@@ -11,7 +9,7 @@ export default function Settings() {
   const navigate = useNavigate();
   async function updateMonthlyBudget() {
     try {
-      const res = await api.patch(`${API_URL}/transactions/budgets/monthly`, {
+      const res = await api.patch(`/transactions/budgets/monthly`, {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ budget: Number(monthlyBudget) }),
       });
@@ -41,7 +39,7 @@ export default function Settings() {
 
   async function resetAllData() {
     try {
-      const res = await api.delete(`${API_URL}/transactions/reset`, {
+      const res = await api.delete(`/transactions/reset`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to reset data");
