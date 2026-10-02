@@ -30,7 +30,7 @@ export default function Login() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: "url('/login-wallpaper.jpg')",
+        backgroundImage: "url('/login-wallpaper.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         padding: "20px",
@@ -96,7 +96,7 @@ export default function Login() {
         <button
           onClick={handleLogin}
           style={{
-            width: "1000%",
+            width: "100%",
             padding: "14px",
             borderRadius: "10px",
             border: "none",
