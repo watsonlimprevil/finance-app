@@ -4,17 +4,11 @@ export default function useSummary() {
   const [summary, setSummary] = useState(null);
 
   useEffect(() => {
-    async function load() {
-      const res = await api.get(
-        `${import.meta.env.VITE_API_URL}/transactions/summary`,
-        {
-          headers: authHeader(),
-        },
-      );
-      const data = await res.json();
-      setSummary(data);
+    async function loadData() {
+      const res = await api.get("/transaction/summary");
+      setSummary(res.data);
     }
-    load();
+    loadData();
   }, []);
   return summary;
 }

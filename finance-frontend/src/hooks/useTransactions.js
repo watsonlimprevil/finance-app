@@ -6,9 +6,8 @@ export default function useTransactions() {
 
   useEffect(() => {
     async function loadTransactions() {
-      const res = await api.get(`${import.meta.env.VITE_API_URL}/transactions`);
-      const data = await res.json();
-      setTransactions(data.transactions);
+      const res = await api.get(`/transactions`);
+      setTransactions(res.data.transactions);
     }
     loadTransactions();
   }, []);
