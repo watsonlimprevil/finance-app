@@ -47,7 +47,7 @@ app.use("/auth", authRouter);
 // TRANSACTION ROUTES
 app.use("/transactions", transactionsRouter);
 
-app.listen(5000, () => {
+app.listen(3000, () => {
   console.log("Finance backend running on port 5000");
 });
 console.log("backend ready fro requests");
