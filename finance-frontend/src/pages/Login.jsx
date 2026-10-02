@@ -1,28 +1,24 @@
 import { useState } from "react";
-import { API_URL } from "../utils/api.js";
 import { useNavigate } from "react-router-dom";
-
+import api from "../utils/api";
 export default function Login() {
   const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  async function submit(e) {
-    e.preventDefault();
-    setLoading(true);
-    const res = await fetch(`${API_URL}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    console.log("testing saving");
-    const data = await res.json();
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      nav("/dashboard");
-      setLoading(false);
+  async function handleLogin() {
+    if (!email || !password) {
+      setError("Email and password must be set");
+      return;
     }
+    const res = await api.post("/auth/login", { email, password });
+    if (!res.token) {
+      setError("error loggin in");
+      return;
+    }
+    nav("/dashboard");
   }
 
   return (
@@ -96,7 +92,7 @@ export default function Login() {
         />
 
         <button
-          onClick={submit}
+          onClick={handleLogin}
           style={{
             width: "1000%",
             padding: "14px",
@@ -112,6 +108,38 @@ export default function Login() {
         >
           {loading ? "Logggin In" : "Login"}
         </button>
+        {error && (
+          <div
+            style={{
+              marginTop: "15px",
+              color: "#ff6b6b",
+              textAlign: "center",
+              fontSize: "14px",
+            }}
+          >
+            {error}
+          </div>
+        )}
+        <span
+          onClick={() => nav("/register")}
+          style={{
+            marginTop: "25px",
+            padding: "10px 18px",
+            borderRadius: "25px",
+            border: "1px solid #00eaff",
+            color: "#00eaff",
+            fontSize: "15px",
+            fontWeight: "600",
+            textAlign: "center",
+            width: "70%",
+            marginLeft: "auto",
+            display: "block",
+            marginRight: "auto",
+            transition: "all 0.25 ease",
+          }}
+        >
+          Dont have a account? Register here
+        </span>
       </div>
     </div>
   );
