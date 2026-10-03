@@ -7,15 +7,15 @@ const router = Router();
 router.get("/", requireAuth, async (req, res) => {
   const userId = req.user.userId;
 
-  const { 
-    type, 
-    category, 
-    sort, 
-    order, 
-    page = 1, 
+  const {
+    type,
+    category,
+    sort,
+    order,
+    page = 1,
     limit = 10,
     startDate,
-    endDate
+    endDate,
   } = req.query;
 
   const offset = (page - 1) * limit;
@@ -92,24 +92,19 @@ router.get("/", requireAuth, async (req, res) => {
 
     const countResult = await pool.query(countQuery, countParams);
 
-res.json({
-  transactions: result.rows,
-  total: Number(countResult.rows[0].count),
-  page: Number(page),
-  limit: Number(limit)
-});
-
+    res.json({
+      transactions: result.rows,
+      total: Number(countResult.rows[0].count),
+      page: Number(page),
+      limit: Number(limit),
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
   }
 });
 
-
-
-
-
-router.post('/', requireAuth, async (req, res) => {
+router.post("/", requireAuth, async (req, res) => {
   const { amount, type, category, date, description } = req.body;
   const userId = req.user.userId; // from JWT
 
@@ -118,26 +113,26 @@ router.post('/', requireAuth, async (req, res) => {
       `INSERT INTO transactions (amount, type, category, date, description, user_id)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING *`,
-      [amount, type, category, date, description, userId]
+      [amount, type, category, date, description, userId],
     );
 
     res.json(result.rows[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: "Server error" });
   }
 });
 
-router.delete('/:id', requireAuth, async (req, res) => {
+router.delete("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
   const userId = req.user.userId;
-console.log("DELETE route hit:", id, userId);
+  console.log("DELETE route hit:", id, userId);
   try {
     const result = await pool.query(
       `DELETE FROM transactions
        WHERE id = $1 AND user_id = $2
        RETURNING *`,
-      [id, userId]
+      [id, userId],
     );
 
     if (result.rows.length === 0) {
@@ -151,28 +146,28 @@ console.log("DELETE route hit:", id, userId);
   }
 });
 
-router.put('/:id' , requireAuth, async(req, res)=>{
-    const {id} = req.params;
-    const userId = req.user.userId;
-    const {amount , type , category , date , description, } = req.body;
-    try{
+router.put("/:id", requireAuth, async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.userId;
+  const { amount, type, category, date, description } = req.body;
+  try {
     const result = await pool.query(
       `UPDATE transactions
        SET amount = $1, type = $2, category = $3, date = $4, description = $5
        WHERE id = $6 AND user_id = $7
        RETURNING *`,
-      [amount, type, category, date, description, id, userId]
+      [amount, type, category, date, description, id, userId],
     );
 
-    if(result.rows.length === 0){
-        return res.status(404).json({error: 'Transaction not found'})
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Transaction not found" });
     }
-    res.json(result.rows[0])
-    }catch(err){
-console.error(err)
-res.status(500).json({error: 'Server error'})
-    }
-})
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 router.get("/summary/monthly", requireAuth, async (req, res) => {
   const userId = req.user.userId;
@@ -184,7 +179,7 @@ router.get("/summary/monthly", requireAuth, async (req, res) => {
        FROM transactions
        WHERE user_id = $1 AND type = 'income'
          AND date >= date_trunc('month', CURRENT_DATE)`,
-      [userId]
+      [userId],
     );
 
     // Total expenses
@@ -193,7 +188,7 @@ router.get("/summary/monthly", requireAuth, async (req, res) => {
        FROM transactions
        WHERE user_id = $1 AND type = 'expense'
          AND date >= date_trunc('month', CURRENT_DATE)`,
-      [userId]
+      [userId],
     );
 
     // Category breakdown
@@ -204,16 +199,15 @@ router.get("/summary/monthly", requireAuth, async (req, res) => {
          AND date >= date_trunc('month', CURRENT_DATE)
        GROUP BY category
        ORDER BY total DESC`,
-      [userId]
+      [userId],
     );
 
     res.json({
       income: Number(income.rows[0].total),
       expense: Number(expense.rows[0].total),
       net: Number(income.rows[0].total) - Number(expense.rows[0].total),
-      byCategory: byCategory.rows
+      byCategory: byCategory.rows,
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
@@ -275,22 +269,21 @@ router.get("/summary", requireAuth, async (req, res) => {
       income,
       expenses,
       net: income - expenses,
-      byCategory: byCategory.rows.map(c => ({
+      byCategory: byCategory.rows.map((c) => ({
         category: c.category,
-        total: Number(c.total)
+        total: Number(c.total),
       })),
       thisMonth: {
         income: thisMonthIncome,
         expenses: thisMonthExpenses,
-        net: thisMonthIncome - thisMonthExpenses
+        net: thisMonthIncome - thisMonthExpenses,
       },
       last30Days: {
         income: last30Income,
         expenses: last30Expenses,
-        net: last30Income - last30Expenses
-      }
+        net: last30Income - last30Expenses,
+      },
     });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
@@ -312,7 +305,7 @@ router.get("/trends", requireAuth, async (req, res) => {
       GROUP BY month
       ORDER BY month ASC
       `,
-      [userId]
+      [userId],
     );
 
     res.json({ trends: result.rows });
@@ -322,11 +315,11 @@ router.get("/trends", requireAuth, async (req, res) => {
   }
 });
 
-router.get('/search', requireAuth, async (req, res) => {
+router.get("/search", requireAuth, async (req, res) => {
   const userId = req.user.userId;
   const { q } = req.query;
 
-  if (!q || q.trim() === '') {
+  if (!q || q.trim() === "") {
     return res.json({ results: [] });
   }
 
@@ -342,109 +335,108 @@ router.get('/search', requireAuth, async (req, res) => {
       )
       ORDER BY date DESC
       `,
-      [userId, `%${q}%`]
+      [userId, `%${q}%`],
     );
 
     res.json({ results: result.rows });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: "Server error" });
   }
 });
 
-router.get('/budgets' , requireAuth , async(req,res)=>{
+router.get("/budgets", requireAuth, async (req, res) => {
   const userId = req.user.userId;
-  try{
-const result = await pool.query(
-  `SELECT * FROM budgets 
+  try {
+    const result = await pool.query(
+      `SELECT * FROM budgets 
   WHERE user_id =$1 
-  ORDER BY category ASC` ,
-  [userId]
-)
-res.json({budgets: result.rows});
-  }catch(error){
-console.error(error)
-res.status(500).json({error: 'Server error'})
+  ORDER BY category ASC`,
+      [userId],
+    );
+    res.json({ budgets: result.rows });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
-})
+});
 
-router.post('/budgets' , requireAuth , async(req, res)=>{
+router.post("/budgets", requireAuth, async (req, res) => {
   const userId = req.user.userId;
-  const{category , amount} = req.body;
-  if(!amount || amount <=0){
-    return res.status(400).json({error: 'Invalid budget'})
+  const { category, amount } = req.body;
+  if (!amount || amount <= 0) {
+    return res.status(400).json({ error: "Invalid budget" });
   }
 
-  try{
-const result = await pool.query(
-  `INSERT INTO budgets (user_id , category, amount) 
+  try {
+    const result = await pool.query(
+      `INSERT INTO budgets (user_id , category, amount) 
   VALUES ($1 , $2 , $3) 
-  RETURNING *` ,
-  [userId , category || null , amount]
-)
+  RETURNING *`,
+      [userId, category || null, amount],
+    );
 
-res.json({budget: result.rows[0]})
-  }catch(err){
-console.error(err);
-res.status(500).json({error: 'Server error'})
+    res.json({ budget: result.rows[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
-})
+});
 
-router.put('/budgets/:id' , requireAuth , async(req,res)=>{
+router.put("/budgets/:id", requireAuth, async (req, res) => {
   const userId = req.user.userId;
-  const {id} = req.params;
-  const {amount} = req.body;
-  if(!amount || amount <=0){
-    return res.status(400).json({error: 'Invalid budget data'})
+  const { id } = req.params;
+  const { amount } = req.body;
+  if (!amount || amount <= 0) {
+    return res.status(400).json({ error: "Invalid budget data" });
   }
 
-  try{
-const result = await pool.query(
-  `UPDATE budgets 
+  try {
+    const result = await pool.query(
+      `UPDATE budgets 
   SET amount = $1 
   WHERE id=$2 AND user_id =$3 
-  RETURNING *` , [amount , id , userId]
-)
+  RETURNING *`,
+      [amount, id, userId],
+    );
 
-res.json({budget : result.rows[0]})
-  }catch(err){
-console.error(err)
-res.status(500).json({error : 'Server error'})
+    res.json({ budget: result.rows[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
-})
+});
 
-
-router.delete('/budgets/:id' , requireAuth , async(req,res)=>{
+router.delete("/budgets/:id", requireAuth, async (req, res) => {
   const userId = req.user.userId;
-  const {id} = req.params;
+  const { id } = req.params;
 
-  try{
-await pool.query(
-  `DELETE FROM budgets 
+  try {
+    await pool.query(
+      `DELETE FROM budgets 
   WHERE id=$1 AND user_id = $2`,
-  [id, userId]
-)
-res.json({success: true});
-  }catch(error){
-console.error(error);
-res.status(500).json({error: 'Server error'})
+      [id, userId],
+    );
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
-})
+});
 
-
-router.get('/budgets/progress', requireAuth, async (req, res) => {
+router.get("/budgets/progress", requireAuth, async (req, res) => {
   const userId = req.user.userId;
 
   try {
     // 1. Fetch all budgets
     const budgetsRes = await pool.query(
       `SELECT * FROM budgets WHERE user_id = $1`,
-      [userId]
+      [userId],
     );
     const budgets = budgetsRes.rows;
 
     // Separate monthly budget (category = null)
-    const monthlyBudget = budgets.find(b => b.category === null);
+    const monthlyBudget = budgets.find((b) => b.category === null);
 
     // 2. Calculate total expenses for the current month
     const expensesRes = await pool.query(
@@ -455,7 +447,7 @@ router.get('/budgets/progress', requireAuth, async (req, res) => {
       AND type = 'expense'
       AND date >= date_trunc('month', CURRENT_DATE)
       `,
-      [userId]
+      [userId],
     );
     const monthlyExpenses = Number(expensesRes.rows[0].total);
 
@@ -469,27 +461,28 @@ router.get('/budgets/progress', requireAuth, async (req, res) => {
       AND date >= date_trunc('month', CURRENT_DATE)
       GROUP BY category
       `,
-      [userId]
+      [userId],
     );
     const categoryTotals = categoryRes.rows;
 
     // 4. Build progress results
     const progress = {
       monthly: null,
-      categories: []
+      categories: [],
     };
 
     // Monthly budget progress
     if (monthlyBudget) {
       const amount = Number(monthlyBudget.amount);
-      const percent = amount === 0 ? 0 : Math.min((monthlyExpenses / amount) * 100, 100);
+      const percent =
+        amount === 0 ? 0 : Math.min((monthlyExpenses / amount) * 100, 100);
 
       progress.monthly = {
         budget: amount,
         spent: monthlyExpenses,
         remaining: Math.max(amount - monthlyExpenses, 0),
         percent: percent,
-        exceeded: monthlyExpenses > amount
+        exceeded: monthlyExpenses > amount,
       };
     }
 
@@ -498,7 +491,9 @@ router.get('/budgets/progress', requireAuth, async (req, res) => {
       if (!b.category) continue; // skip monthly budget
 
       const amount = Number(b.amount);
-      const categoryTotal = categoryTotals.find(c => c.category === b.category);
+      const categoryTotal = categoryTotals.find(
+        (c) => c.category === b.category,
+      );
       const spent = categoryTotal ? Number(categoryTotal.total) : 0;
 
       const percent = amount === 0 ? 0 : Math.min((spent / amount) * 100, 100);
@@ -509,38 +504,36 @@ router.get('/budgets/progress', requireAuth, async (req, res) => {
         spent,
         remaining: Math.max(amount - spent, 0),
         percent,
-        exceeded: spent > amount
+        exceeded: spent > amount,
       });
     }
 
     res.json({ progress });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
   }
 });
 
-router.delete('/reset' , async(req,res) =>{
-  try{
-   await pool.query("DELETE FROM transactions");
-   await pool.query("DELETE FROM category_budgets")
-   await pool.query("DELETE FROM monthly_budget")
-    res.json({message : 'All data has been reset.'})
-  }catch(error){
+router.delete("/reset", async (req, res) => {
+  try {
+    await pool.query("DELETE FROM transactions");
+    await pool.query("DELETE FROM category_budgets");
+    await pool.query("DELETE FROM monthly_budget");
+    res.json({ message: "All data has been reset." });
+  } catch (error) {
     console.error(error);
-    res.status(500).json({error : 'Failed to reset data '})
-
+    res.status(500).json({ error: "Failed to reset data " });
   }
-})
+});
 
-router.patch('/budgets/monthly', requireAuth, async (req, res) => {
+router.patch("/budgets/monthly", requireAuth, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { budget } = req.body;
 
     if (!budget || isNaN(budget)) {
-      return res.status(400).json({ error: 'invalid budget number' });
+      return res.status(400).json({ error: "invalid budget number" });
     }
 
     const result = await pool.query(
@@ -550,7 +543,7 @@ router.patch('/budgets/monthly', requireAuth, async (req, res) => {
       WHERE user_id = $2 AND category IS NULL
       RETURNING *
       `,
-      [budget, userId]
+      [budget, userId],
     );
 
     if (result.rows.length === 0) {
@@ -558,12 +551,10 @@ router.patch('/budgets/monthly', requireAuth, async (req, res) => {
     }
 
     res.json({ message: "Monthly budget updated", budget: result.rows[0] });
-
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to update monthly budget' });
+    res.status(500).json({ error: "Failed to update monthly budget" });
   }
 });
-
 
 export default router;
