@@ -40,8 +40,7 @@ export default function Dashboard() {
   async function loadBudgetProgress() {
     const res = await api.get(`/transactions/budgets/progress`);
 
-    const data = await res.data;
-    setBudgetProgress(data.progress);
+    setBudgetProgress(res.data.progress);
   }
 
   async function addTransaction(data) {
@@ -87,8 +86,7 @@ export default function Dashboard() {
     const res = await api.get(
       `/transactions?page=${page}&limit=${limit}&type=${typeFilter}&category=${categoryFilter}&startDate=${startDate}&endDate=${endDate}&sort=${sort}&order=${order}`,
     );
-    const result = await res.data;
-    setTransactions(result.transactions);
+    setTransactions(res.data.transactions);
     setTotalPages(Math.ceil(result.total / limit));
   }
   useEffect(() => {
