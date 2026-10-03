@@ -87,7 +87,7 @@ export default function Dashboard() {
       `/transactions?page=${page}&limit=${limit}&type=${typeFilter}&category=${categoryFilter}&startDate=${startDate}&endDate=${endDate}&sort=${sort}&order=${order}`,
     );
     setTransactions(res.data.transactions);
-    setTotalPages(Math.ceil(result.total / limit));
+    setTotalPages(Math.ceil(res.total / limit));
   }
   useEffect(() => {
     loadTransactions();
