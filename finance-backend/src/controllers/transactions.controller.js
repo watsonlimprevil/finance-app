@@ -6,8 +6,8 @@ export async function getTransactions(req, res) {
     const userId = req.user.userId; // comes from JWT
 
     const result = await pool.query(
-      'SELECT * FROM transactions WHERE user_id = $1 ORDER BY date DESC',
-      [userId]
+      "SELECT * FROM transactions WHERE user_id = $1 ORDER BY date DESC",
+      [userId],
     );
 
     res.json(result.rows);
@@ -18,42 +18,43 @@ export async function getTransactions(req, res) {
 }
 
 // POST /transactions (create a transaction for this user)
-export async function addTransactions(req,res){
+export async function addTransactions(req, res) {
   const userId = req.user.userId;
-  const{amount, type, category, date , description} = req.body;
+  const { amount, type, category, date, description } = req.body;
 
-  if(!amount || isNaN(amount)){
-    return res.status(400).json({error: 'Amount must be a number'})
-  }
-
-  if(amount <=0){
-    return res.status(400).json({error: 'Amount must be greater than zeror'})
+  if (!amount || isNaN(amount)) {
+    return res.status(400).json({ error: "Amount must be a number" });
   }
 
-  if(!type || (type !=='income' && type !=='expense')){
-    return res.status(400).json({error: 'Type must income or expense'})
+  if (amount <= 0) {
+    return res.status(400).json({ error: "Amount must be greater than zeror" });
   }
 
-  if(!category || catgegory.trim() === ''){
-    return res.status(400).json({error: 'category is required'})
+  if (!type || (type !== "income" && type !== "expense")) {
+    return res.status(400).json({ error: "Type must income or expense" });
   }
 
-  if(!date || isNaN(Date.parse(date))){
-    return res.status(400).json({error: 'Invalid date form'})
+  if (!category || category.trim() === "") {
+    return res.status(400).json({ error: "category is required" });
   }
-  if(!description || description.trim()===''){
-    return res.status(400).json({error: 'Description is required'})
+
+  if (!date || isNaN(Date.parse(date))) {
+    return res.status(400).json({ error: "Invalid date form" });
   }
-  try{
-const result = await pool.query(
-  `INSERT INTO transactions (amount, type , category, date, description, user_id)
+  if (!description || description.trim() === "") {
+    return res.status(400).json({ error: "Description is required" });
+  }
+  try {
+    const result = await pool.query(
+      `INSERT INTO transactions (amount, type , category, date, description, user_id)
   VALUES($1, $2, $3 , $4, $5, $6)
   RETURNING *
-  `, [amount, type, category , date , description, userId]
-)
-return res.status(201).json(result.rows[0])
-  }catch(error){
-console.error(error)
-return res.status(500).json({error: 'Failed to add transaction'})
+  `,
+      [amount, type, category, date, description, userId],
+    );
+    return res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Failed to add transaction" });
   }
 }
