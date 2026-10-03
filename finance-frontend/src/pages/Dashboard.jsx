@@ -45,7 +45,7 @@ export default function Dashboard() {
   }
 
   async function addTransaction(data) {
-    await api.post(`${import.meta.env.VITE_API_URL}/transactions`, { data });
+    await api.post(`/transactions`, { data });
 
     reloadAll(); // refresh dashboard data
   }

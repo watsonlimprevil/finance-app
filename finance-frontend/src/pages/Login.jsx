@@ -82,6 +82,7 @@ export default function Login() {
         <input
           placeholder="enter password"
           value={password}
+          type="password"
           onChange={(e) => setPassword(e.target.value)}
           style={{
             width: "100%",
