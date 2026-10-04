@@ -139,7 +139,7 @@ export default function Dashboard() {
         <h2>Dashboard</h2>
 
         <Sidebar />
-        <div>
+        <div className="card">
           <Summary summary={summary} />
         </div>
         <div className="chart-row">
