@@ -2,16 +2,23 @@ export function DeleteConfirm({ deleting, cancel, confirm }) {
   if (!deleting) return null;
 
   return (
-    <div className="modal">
-      <div className="modal-content">
+    <div className="modal-overlay">
+      <div className="modal">
         <h3>Delete Transactions</h3>
-        <p>Are You sure you want to delete this transaction</p>
+        <p>Are you sure you want to delete the transaction?</p>
 
-        <p>
-          <strong>{deleting.category}</strong> -{deleting.amount}
-        </p>
-        <button onClick={confirm}>Delete</button>
-        <button onClick={cancel}>Cancel</button>
+        <div className="delete-preview">
+          <p>{deleting.category}</p>
+          <p>${deleting.amount}</p>
+        </div>
+        <div className="modal-actions">
+          <button className="primary danger" onClick={confirm}>
+            Confirm
+          </button>
+          <button className="secondary" onClick={cancel}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
