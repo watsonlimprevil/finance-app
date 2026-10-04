@@ -203,7 +203,7 @@ code {
 }
 
 .dashboard-layout {
-  display: block;
+  display: flex;
   height: 100vh;
 }
 
