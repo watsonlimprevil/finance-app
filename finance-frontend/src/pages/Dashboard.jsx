@@ -155,7 +155,10 @@ export default function Dashboard() {
           </a>
         </nav>
       </div>
-
+      <h2>Dashboard</h2>
+      <div>
+        <Summary summary={summary} />
+      </div>
       <div className="chart-row">
         <div className="card chart-card">
           <MonthlyTrendChart data={trends} />
