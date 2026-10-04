@@ -66,52 +66,37 @@ export default function EditTransaction({ editing, cancel, reload }) {
   }
 
   return (
-    <div className="card">
-      <form onSubmit={submit}>
+    <div className="modal-overlay">
+      <div className="modal">
         <h3>Edit Transaction</h3>
+        <form>
+          <label>Amount</label>
+          <input value={editing.amount}></input>
 
-        <input
-          placeholder="Amount"
-          value={form.amount}
-          onChange={(e) => updateField("amount", e.target.value)}
-        />
-        {errors.amount && <p className="error">{errors.amount}</p>}
+          <label>Type</label>
+          <select value={editing.type}>
+            <option value={"expense"}>Expense</option>
+            <option value={"income"}>Income</option>
+          </select>
+          <label>Category</label>
+          <input value={editing.category}></input>
 
-        <select
-          value={form.type}
-          onChange={(e) => updateField("type", e.target.value)}
-        >
-          <option value="expense">Expense</option>
-          <option value="income">Income</option>
-        </select>
-        {errors.type && <p className="error">{errors.type}</p>}
+          <label>Date</label>
+          <input value={editing.date} type="date">
+            Date
+          </input>
 
-        <input
-          placeholder="Category"
-          value={form.category}
-          onChange={(e) => updateField("category", e.target.value)}
-        />
-        {errors.category && <p className="error">{errors.category}</p>}
+          <label>Description</label>
+          <input value={editing.description} />
 
-        <input
-          type="date"
-          value={form.date}
-          onChange={(e) => updateField("date", e.target.value)}
-        />
-        {errors.date && <p className="error">{errors.date}</p>}
-
-        <input
-          placeholder="Description"
-          value={form.description}
-          onChange={(e) => updateField("description", e.target.value)}
-        />
-        {errors.description && <p className="error">{errors.description}</p>}
-
-        <button>Update</button>
-        <button type="button" onClick={cancel}>
-          Cancel
-        </button>
-      </form>
+          <div className="modal-actions">
+            <button className="primary">Update</button>
+            <button className="secondary" onClick={cancel}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
