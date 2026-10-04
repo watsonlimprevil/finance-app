@@ -1,59 +1,35 @@
-import { useEffect, useState } from "react";
-import api from "../utils/api";
-
-export default function Transactions({
-  transactions = [],
+import { useState } from "react";
+import TransactionList from "./TransactionList";
+export default function TransactionsPage({
+  transactions,
   reload,
   startEdit,
   remove,
 }) {
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState(null);
 
-  async function handleSearch() {
-    if (!search.trim()) return;
-
-    const res = await api.post(`/transactions/search?q=${search}`);
-
-    const data = await res.data;
-    setSearchResults(data.results);
-  }
-
-  function handleClear() {
-    setSearch("");
-    setSearchResults(null);
-  }
-
-  const listToShow = searchResults || transactions;
-
-  useEffect(() => {
-    const interval = setTimeout(() => {
-      handleSearch();
-    }, 300);
-    return () => clearTimeout(interval);
-  }, [search]);
+  const filtered = transactions.filter(
+    (t) =>
+      t.category.toLowerCase().includes(search.toLowerCase()) ||
+      t.type.toLowerCase().inlcludes(search.toLowerCase()) ||
+      stringify(t.amount).includes(search),
+  );
 
   return (
-    <div className="transactions section">
-      <input
-        value={search}
-        type="text"
-        placeholder="search transaction"
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
-      <button onClick={handleSearch}>Search</button>
-      <button onClick={handleClear}>Clear</button>
-
-      <div>
-        {listToShow.map((t) => (
-          <div key={t.id}>
-            {t.date} — {t.type} — {t.category} — ${t.amount}
-            <button onClick={() => startEdit(t)}>Edit</button>
-            <button onClick={() => remove(t)}>Delete</button>
-          </div>
-        ))}
+    <div className="page-container">
+      <h2 className="page-title">Transaction</h2>
+      <div className="search-bar">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="search transactions"
+        />
       </div>
+      <TransactionList
+        transactions={filtered}
+        startEdit={startEdit}
+        remove={remove}
+      />
     </div>
   );
 }
