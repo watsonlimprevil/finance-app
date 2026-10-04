@@ -23,14 +23,6 @@
 
 /* Sidebar is collapsed by default */
 /* Invisible hover zone on the left edge */
-.sidebar-trigger {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 10px; /* small hover area */
-  height: 100vh;
-  z-index: 999;
-}
 
 /* Sidebar stays hidden (collapsed) */
 .sidebar {
@@ -47,10 +39,6 @@
 }
 
 /* Sidebar appears when hovering the trigger OR the sidebar itself */
-.sidebar-trigger:hover + .sidebar,
-.sidebar:hover {
-  transform: translateX(0); /* slide in */
-}
 
 /* Main content NEVER moves */
 .main-content {
