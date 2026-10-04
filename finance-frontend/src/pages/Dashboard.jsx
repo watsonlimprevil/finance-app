@@ -10,7 +10,7 @@ import MonthlyTrendChart from "../components/MonthlyTrendChart.jsx";
 import Insights from "./Insights.jsx";
 import BudgetProgress from "../components/BudgetProgress.jsx";
 import AddTransactionModal from "./AddTransactioModel.jsx";
-
+import Sidebar from "../components/Sidebar.jsx";
 export default function Dashboard() {
   const [summary, setSummary] = useState(null);
   const [transactions, setTransactions] = useState([]);
@@ -135,26 +135,7 @@ export default function Dashboard() {
   console.log("Dashboard is inside Layout");
   return (
     <div className="dashboard-layout">
-      <div className="sidebar">
-        <h1 className="sidebar-title">Finances</h1>
-        <nav className="sidebar-nav">
-          <a href="/transactions" className="nav-item">
-            Transaction
-          </a>
-          <a href="/insights" className="nav-item">
-            Insights
-          </a>
-          <a href="/budgets" className="nav-item">
-            Budget
-          </a>
-          <a href="/settings" className="nav-item">
-            Settings
-          </a>
-          <a href="/transactions" className="nav-item">
-            + Add transactions
-          </a>
-        </nav>
-      </div>
+      <Sidebar />
       <div className="dashboard-content">
         <h2>Dashboard</h2>
         <div>
