@@ -50,7 +50,7 @@ export default function Transactions({
           <div key={t.id}>
             {t.date} — {t.type} — {t.category} — ${t.amount}
             <button onClick={() => startEdit(t)}>Edit</button>
-            <button onClick={() => remove(t.id)}>Delete</button>
+            <button onClick={() => remove(t)}>Delete</button>
           </div>
         ))}
       </div>
