@@ -290,3 +290,45 @@ code {
 .actions button {
   margin-left: 10px;
 }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #1e1e1e;
+  padding: 24px;
+  border-radius: 12px;
+  width: 400px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.primary {
+  background: #4caf50;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+}
+
+.primary.danger {
+  background: #f44336;
+}
+
+.secondary {
+  background: #555;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  color: #fff;
+}
