@@ -1,4 +1,4 @@
-import Sidebar from "./Sidebar";
+import Sidebar from "./SidebarMenu";
 import useSummary from "../hooks/useSummary";
 import useTransactions from "../hooks/useTransactions";
 

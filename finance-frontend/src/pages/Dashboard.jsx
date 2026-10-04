@@ -10,7 +10,7 @@ import { DeleteConfirm } from "./Delete.jsx";
 import MonthlyTrendChart from "../components/MonthlyTrendChart.jsx";
 import Insights from "./Insights.jsx";
 import BudgetProgress from "../components/BudgetProgress.jsx";
-import Sidebar from "../components/Sidebar.jsx";
+import SidebarMenu from "../components/SidebarMenu.jsx";
 export default function Dashboard() {
   const [summary, setSummary] = useState(null);
   const [transactions, setTransactions] = useState([]);
@@ -138,7 +138,7 @@ export default function Dashboard() {
       <div className="dashboard-content">
         <h2>Dashboard</h2>
         <div className="card">
-          <Sidebar />
+          <SidebarMenu />
         </div>
         <div className="card">
           <Summary summary={summary} />
