@@ -255,3 +255,38 @@ code {
   background: #3a3a3a;
   color: #fff;
 }
+
+.transaction-card {
+  background: #1e1e1e;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+}
+
+.transaction-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.type.income {
+  color: #4caf50;
+}
+
+.type.expense {
+  color: #f44336;
+}
+
+.amount {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.actions button {
+  margin-left: 10px;
+}
