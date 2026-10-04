@@ -3,13 +3,13 @@ import api from "../utils/api.js";
 import Summary from "../components/Summary.jsx";
 import Transactions from "../components/Transactions.jsx";
 import CategoryPieChart from "../components/CategoryPieChart.jsx";
+import AddTransactionModal from "./AddTransactioModel.jsx";
 import AddTransaction from "../components/AddTransactions.jsx";
 import EditTransaction from "../components/EditTransactions.jsx";
 import { DeleteConfirm } from "./Delete.jsx";
 import MonthlyTrendChart from "../components/MonthlyTrendChart.jsx";
 import Insights from "./Insights.jsx";
 import BudgetProgress from "../components/BudgetProgress.jsx";
-import AddTransactionModal from "./AddTransactioModel.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 export default function Dashboard() {
   const [summary, setSummary] = useState(null);
