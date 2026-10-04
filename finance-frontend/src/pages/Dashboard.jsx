@@ -125,7 +125,7 @@ export default function Dashboard() {
 
   if (error) {
     return (
-      <div>
+      <div className="dashboard-content">
         <h1>Dashboard</h1>
         <p style={{ color: "red" }}>{error}</p>
         <button onClick={reloadAll}>Retry</button>
@@ -134,7 +134,7 @@ export default function Dashboard() {
   }
   console.log("Dashboard is inside Layout");
   return (
-    <>
+    <div className="dashboard-content">
       <div className="sidebar">
         <h1 className="sidebar-tile">Finances</h1>
         <nav className="sidebar-nav">
@@ -268,6 +268,6 @@ export default function Dashboard() {
           confirm={confirmDelete}
         />
       </div>
-    </>
+    </div>
   );
 }

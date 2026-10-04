@@ -214,7 +214,6 @@ code {
 }
 
 .dashboard-content {
-  flex: 1;
-  padding: 2rem;
-  overflow-y: auto;
+  margin-left: 240px;
+  padding: 20px;
 }
