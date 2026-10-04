@@ -87,7 +87,7 @@ export default function Dashboard() {
       `/transactions?page=${page}&limit=${limit}&type=${typeFilter}&category=${categoryFilter}&startDate=${startDate}&endDate=${endDate}&sort=${sort}&order=${order}`,
     );
     setTransactions(res.data.transactions);
-    setTotalPages(Math.ceil(res.total / limit));
+    setTotalPages(Math.ceil(res.data.total / limit));
   }
   useEffect(() => {
     loadTransactions();
@@ -135,20 +135,25 @@ export default function Dashboard() {
   console.log("Dashboard is inside Layout");
   return (
     <>
-      <div className="dashboard-grid">
-        <h1>Dashboard</h1>
-      </div>
-
-      <div className="card">
-        <Summary summary={summary} />
-      </div>
-
-      <div className="card">
-        <Insights summary={summary} />
-      </div>
-
-      <div className="card">
-        <BudgetProgress progress={budgetProgress} />
+      <div className="sidebar">
+        <h className="sidebar-tile">Finances</h>
+        <nav className="sidebar-nav">
+          <a href="/transactions" className="nav-item">
+            Transaction
+          </a>
+          <a href="/insights" className="nav-item">
+            Insights
+          </a>
+          <a href="/budgets" className="nav-item">
+            Budget
+          </a>
+          <a href="/settings" className="nav-item">
+            Settings
+          </a>
+          <a href="/transactions" className="nav-item">
+            + Add transactions
+          </a>
+        </nav>
       </div>
 
       <div className="chart-row">

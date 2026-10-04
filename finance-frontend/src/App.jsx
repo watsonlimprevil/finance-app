@@ -62,7 +62,7 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/add" element={<AddTransaction />} />
+        <Route path="/addtransactions" element={<AddTransaction />} />
         <Route path="/budgets" element={<Budgets />} />
       </Routes>
     </BrowserRouter>
