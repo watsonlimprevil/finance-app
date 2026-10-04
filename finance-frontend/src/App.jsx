@@ -19,18 +19,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                {({ summary, transactions }) => (
-                  <Dashboard summary={summary} transactions={transactions} />
-                )}
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
 
         <Route
           path="/transactions"
