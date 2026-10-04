@@ -132,12 +132,12 @@ export default function Dashboard() {
       </div>
     );
   }
-  console.log("Dashboard is inside Layout");
+
   return (
     <div className="dashboard-layout">
       <div className="dashboard-content">
         <h2>Dashboard</h2>
-        <div>
+        <div className="card">
           <Sidebar />
         </div>
         <div className="card">
