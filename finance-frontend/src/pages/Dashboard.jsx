@@ -136,7 +136,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="sidebar">
-        <h className="sidebar-tile">Finances</h>
+        <h1 className="sidebar-tile">Finances</h1>
         <nav className="sidebar-nav">
           <a href="/transactions" className="nav-item">
             Transaction
