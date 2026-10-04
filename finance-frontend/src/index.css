@@ -157,6 +157,7 @@ code {
 }
 
 .sidebar {
+  display: flex;
   width: 240px;
   height: 100vh;
   background: #111827;
@@ -164,6 +165,7 @@ code {
   display: flex;
   flex-direction: column;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
+  flex-direction: column;
 }
 
 .sidebar-title {
