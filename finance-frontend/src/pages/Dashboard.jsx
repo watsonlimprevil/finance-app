@@ -134,7 +134,7 @@ export default function Dashboard() {
   }
   console.log("Dashboard is inside Layout");
   return (
-    <div className="dashboard-content">
+    <div className="dashboard-layout">
       <div className="sidebar">
         <h1 className="sidebar-title">Finances</h1>
         <nav className="sidebar-nav">
@@ -155,118 +155,120 @@ export default function Dashboard() {
           </a>
         </nav>
       </div>
-      <h2>Dashboard</h2>
-      <div>
-        <Summary summary={summary} />
-      </div>
-      <div className="chart-row">
-        <div className="card chart-card">
-          <MonthlyTrendChart data={trends} />
+      <div className="dashboard-content">
+        <h2>Dashboard</h2>
+        <div>
+          <Summary summary={summary} />
+        </div>
+        <div className="chart-row">
+          <div className="card chart-card">
+            <MonthlyTrendChart data={trends} />
+          </div>
+
+          <div className="card chart-card">
+            <CategoryPieChart data={summary?.byCategory || []} />
+          </div>
         </div>
 
-        <div className="card chart-card">
-          <CategoryPieChart data={summary?.byCategory || []} />
-        </div>
-      </div>
-
-      <button
-        className="add-transaction-btn"
-        onClick={() => setShowModal(true)}
-      >
-        + Add Transaction
-      </button>
-
-      <AddTransactionModal
-        show={showModal}
-        onClose={() => setShowModal(false)}
-        onAdd={addTransaction}
-      />
-
-      <div className="card">
-        <h2 className="card-title">Edit Transactions</h2>
-        <EditTransaction
-          editing={editing}
-          cancel={() => setEditing(null)}
-          reload={reloadAll}
-        />
-      </div>
-
-      <div className="card">
-        <select
-          value={typeFilter}
-          onChange={(e) => setTypeFilter(e.target.value)}
-        >
-          <option value="">All Types</option>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-        >
-          <option value="">All Categories</option>
-          <option value="food">Food</option>
-          <option value="car">Car</option>
-          <option value="rent">Rent</option>
-        </select>
-
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndate(e.target.value)}
-        />
-
-        <select value={sort} onChange={(e) => setSort(e.target.value)}>
-          <option value="">Sort By</option>
-          <option value="date">Date</option>
-          <option value="amount">Amount</option>
-        </select>
-
-        <select value={order} onChange={(e) => setOrder(e.target.value)}>
-          <option value="desc">Descending</option>
-          <option value="asc">Ascending</option>
-        </select>
-
-        <button onClick={() => loadTransactions()}>Apply</button>
-      </div>
-
-      <div className="card">
-        <h2 className="card-title"></h2>
-        <Transactions
-          transactions={transactions}
-          reload={reloadAll}
-          startEdit={(t) => setEditing(t)}
-          remove={(t) => setDeleting(t)}
-        />
-      </div>
-
-      <div className="card">
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
-          Previous
-        </button>
-        <span style={{ margin: "0 10px" }}>
-          Page {page} of {totalPages}
-        </span>
         <button
-          disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
+          className="add-transaction-btn"
+          onClick={() => setShowModal(true)}
         >
-          Next
+          + Add Transaction
         </button>
-      </div>
 
-      <div className="card">
-        <DeleteConfirm
-          deleting={deleting}
-          cancel={cancelDelete}
-          confirm={confirmDelete}
+        <AddTransactionModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onAdd={addTransaction}
         />
+
+        <div className="card">
+          <h2 className="card-title">Edit Transactions</h2>
+          <EditTransaction
+            editing={editing}
+            cancel={() => setEditing(null)}
+            reload={reloadAll}
+          />
+        </div>
+
+        <div className="card">
+          <select
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+          >
+            <option value="">All Types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            <option value="">All Categories</option>
+            <option value="food">Food</option>
+            <option value="car">Car</option>
+            <option value="rent">Rent</option>
+          </select>
+
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndate(e.target.value)}
+          />
+
+          <select value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="">Sort By</option>
+            <option value="date">Date</option>
+            <option value="amount">Amount</option>
+          </select>
+
+          <select value={order} onChange={(e) => setOrder(e.target.value)}>
+            <option value="desc">Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+
+          <button onClick={() => loadTransactions()}>Apply</button>
+        </div>
+
+        <div className="card">
+          <h2 className="card-title"></h2>
+          <Transactions
+            transactions={transactions}
+            reload={reloadAll}
+            startEdit={(t) => setEditing(t)}
+            remove={(t) => setDeleting(t)}
+          />
+        </div>
+
+        <div className="card">
+          <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+            Previous
+          </button>
+          <span style={{ margin: "0 10px" }}>
+            Page {page} of {totalPages}
+          </span>
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage(page + 1)}
+          >
+            Next
+          </button>
+        </div>
+
+        <div className="card">
+          <DeleteConfirm
+            deleting={deleting}
+            cancel={cancelDelete}
+            confirm={confirmDelete}
+          />
+        </div>
       </div>
     </div>
   );
