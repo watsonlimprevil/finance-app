@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 export default function Sidebar() {
   return (
-    <div className="sidebar">
+    <div className="finance-sidebar">
       <h2 className="sidebar-title">Finance</h2>
       <nav className="sidebar-nav">
         <NavLink to={"/dashboard"} className={"nav-item"}>
