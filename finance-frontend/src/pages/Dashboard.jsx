@@ -125,7 +125,7 @@ export default function Dashboard() {
 
   if (error) {
     return (
-      <div className="dashboard-content">
+      <div className="dashboard-layout">
         <h1>Dashboard</h1>
         <p style={{ color: "red" }}>{error}</p>
         <button onClick={reloadAll}>Retry</button>
