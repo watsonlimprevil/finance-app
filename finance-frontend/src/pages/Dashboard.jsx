@@ -137,8 +137,9 @@ export default function Dashboard() {
     <div className="dashboard-layout">
       <div className="dashboard-content">
         <h2>Dashboard</h2>
-
-        <Sidebar />
+        <div>
+          <Sidebar />
+        </div>
         <div className="card">
           <Summary summary={summary} />
         </div>
