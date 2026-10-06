@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import api from "../utils/api";
 export default function Insights() {
   const [open, setOpen] = useState(true);
@@ -8,6 +8,9 @@ export default function Insights() {
     const res = await api.get("/transactions/insights");
     setSummary(res.data);
   }
+  useEffect(() => {
+    getInsights();
+  }, []);
   return (
     <div className="card collapsible-card">
       <div className="collapse-header" onClick={() => setOpen(!open)}>
