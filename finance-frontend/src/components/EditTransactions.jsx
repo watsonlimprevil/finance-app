@@ -59,7 +59,10 @@ export default function EditTransaction({ editing, cancel, reload }) {
 
     if (!validate()) return;
 
-    await api.put(`${import.meta.env.VITE_API_URL}/transactions/`, form);
+    await api.put(
+      `${import.meta.env.VITE_API_URL}/transactions/${editing.id}`,
+      form,
+    );
 
     reload();
     cancel();
@@ -69,31 +72,47 @@ export default function EditTransaction({ editing, cancel, reload }) {
     <div className="modal-overlay">
       <div className="modal">
         <h3>Edit Transaction</h3>
-        <form>
+
+        <form onSubmit={submit}>
           <label>Amount</label>
-          <input value={editing.amount} />
+          <input
+            value={form.amount}
+            onChange={(e) => updateField("amount", e.target.value)}
+          />
 
           <label>Type</label>
-          <select value={editing.type}>
-            <option value={"expense"}>Expense</option>
-            <option value={"income"}>Income</option>
+          <select
+            value={form.type}
+            onChange={(e) => updateField("type", e.target.value)}
+          >
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
           </select>
+
           <label>Category</label>
-          <input value={editing.category} />
+          <input
+            value={form.category}
+            onChange={(e) => updateField("category", e.target.value)}
+          />
 
           <label>Date</label>
-          <input value={editing.date} type="date">
-            Date
-          </input>
+          <input
+            type="date"
+            value={form.date}
+            onChange={(e) => updateField("date", e.target.value)}
+          />
 
           <label>Description</label>
-          <input value={editing.description} />
+          <input
+            value={form.description}
+            onChange={(e) => updateField("description", e.target.value)}
+          />
 
           <div className="modal-actions">
-            <button className="primary" onClick={submit}>
+            <button className="primary" type="submit">
               Update
             </button>
-            <button className="secondary" onClick={cancel}>
+            <button className="secondary" type="button" onClick={cancel}>
               Cancel
             </button>
           </div>
