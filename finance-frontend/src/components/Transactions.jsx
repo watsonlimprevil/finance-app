@@ -12,7 +12,7 @@ export default function TransactionsPage({
     (t) =>
       t?.category.toLowerCase().includes(search.toLowerCase()) ||
       t?.type.toLowerCase().inlcludes(search.toLowerCase()) ||
-      stringify(t.amount).includes(search),
+      stringify(t?.amount).includes(search),
   );
 
   return (
