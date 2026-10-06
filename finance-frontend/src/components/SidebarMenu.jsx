@@ -16,7 +16,7 @@ export default function SidebarMenu() {
           <NavLink to={"/transactionSettings"}>Transactions</NavLink>
           <NavLink to={"/insight"}>Insights</NavLink>
           <NavLink to={"/settings"}>Settings</NavLink>
-          <NavLink to={"/add"}>Add transactions</NavLink>
+
           <NavLink to={"/budgets"}>Budget</NavLink>
           <NavLink></NavLink>
         </nav>
