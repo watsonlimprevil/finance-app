@@ -219,6 +219,13 @@ export default function Dashboard() {
             remove={setDeleting}
           />
         </div>
+        {editing && (
+          <EditTransaction
+            editing={editing}
+            cancel={() => setEditing(null)}
+            reload={reloadAll}
+          />
+        )}
 
         <div className="card">
           <button disabled={page === 1} onClick={() => setPage(page - 1)}>
