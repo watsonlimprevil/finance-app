@@ -1,8 +1,8 @@
 import api from "../utils/api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 export default function TransactionSettings() {
   const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = usestate(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   async function loadTransactions() {
     setLoading(true);
@@ -32,6 +32,7 @@ export default function TransactionSettings() {
   return (
     <div className="transaction-list">
       <h1>Your Transactions</h1>
+      {error && <p>{error}</p>}
       {transactions?.map((t) => (
         <div key={t.id} className="transaction-card">
           <div className="transaction-info">
