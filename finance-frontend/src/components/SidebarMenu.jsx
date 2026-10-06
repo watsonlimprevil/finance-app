@@ -13,7 +13,7 @@ export default function SidebarMenu() {
       {open && (
         <nav className="menu-items">
           <NavLink to={"/dashboard"}>dashboard…</NavLink>
-          <NavLink to={"/transactions"}>Transactions</NavLink>
+          <NavLink to={"/transactionSettings"}>Transactions</NavLink>
           <NavLink to={"/insight"}>Insights</NavLink>
           <NavLink to={"/settings"}>Settings</NavLink>
           <NavLink to={"/add"}>Add transactions</NavLink>
