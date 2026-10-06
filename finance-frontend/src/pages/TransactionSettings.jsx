@@ -1,9 +1,11 @@
 import api from "../utils/api";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function TransactionSettings() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   async function loadTransactions() {
     setLoading(true);
     try {
