@@ -8,6 +8,11 @@ export default function Settings() {
   const [currency, setCurrency] = useState("USD");
   const [theme, setTheme] = useState("dark");
   const [message, setMessage] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordModel, setPasswordModel] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   async function updateMonthlyBudget() {
     try {
@@ -36,6 +41,35 @@ export default function Settings() {
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
     setMessage(`theme switched to ${newTheme}`);
+  }
+
+  async function changePassword() {
+    if (
+      oldPassword.trim() === "" ||
+      newPassword.trim === "" ||
+      confirmPassword.trim() === ""
+    ) {
+      alert("all fields must be set");
+      return;
+    }
+    if (!newPassword !== confirmPassword) {
+      alert("new password does not match confirm password");
+      return;
+    }
+
+    try {
+      const res = await api.post("/auth/changedpassword", {
+        oldPassword,
+        newPassword,
+      });
+      if (res.data.message === "Password updated successfully") {
+        alert("password succesfully updated");
+      } else {
+        setError(res.data.message);
+      }
+    } catch (err) {
+      console.log("error updating password");
+    }
   }
 
   async function resetAllData() {
@@ -69,6 +103,33 @@ export default function Settings() {
           switch to {theme === "dark" ? "light" : "dark"}
         </button>
       </section>
+
+      <div>
+        <button onClick={() => setPasswordModel(true)}>Change Password</button>
+      </div>
+
+      {passwordModel && (
+        <div>
+          <input
+            value={oldPassword}
+            placeholder="enter your old password"
+            onChange={(e) => setOldPassword(e.target.value)}
+          />
+          <input
+            value={newPassword}
+            placeholder="enter new password"
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <input
+            value={confirmPassword}
+            placeholder="confirm new password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button onClick={changePassword}>Change password</button>
+          <button onClick={() => setPasswordModel(false)}>Cancel</button>
+          {error && <p>{error}</p>}
+        </div>
+      )}
 
       <section>
         <h2 style={{ color: "red" }}>Danger Zone</h2>
