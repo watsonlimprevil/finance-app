@@ -10,8 +10,8 @@ export default function TransactionsPage({
 
   const filtered = transactions.filter(
     (t) =>
-      t.category.toLowerCase().includes(search.toLowerCase()) ||
-      t.type.toLowerCase().inlcludes(search.toLowerCase()) ||
+      t?.category.toLowerCase().includes(search.toLowerCase()) ||
+      t?.type.toLowerCase().inlcludes(search.toLowerCase()) ||
       stringify(t.amount).includes(search),
   );
 
