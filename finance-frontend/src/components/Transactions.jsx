@@ -13,7 +13,7 @@ export default function TransactionsPage({
     return (
       (t?.category ?? "").toLowerCase().includes(q) ||
       (t?.type ?? "").toLowerCase().includes(q) ||
-      stringify(t?.amount ?? "").includes(search)
+      string(t?.amount ?? "").includes(search)
     );
   });
 
