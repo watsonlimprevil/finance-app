@@ -1,11 +1,6 @@
 import { useState } from "react";
 import TransactionList from "./TransactionList";
-export default function TransactionsPage({
-  transactions,
-  reload,
-  startEdit,
-  remove,
-}) {
+export default function TransactionsPage({ transactions, startEdit, remove }) {
   const [search, setSearch] = useState("");
 
   const filtered = transactions?.filter((t) => {

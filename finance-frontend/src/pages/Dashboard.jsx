@@ -224,9 +224,8 @@ export default function Dashboard() {
           <h2 className="card-title"></h2>
           <Transactions
             transactions={transactions}
-            reload={reloadAll}
-            startEdit={(t) => setEditing(t)}
-            remove={(t) => setDeleting(t)}
+            startEdit={setEditing}
+            remove={setDeleting}
           />
         </div>
 
