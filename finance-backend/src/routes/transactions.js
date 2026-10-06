@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/authe.js";
 import pool from "../db.js";
-import { cache } from "react";
+
 const router = Router();
 
 // PROTECTED ROUTES
@@ -108,7 +108,6 @@ router.get("/", requireAuth, async (req, res) => {
 router.post("/", requireAuth, async (req, res) => {
   const { amount, type, category, date, description } = req.body;
   const userId = req.user.userId; // from JWT
-
   try {
     const result = await pool.query(
       `INSERT INTO transactions (amount, type, category, date, description, user_id)
