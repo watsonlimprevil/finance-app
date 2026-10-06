@@ -1,7 +1,7 @@
 import api from "../utils/api";
 import { useEffect } from "react";
 export default function TransactionSettings() {
-  const [transactions, setTransactions] = useSate([]);
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = usestate(false);
   const [error, setError] = useState(null);
   async function loadTransactions() {
