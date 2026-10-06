@@ -71,7 +71,7 @@ export default function EditTransaction({ editing, cancel, reload }) {
         <h3>Edit Transaction</h3>
         <form>
           <label>Amount</label>
-          <input value={editing.amount}></input>
+          <input value={editing.amount} />
 
           <label>Type</label>
           <select value={editing.type}>
@@ -79,7 +79,7 @@ export default function EditTransaction({ editing, cancel, reload }) {
             <option value={"income"}>Income</option>
           </select>
           <label>Category</label>
-          <input value={editing.category}></input>
+          <input value={editing.category} />
 
           <label>Date</label>
           <input value={editing.date} type="date">
