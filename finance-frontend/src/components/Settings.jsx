@@ -58,7 +58,7 @@ export default function Settings() {
     }
 
     try {
-      const res = await api.post("/auth/changedpassword", {
+      const res = await api.post("/auth/changepassword", {
         oldPassword,
         newPassword,
       });
