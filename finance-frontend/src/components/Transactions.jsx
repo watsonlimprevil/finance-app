@@ -8,7 +8,7 @@ export default function TransactionsPage({ transactions, startEdit, remove }) {
     return (
       (t?.category ?? "").toLowerCase().includes(q) ||
       (t?.type ?? "").toLowerCase().includes(q) ||
-      string(t?.amount ?? "").includes(search)
+      (t?.amount ?? "").includes(search)
     );
   });
 
