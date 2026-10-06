@@ -9,7 +9,13 @@ export default function TransactionList({ transactions, startEdit, remove }) {
             </div>
             <div className="details">
               <p className="category">{t?.category}</p>
-              <p className="date">{t?.date}</p>
+              <p className="date">
+                {new Date(t?.date).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </p>
             </div>
             <p className="amount">${Number(t?.amount)}</p>
           </div>
