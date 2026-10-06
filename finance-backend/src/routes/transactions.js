@@ -561,7 +561,7 @@ router.get("/insights", requireAuth, async (req, res) => {
   const userId = req.user.userId;
   try {
     const ExpenseRes = await pool.query(
-      `SELECT COALSECE(sum(amount),0) AS Total 
+      `SELECT COALESCE(sum(amount),0) AS total 
       FROM transactions WHERE user_id = $1 
       AND type = 'expense' 
       AND date >= date_trunc('month', CURRENT_DATE)`,
@@ -569,10 +569,10 @@ router.get("/insights", requireAuth, async (req, res) => {
     );
 
     const totalExpense = Number(ExpenseRes.rows[0].total);
-    const dailySpend = Number(totalExpense / 365 || 0);
+    const dailySpend = Number(totalExpense / 30 || 0);
     const transactions = await pool.query(
-      `SELECT COALESCE(sum(*) AS total 
-      FROM transactions WHERE user_id = $1) `,
+      `SELECT COUNT(*) AS total 
+      FROM transactions WHERE user_id = $1 `,
       [userId],
     );
 
