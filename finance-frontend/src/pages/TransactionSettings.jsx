@@ -31,6 +31,7 @@ export default function TransactionSettings() {
 
   return (
     <div className="transaction-list">
+      <button onClick={() => navigate("/dashboard")}>Back to Dashboard</button>
       <h1>Your Transactions</h1>
       {error && <p>{error}</p>}
       {transactions?.map((t) => (
