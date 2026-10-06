@@ -8,12 +8,14 @@ export default function TransactionsPage({
 }) {
   const [search, setSearch] = useState("");
 
-  const filtered = transactions?.filter(
-    (t) =>
-      t?.category.toLowerCase().includes(search.toLowerCase()) ||
-      t?.type.toLowerCase().inlcludes(search.toLowerCase()) ||
-      stringify(t?.amount).includes(search),
-  );
+  const filtered = transactions?.filter((t) => {
+    const q = search.toLowerCase();
+    return (
+      (t?.category ?? "").toLowerCase().includes(q) ||
+      (t?.type ?? "").toLowerCase().includes(q) ||
+      stringify(t?.amount ?? "").includes(search)
+    );
+  });
 
   return (
     <div className="page-container">
