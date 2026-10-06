@@ -1,8 +1,13 @@
 import { useState } from "react";
-
-export default function Insights({ summary }) {
+import api from "../utils/api";
+export default function Insights() {
   const [open, setOpen] = useState(true);
+  const [summary, setSummary] = useState(null);
 
+  async function getInsights() {
+    const res = await api.get("/transactions/insights");
+    setSummary(res.data);
+  }
   return (
     <div className="card collapsible-card">
       <div className="collapse-header" onClick={() => setOpen(!open)}>
@@ -24,14 +29,12 @@ export default function Insights({ summary }) {
 
           <div className="insight-item">
             <span className="icon">📅</span>
-            <span>
-              Average Daily Spending: ${summary?.averageDailySpending || 0}
-            </span>
+            <span>Average Daily Spending: ${summary?.dailySpend}</span>
           </div>
 
           <div className="insight-item">
             <span className="icon">🧾</span>
-            <span>Total Transactions: {summary?.count || 0}</span>
+            <span>Total Transactions: {summary?.totalTransactions || 0}</span>
           </div>
         </div>
       )}
