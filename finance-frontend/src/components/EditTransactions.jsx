@@ -59,7 +59,7 @@ export default function EditTransaction({ editing, cancel, reload }) {
 
     if (!validate()) return;
 
-    await api.put(`${import.meta.env.VITE_API_URL}/transactions/${editing.id}`);
+    await api.put(`${import.meta.env.VITE_API_URL}/transactions/`, form);
 
     reload();
     cancel();
@@ -90,7 +90,9 @@ export default function EditTransaction({ editing, cancel, reload }) {
           <input value={editing.description} />
 
           <div className="modal-actions">
-            <button className="primary">Update</button>
+            <button className="primary" onClick={submit}>
+              Update
+            </button>
             <button className="secondary" onClick={cancel}>
               Cancel
             </button>
