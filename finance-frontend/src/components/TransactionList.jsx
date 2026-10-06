@@ -9,9 +9,9 @@ export default function TransactionList({ transactions, startEdit, remove }) {
             </div>
             <div className="details">
               <p className="category">{t?.category}</p>
-              <p className="date">{new Date(t?.date).toLocaleDateString}</p>
+              <p className="date">{t?.date}</p>
             </div>
-            <p className="amount">${Number(t?.amount).toLocaleString}</p>
+            <p className="amount">${Number(t?.amount)}</p>
           </div>
           <div className="actions">
             <button className="edit-btn" onClick={() => startEdit(t)}></button>
