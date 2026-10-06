@@ -557,4 +557,33 @@ router.patch("/budgets/monthly", requireAuth, async (req, res) => {
   }
 });
 
+(router.get("/insights"),
+  requireAuth,
+  async (req, res) => {
+    const userId = req.user.userId;
+    try {
+      const ExpenseRes = await pool.query(
+        `SELECT COALSECE(sum(amount),0) AS Total 
+      FROM transactions WHERE user_id = $1 
+      AND type = 'expense' 
+      AND date >= date_trunc('month', CURRENT_DATE)`,
+        [userId],
+      );
+
+      const totalExpense = Number(ExpenseRes.rows[0].total);
+      const dailySpend = Number(totalExpense / 365 || 0);
+      const transactions = await pool.query(
+        `SELECT COALESCE(sum(*) AS total 
+      FROM transactions WHERE user_id = $1) `,
+        [userId],
+      );
+
+      const totalTransactions = Number(transactions.rows[0].total);
+      res.json({ dailySpend, totalTransactions });
+    } catch (err) {
+      console.error("unable to get insights");
+      res.status(500).json({ message: "error getting insights" });
+    }
+  });
+
 export default router;
