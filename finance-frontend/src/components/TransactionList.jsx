@@ -20,8 +20,12 @@ export default function TransactionList({ transactions, startEdit, remove }) {
             <p className="amount">${Number(t?.amount)}</p>
           </div>
           <div className="actions">
-            <button className="edit-btn" onClick={() => startEdit(t)}></button>
-            <button className="delete-btn" onClick={() => remove(t)}></button>
+            <button className="edit-btn" onClick={() => startEdit(t)}>
+              Edit
+            </button>
+            <button className="delete-btn" onClick={() => remove(t)}>
+              Delete
+            </button>
           </div>
         </div>
       ))}
