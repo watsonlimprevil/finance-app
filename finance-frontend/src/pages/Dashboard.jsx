@@ -167,15 +167,6 @@ export default function Dashboard() {
         />
 
         <div className="card">
-          <h2 className="card-title">Edit Transactions</h2>
-          <EditTransaction
-            editing={editing}
-            cancel={() => setEditing(null)}
-            reload={reloadAll}
-          />
-        </div>
-
-        <div className="card">
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
