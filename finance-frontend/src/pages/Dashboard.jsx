@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api.js";
 import Summary from "../components/Summary.jsx";
-import Transactions from "../components/Transactions.jsx";
+import TransactionsPage from "../components/Transactions.jsx";
 import CategoryPieChart from "../components/CategoryPieChart.jsx";
 import AddTransactionModal from "./AddTransactioModel.jsx";
 import AddTransaction from "../components/AddTransactions.jsx";
@@ -221,8 +221,8 @@ export default function Dashboard() {
         </div>
 
         <div className="card">
-          <h2 className="card-title"></h2>
-          <Transactions
+          <h2 className="card-title">Transactions</h2>
+          <TransactionsPage
             transactions={transactions}
             startEdit={setEditing}
             remove={setDeleting}
