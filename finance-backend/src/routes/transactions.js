@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/authe.js";
 import pool from "../db.js";
+import { cache } from "react";
 const router = Router();
 
 // PROTECTED ROUTES
@@ -576,8 +577,22 @@ router.get("/insights", requireAuth, async (req, res) => {
       [userId],
     );
 
+    const categoryRes = await pool.query(
+      `SELECT category SUM(amount)AS total 
+      FROM transactions 
+      WHERE user_id = $1
+      AND type = 'expense 
+      AND date >= date_trunc('month' , CURRENT_DATE)
+      GROUP BY category 
+      ORDER BY total DESC 
+      LIMIT 1;`,
+      [userId],
+    );
+
+    const highestCategory = categoryRes.rows[0] || null;
+
     const totalTransactions = Number(transactions.rows[0].total);
-    res.json({ dailySpend, totalTransactions });
+    res.json({ dailySpend, totalTransactions, highestCategory });
   } catch (err) {
     console.error("unable to get insights");
     res.status(500).json({ message: "error getting insights" });
