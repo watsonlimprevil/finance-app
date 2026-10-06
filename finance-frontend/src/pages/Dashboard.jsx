@@ -44,7 +44,7 @@ export default function Dashboard() {
   }
 
   async function addTransaction(data) {
-    await api.post(`/transactions`, { data });
+    await api.post(`/transactions`, data);
 
     reloadAll(); // refresh dashboard data
   }

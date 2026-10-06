@@ -27,7 +27,6 @@ export default function AddTransactionModal({ show, onClose, onAdd }) {
         <h2>Add Transaction</h2>
 
         <input
-          type="number"
           placeholder="Amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
