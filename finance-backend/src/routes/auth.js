@@ -103,7 +103,7 @@ router.post("/changepassword", requireAuth, async (req, res) => {
     await pool.query(
       `UPDATE users set password_hash = $1 
      WHERE user_id = $2`,
-      [newPassword, userId],
+      [hashed, userId],
     );
 
     res.json({ message: "Password updated successfully" });
