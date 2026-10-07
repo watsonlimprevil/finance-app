@@ -46,7 +46,7 @@ export default function Settings() {
   async function changePassword() {
     if (
       oldPassword.trim() === "" ||
-      newPassword.trim === "" ||
+      newPassword.trim() === "" ||
       confirmPassword.trim() === ""
     ) {
       alert("all fields must be set");
@@ -64,6 +64,7 @@ export default function Settings() {
       });
       if (res.data.message === "Password updated successfully") {
         alert("password succesfully updated");
+        setPasswordModel(false);
       } else {
         setError(res.data.message);
       }
