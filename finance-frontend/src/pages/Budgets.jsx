@@ -48,8 +48,6 @@ export default function Budgets() {
     <div style={{ padding: 20 }}>
       <button onClick={() => navigate("/dashboard")}>Back to Dashboard</button>
 
-      <BudgetProgress progress={budgetProgress} />
-
       <h1>Budgets</h1>
       <div style={{ marginTop: 20 }}>
         <h2>Add Budget</h2>
@@ -90,6 +88,7 @@ export default function Budgets() {
           </ul>
         )}
       </div>
+      <BudgetProgress progress={budgetProgress} />
     </div>
   );
 }
