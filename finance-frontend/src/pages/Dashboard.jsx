@@ -10,6 +10,7 @@ import { DeleteConfirm } from "./Delete.jsx";
 import MonthlyTrendChart from "../components/MonthlyTrendChart.jsx";
 import BudgetProgress from "../components/BudgetProgress.jsx";
 import SidebarMenu from "../components/SidebarMenu.jsx";
+import LowBalance from "../components/LowBalance.jsx";
 export default function Dashboard() {
   const [summary, setSummary] = useState(null);
   const [transactions, setTransactions] = useState([]);
@@ -32,6 +33,7 @@ export default function Dashboard() {
   const [searchResults, setSearchResults] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [transactionError, setTransactionError] = useState("");
+  const [lowBalanceModel, SetLowBalanceModel] = useState(false);
 
   useEffect(() => {
     reloadAll();
@@ -40,7 +42,10 @@ export default function Dashboard() {
   async function loadBudgetProgress() {
     const res = await api.get(`/transactions/budgets/progress`);
 
-    setBudgetProgress(res.data.progress);
+    const lowbalance = res.data.progress.monthly.percent < 10;
+    if (lowbalance) {
+      SetLowBalanceModel(true);
+    }
   }
 
   async function addTransaction(data) {
@@ -148,6 +153,9 @@ export default function Dashboard() {
         <div className="card">
           <SidebarMenu />
         </div>
+        {lowBalanceModel && (
+          <LowBalance onClose={() => SetLowBalanceModel(false)} />
+        )}
         <div className="card">
           <Summary summary={summary} />
         </div>
