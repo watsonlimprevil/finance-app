@@ -87,7 +87,7 @@ router.post("/login", async (req, res) => {
 
 router.patch("/changepassword", requireAuth, async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const { userId } = req.user.userId;
     const { oldPassword, newPassword } = req.body;
     const users = await pool.query(
       "SELECT email , password_hash FROM users where user_id =$1",
