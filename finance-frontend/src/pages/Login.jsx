@@ -21,6 +21,11 @@ export default function Login() {
       setLoading(false);
       return;
     }
+
+    if (res.message === "Invalid credentials") {
+      alert("invalid credentials");
+      return;
+    }
     localStorage.setItem("token", res.data.token);
     nav("/dashboard");
     setLoading(false);
