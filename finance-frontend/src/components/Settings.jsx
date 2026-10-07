@@ -68,7 +68,7 @@ export default function Settings() {
         setError(res.data.message);
       }
     } catch (err) {
-      console.log("error updating password");
+      console.log("error updating password", err);
     }
   }
 
