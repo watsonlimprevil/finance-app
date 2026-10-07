@@ -87,15 +87,18 @@ router.post("/login", async (req, res) => {
 
 router.patch("/changepassword", requireAuth, async (req, res) => {
   try {
-    const { userId } = req.user.userId;
+    const userId = req.user.userId;
     const { oldPassword, newPassword } = req.body;
     const users = await pool.query(
-      "SELECT email , password_hash FROM users where user_id =$1",
+      "SELECT email , password_hash FROM users where id =$1",
       [userId],
     );
 
     console.log(oldPassword, newPassword);
     const user = users.rows[0];
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
     const valid = await bcrypt.compare(oldPassword, user.password_hash);
     if (!valid)
       return res.status(400).json({ message: "old password is incorrect" });
@@ -103,8 +106,8 @@ router.patch("/changepassword", requireAuth, async (req, res) => {
     const hashed = await bcrypt.hash(newPassword, 10);
 
     await pool.query(
-      `UPDATE users set password_hash = $1  
-   WHERE user_id = $2`,
+      `UPDATE users SSET password_hash = $1  
+   WHERE id = $2`,
       [hashed, userId],
     );
 
