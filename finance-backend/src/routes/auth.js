@@ -85,7 +85,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/changepassword", requireAuth, async (req, res) => {
+router.patch("/changepassword", requireAuth, async (req, res) => {
   try {
     const userId = req.user.userId;
     const { oldPassword, newPassword } = req.body;
