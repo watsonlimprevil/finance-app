@@ -28,7 +28,7 @@ export default function Settings() {
   }
   function handleLogout() {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   }
 
   async function saveCurrency() {
