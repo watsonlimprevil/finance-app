@@ -52,7 +52,7 @@ export default function Settings() {
       alert("all fields must be set");
       return;
     }
-    if (!newPassword !== confirmPassword) {
+    if (newPassword !== confirmPassword) {
       alert("new password does not match confirm password");
       return;
     }
