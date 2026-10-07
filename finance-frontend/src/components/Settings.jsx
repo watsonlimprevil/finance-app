@@ -59,8 +59,8 @@ export default function Settings() {
 
     try {
       const res = await api.patch("/auth/changepassword", {
-        oldPassword,
-        newPassword,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
       });
       if (res.data.message === "Password updated successfully") {
         alert("password succesfully updated");
