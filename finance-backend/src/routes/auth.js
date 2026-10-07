@@ -94,7 +94,6 @@ router.patch("/changepassword", requireAuth, async (req, res) => {
       [userId],
     );
 
-    console.log(oldPassword, newPassword);
     const user = users.rows[0];
     if (!user) {
       return res.status(400).json({ message: "User not found" });
