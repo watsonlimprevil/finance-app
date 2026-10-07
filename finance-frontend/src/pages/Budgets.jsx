@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
+import BudgetProgress from "../components/BudgetProgress";
 
 export default function Budgets() {
   const [budgets, setBudgets] = useState([]);
@@ -9,9 +10,11 @@ export default function Budgets() {
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [budgetProgress, setBudgetProgress] = useState(null);
 
   useEffect(() => {
     loadBudgets();
+    loadBudgetProgress();
   }, []);
 
   async function loadBudgets() {
@@ -21,6 +24,11 @@ export default function Budgets() {
     const result = await res.data;
     setBudgets(result.budgets);
     setLoading(false);
+  }
+  async function loadBudgetProgress() {
+    const res = await api.get(`/transactions/budgets/progress`);
+
+    setBudgetProgress(res.data.progress);
   }
 
   async function addBudget() {
@@ -39,6 +47,8 @@ export default function Budgets() {
   return (
     <div style={{ padding: 20 }}>
       <button onClick={() => navigate("/dashboard")}>Back to Dashboard</button>
+
+      <BudgetProgress progress={budgetProgress} />
 
       <h1>Budgets</h1>
       <div style={{ marginTop: 20 }}>

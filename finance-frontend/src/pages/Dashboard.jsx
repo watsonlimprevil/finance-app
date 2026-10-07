@@ -212,7 +212,6 @@ export default function Dashboard() {
         </div>
 
         <div className="card">
-          <h2 className="card-title">Transactions</h2>
           <TransactionsPage
             transactions={transactions}
             startEdit={setEditing}
