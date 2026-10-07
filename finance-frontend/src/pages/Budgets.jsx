@@ -11,6 +11,7 @@ export default function Budgets() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [budgetProgress, setBudgetProgress] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     loadBudgets();

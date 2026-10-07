@@ -8,7 +8,6 @@ import AddTransaction from "../components/AddTransactions.jsx";
 import EditTransaction from "../components/EditTransactions.jsx";
 import { DeleteConfirm } from "./Delete.jsx";
 import MonthlyTrendChart from "../components/MonthlyTrendChart.jsx";
-import Insights from "./Insights.jsx";
 import BudgetProgress from "../components/BudgetProgress.jsx";
 import SidebarMenu from "../components/SidebarMenu.jsx";
 export default function Dashboard() {
@@ -32,6 +31,7 @@ export default function Dashboard() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [transactionError, setTransactionError] = useState("");
 
   useEffect(() => {
     reloadAll();
@@ -44,6 +44,14 @@ export default function Dashboard() {
   }
 
   async function addTransaction(data) {
+    const budgetData = await api.get("/transaction/budgets");
+    const budget = budgetData.data.budgets;
+    if (!budget) {
+      setTransactionError(
+        "Budget must be set First before adding any transaction",
+      );
+      return;
+    }
     await api.post(`/transactions`, data);
 
     reloadAll(); // refresh dashboard data
@@ -165,6 +173,7 @@ export default function Dashboard() {
           onClose={() => setShowModal(false)}
           onAdd={addTransaction}
         />
+        {transactionError && <p>{transactionError}</p>}
 
         <div className="card">
           <select
