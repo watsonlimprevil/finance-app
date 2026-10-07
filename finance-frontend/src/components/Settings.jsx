@@ -1,5 +1,5 @@
 import { useState } from "react";
-import api from "../utils/api";
+import api from "../utils/api.js";
 import { useNavigate } from "react-router-dom";
 export default function Settings() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -58,7 +58,7 @@ export default function Settings() {
     }
 
     try {
-      const res = await api.patch("/auth/changepassword", {
+      const res = await api.patch(`/auth/changepassword`, {
         oldPassword: oldPassword,
         newPassword: newPassword,
       });
