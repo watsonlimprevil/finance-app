@@ -90,9 +90,11 @@ router.patch("/changepassword", requireAuth, async (req, res) => {
     const userId = req.user.userId;
     const { oldPassword, newPassword } = req.body;
     const users = await pool.query(
-      `SELECT password_hash FRom users where user_id =$1`,
+      "SELECT email , password_hash FROM users where user_id =$1",
       [userId],
     );
+
+    console.log(oldPassword, newPassword);
     const user = users.rows[0];
     const valid = await bcrypt.compare(oldPassword, user.password_hash);
     if (!valid)
@@ -101,8 +103,8 @@ router.patch("/changepassword", requireAuth, async (req, res) => {
     const hashed = await bcrypt.hash(newPassword, 10);
 
     await pool.query(
-      `UPDATE users set password_hash = $1 
-     WHERE user_id = $2`,
+      `UPDATE users set password_hash = $1  
+   WHERE user_id = $2`,
       [hashed, userId],
     );
 
