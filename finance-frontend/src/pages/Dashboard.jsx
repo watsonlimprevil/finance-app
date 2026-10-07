@@ -42,7 +42,7 @@ export default function Dashboard() {
   async function loadBudgetProgress() {
     const res = await api.get(`/transactions/budgets/progress`);
 
-    const lowbalance = res.data.progress.monthly.percent < 10;
+    const lowbalance = res.data.progress.monthly.percent > 90;
     if (lowbalance) {
       SetLowBalanceModel(true);
     }
