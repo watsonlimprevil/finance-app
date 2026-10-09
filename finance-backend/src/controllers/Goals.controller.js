@@ -36,6 +36,7 @@ export async function getGoals(req, res) {
     res.json(data.rows);
   } catch (err) {
     console.error("Error getting goal data", err);
+    console.error("added a console.error statement for debugging purposes");
     res.status(500).json({ error: " error getting goals data" });
   }
 }
