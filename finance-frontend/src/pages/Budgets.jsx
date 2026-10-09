@@ -19,6 +19,7 @@ export default function Budgets() {
   useEffect(() => {
     loadBudgets();
     loadBudgetProgress();
+    loadGoals();
   }, []);
 
   async function loadBudgets() {
@@ -49,7 +50,7 @@ export default function Budgets() {
       if (res.data.message === "successfully inputed goal") {
         alert("goals succesfully added");
       }
-      await loadGoals();
+      loadGoals();
     } catch (err) {
       console.log("error adding goals", err);
     }
