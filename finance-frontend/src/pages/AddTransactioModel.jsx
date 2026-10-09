@@ -10,6 +10,22 @@ export default function AddTransactionModal({ show, onClose, onAdd }) {
   const [description, setDescription] = useState("");
 
   function handleSubmit() {
+    const inputDate = new Date(date);
+    const today = new Date();
+
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth());
+    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+    const isInThisMonth = inputDate >= startOfMonth && inputDate < endOfMonth;
+    const isNotFuture = inputDate <= today;
+
+    if (!isInThisMonth) {
+      alert("You can only add transactions from this month");
+      return;
+    }
+    if (!isNotFuture) {
+      alert("You cannot add future dates");
+      return;
+    }
     onAdd({
       amount,
       type,
