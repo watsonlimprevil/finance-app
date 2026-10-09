@@ -49,7 +49,7 @@ export default function Dashboard() {
   }
 
   async function addTransaction(data) {
-    const budgetData = await api.get("/transaction/budgets");
+    const budgetData = await api.get("/transactions/budgets");
     const budget = budgetData.data.budgets;
     if (!budget) {
       setTransactionError(
