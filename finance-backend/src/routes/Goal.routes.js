@@ -5,7 +5,7 @@ import {
   deleteGoals,
   getGoals,
 } from "../controllers/Goals.controller.js";
-import { requireAuth } from "../middleware/authe";
+import { requireAuth } from "../middleware/authe.js";
 const router = Router();
 
 router.get("/getgoals", requireAuth, getGoals);
