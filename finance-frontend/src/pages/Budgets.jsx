@@ -73,41 +73,53 @@ export default function Budgets() {
     }
   }
   return (
-    <div style={{ padding: 20 }}>
-      <button onClick={() => navigate("/dashboard")}>Back to Dashboard</button>
+    <div className="budgets-page">
+      <button className="back-btn" onClick={() => navigate("/dashboard")}>
+        ← Back to Dashboard
+      </button>
 
-      <h1>Budgets</h1>
-      <div style={{ marginTop: 20 }}>
+      <h1 className="page-title">Budgets</h1>
+
+      <section className="add-budget-section">
         <h2>Add Budget</h2>
 
-        <input
-          type="text"
-          placeholder="Category(leave empty for monthly budget)"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
+        <div className="form-row">
+          <input
+            type="text"
+            placeholder="Category (leave empty for monthly budget)"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
 
-        <input
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        <button onClick={addBudget}>Add</button>
-      </div>
+          <input
+            type="number"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
 
-      <div style={{ marginTop: 30 }}>
+          <button className="primary-btn" onClick={addBudget}>
+            Add
+          </button>
+        </div>
+      </section>
+
+      <section className="budget-list-section">
         <h2>Your Budgets</h2>
+
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <ul>
+          <ul className="budget-list">
             {budgets.map((b) => (
-              <li key={b.id}>
-                <strong>{b.category || "Monthly Budget"}:</strong>${b.amount}
+              <li key={b.id} className="budget-item">
+                <span className="budget-label">
+                  <strong>{b.category || "Monthly Budget"}:</strong> ${b.amount}
+                </span>
+
                 <button
+                  className="delete-btn"
                   onClick={() => deleteBudget(b.id)}
-                  style={{ marginLeft: 10 }}
                 >
                   Delete
                 </button>
@@ -115,13 +127,11 @@ export default function Budgets() {
             ))}
           </ul>
         )}
-      </div>
+      </section>
+
       <BudgetProgress progress={budgetProgress} />
 
-      <button
-        className="add-transaction-btn"
-        onClick={() => setShowGoalsModal(true)}
-      >
+      <button className="add-goal-btn" onClick={() => setShowGoalsModal(true)}>
         + Add Goals
       </button>
 
@@ -132,14 +142,21 @@ export default function Budgets() {
         />
       )}
 
-      {goals?.map((g) => (
-        <div key={g.id}>
-          <span>
-            {g.name} - {g.deadline} - {g.current_amount} - {g.target_amount}
-          </span>
-          <button onClick={() => DeleteGoal(g.id)}>Delete Goal</button>
-        </div>
-      ))}
+      <section className="goals-section">
+        <h2>Your Goals</h2>
+
+        {goals.map((g) => (
+          <div key={g.id} className="goal-item">
+            <span className="goal-label">
+              {g.name} — {g.deadline} — {g.current_amount} / {g.target_amount}
+            </span>
+
+            <button className="delete-btn" onClick={() => DeleteGoal(g.id)}>
+              Delete Goal
+            </button>
+          </div>
+        ))}
+      </section>
     </div>
   );
 }
