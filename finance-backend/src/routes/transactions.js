@@ -14,7 +14,7 @@ router.get("/", requireAuth, async (req, res) => {
     sort,
     order,
     page = 1,
-    limit = 10,
+    limit = 5,
     startDate,
     endDate,
   } = req.query;
