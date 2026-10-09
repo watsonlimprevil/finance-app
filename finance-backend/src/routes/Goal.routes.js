@@ -11,3 +11,4 @@ const router = Router();
 router.get("/getgoals", requireAuth, getGoals);
 router.delete("/deletegoals/:id", requireAuth, deleteGoals);
 router.post("/addgoals", requireAuth, addGoals);
+export default router;
