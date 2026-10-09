@@ -14,15 +14,12 @@ export default function Budgets() {
   const [showGoalsModal, setShowGoalsModal] = useState(false);
   const [error, setError] = useState("");
   const [goals, setGoals] = useState([]);
-
-  function formData(dateString) {
-    return new Date(
-      dateString.toLocaleDateString("en-GB", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
-    );
+  function formatDate(dateString) {
+    return new Date(dateString).toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
   }
 
   useEffect(() => {
@@ -168,7 +165,7 @@ export default function Budgets() {
           <div key={g.id} className="goal-card">
             <div className="goal-header">
               <h3>{g.name}</h3>
-              <span className="goal-deadline">{formData(g.deadline)}</span>
+              <span className="goal-deadline">{formatDate(g.deadline)}</span>
             </div>
             <div className="goal-progress-info">
               <span>
