@@ -66,9 +66,8 @@ export default function Budgets() {
   async function DeleteGoal(id) {
     try {
       const res = await api.delete(`/goals/deletegoals/${id}`);
-      if (res.message === "Goal was deleted") {
-        setGoals((prev) => prev.filter((g) => g.id !== id));
-      }
+
+      setGoals((prev) => prev.filter((g) => g.id !== id));
     } catch (error) {
       console.log("unable to delete goal", error);
     }
