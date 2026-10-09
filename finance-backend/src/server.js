@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRouter from "./routes/auth.js";
 import transactionsRouter from "./routes/transactions.js";
+import goalRouter from "./routes/Goal.routes.js";
 
 dotenv.config();
 
@@ -46,9 +47,10 @@ app.use("/auth", authRouter);
 
 // TRANSACTION ROUTES
 app.use("/transactions", transactionsRouter);
+app.use("/goals", goalRouter);
 
 app.listen(3000, () => {
-  console.log("Finance backend running on port 5000");
+  console.log("Finance backend running on port 3000");
 });
 console.log("backend ready fro requests");
 
