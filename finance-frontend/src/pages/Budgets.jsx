@@ -14,7 +14,6 @@ export default function Budgets() {
   const [showGoalsModal, setShowGoalsModal] = useState(false);
   const [error, setError] = useState("");
   const [goals, setGoals] = useState([]);
-  const [setDeleting, Deleting] = useState(null);
 
   useEffect(() => {
     loadBudgets();
@@ -64,11 +63,11 @@ export default function Budgets() {
     loadBudgets();
   }
 
-  async function DeleteGoal() {
+  async function DeleteGoal(id) {
     try {
-      const res = await api.delete(`/goals/deletegoals/${Deleting.id}`);
+      const res = await api.delete(`/goals/deletegoals/${id}`);
       if (res.message === "Goal was deleted") {
-        setGoals((prev) => prev.filter((g) => g.id !== Deleting.id));
+        setGoals((prev) => prev.filter((g) => g.id !== id));
       }
     } catch (error) {
       console.log("unable to delete goal", error);
@@ -139,13 +138,7 @@ export default function Budgets() {
           <span>
             {g.name} - {g.deadline} - {g.current_amount} - {g.target_amount}
           </span>
-          <button
-            onClick={() => {
-              (setDeleting(g), DeleteGoal());
-            }}
-          >
-            Delete Goal
-          </button>
+          <button onClick={() => DeleteGoal(g.id)}>Delete Goal</button>
         </div>
       ))}
     </div>
