@@ -11,8 +11,8 @@ export async function addGoals(req, res) {
   }
   try {
     const data = await pool.query(
-      `INSERT into goals , deadline = $1 , target_amount = $2 , current_amount = $3 , name = $4
-        WHERE user_id = $5`,
+      `INSERT into goals  (deadline , target_amount , current_amount , name , user_id) 
+        Values($1, $2 , $3 , $4 , $5)`,
       [deadline, target_amount, current_amount, name, userId],
     );
     res.json({ message: "successfully inputed goal" });
