@@ -46,7 +46,7 @@ export async function deleteGoals(req, res) {
 
   try {
     const data = await pool.query(
-      `DELETE * FROM goals WHERE user_id = $1 and id =$2`,
+      `DELETE FROM goals WHERE user_id = $1 and id =$2`,
       [userId, id],
     );
     if (!data.rows) {
