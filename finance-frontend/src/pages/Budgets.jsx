@@ -15,6 +15,16 @@ export default function Budgets() {
   const [error, setError] = useState("");
   const [goals, setGoals] = useState([]);
 
+  function formData(dateString) {
+    return new Date(
+      dateString.toLocaleDateString("en-GB", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }),
+    );
+  }
+
   useEffect(() => {
     loadBudgets();
     loadBudgetProgress();
@@ -155,12 +165,20 @@ export default function Budgets() {
         <h2>Your Goals</h2>
 
         {goals.map((g) => (
-          <div key={g.id} className="goal-item">
-            <span className="goal-label">
-              {g.name} — {g.deadline} — {g.current_amount} / {g.target_amount}
-            </span>
-
-            <button className="delete-btn" onClick={() => DeleteGoal(g.id)}>
+          <div key={g.id} className="goal-card">
+            <div className="goal-header">
+              <h3>{g.name}</h3>
+              <span className="goal-deadline">{formData(g.deadline)}</span>
+            </div>
+            <div className="goal-progress-info">
+              <span>
+                {g.current_amount} / {g.target_amount}
+              </span>
+            </div>
+            <button
+              className="delete-goal-btn"
+              onClick={() => DeleteGoal(g.id)}
+            >
               Delete Goal
             </button>
           </div>

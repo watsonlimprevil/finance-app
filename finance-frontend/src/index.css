@@ -432,3 +432,42 @@ code {
 .add-goal-btn:hover {
   background: #449d48;
 }
+
+.goal-card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.goal-header {
+  display: flex;
+  justify-content: space-betweeen;
+  align-items: center;
+}
+
+.goal-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.goal-deadline {
+  color: #777;
+  font-size: 14px;
+}
+
+.delete-goal-btn {
+  margin-top: 12px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-goal-btn:hover {
+  background: #e63b3b;
+}
