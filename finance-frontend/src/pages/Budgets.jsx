@@ -13,6 +13,8 @@ export default function Budgets() {
   const [budgetProgress, setBudgetProgress] = useState(null);
   const [showGoalsModal, setShowGoalsModal] = useState(false);
   const [error, setError] = useState("");
+  const [goals, setGoals] = useState([]);
+  const [setDeleting, Deleting] = useState(null);
 
   useEffect(() => {
     loadBudgets();
@@ -47,16 +49,30 @@ export default function Budgets() {
       if (res.data.message === "successfully inputed goal") {
         alert("goals succesfully added");
       }
+      await loadGoals();
     } catch (err) {
       console.log("error adding goals", err);
     }
   }
-
+  async function loadGoals() {
+    const res = await api.get("/goals/getgoals");
+    setGoals(res.data);
+  }
   async function deleteBudget(id) {
     await api.delete(`/transactions/budgets/${id}`);
     loadBudgets();
   }
 
+  async function DeleteGoal() {
+    try {
+      const res = await api.delete(`/goals/deletegoals/${Deleting.id}`);
+      if (res.message === "Goal was deleted") {
+        setGoals((prev) => prev.filter((g) => g.id !== Deleting.id));
+      }
+    } catch (error) {
+      console.log("unable to delete goal", error);
+    }
+  }
   return (
     <div style={{ padding: 20 }}>
       <button onClick={() => navigate("/dashboard")}>Back to Dashboard</button>
@@ -116,6 +132,21 @@ export default function Budgets() {
           onClose={() => setShowGoalsModal(false)}
         />
       )}
+
+      {goals?.map((g) => (
+        <div key={g.id}>
+          <span>
+            {g.name} - {g.deadline} - {g.current_amount} - {g.target_amount}
+          </span>
+          <button
+            onClick={() => {
+              (setDeleting(g), DeleteGoal());
+            }}
+          >
+            Delete Goal
+          </button>
+        </div>
+      ))}
     </div>
   );
 }
