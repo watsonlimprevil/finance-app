@@ -1,5 +1,5 @@
 import express from "express";
-import pool from "../db";
+import pool from "../db.js";
 
 export async function addGoals(req, res) {
   const userId = req.user.userId;
