@@ -164,7 +164,7 @@ export default function Budgets() {
       <section className="goals-section">
         <h2>Your Goals</h2>
 
-        {goals.map((g) => (
+        {goals?.map((g) => (
           <div key={g.id} className="goal-card">
             <div className="goal-header">
               <h3>{g.name}</h3>
