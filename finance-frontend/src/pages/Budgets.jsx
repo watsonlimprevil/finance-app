@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import BudgetProgress from "../components/BudgetProgress";
-
+import AddGoalsModal from "./AddGoalsModal";
 export default function Budgets() {
   const [budgets, setBudgets] = useState([]);
   const [amount, setAmount] = useState("");
@@ -11,6 +11,7 @@ export default function Budgets() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [budgetProgress, setBudgetProgress] = useState(null);
+  const [showGoalsModal, setShowGoalsModal] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -38,6 +39,17 @@ export default function Budgets() {
     await loadBudgets();
     setAmount("");
     setCategory("");
+  }
+
+  async function addGoals(data) {
+    try {
+      const res = await api.post("/goals/addgoals", data);
+      if (res.data.message === "successfully inputed goal") {
+        alert("goals succesfully added");
+      }
+    } catch (err) {
+      console.log("error adding goals", err);
+    }
   }
 
   async function deleteBudget(id) {
@@ -90,6 +102,20 @@ export default function Budgets() {
         )}
       </div>
       <BudgetProgress progress={budgetProgress} />
+
+      <button
+        className="add-transaction-btn"
+        onClick={() => setShowGoalsModal(true)}
+      >
+        + Add Goals
+      </button>
+
+      {showGoalsModal && (
+        <AddGoalsModal
+          onAdd={addGoals}
+          onClose={() => setShowGoalsModal(false)}
+        />
+      )}
     </div>
   );
 }
