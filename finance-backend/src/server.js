@@ -5,6 +5,7 @@ import authRouter from "./routes/auth.js";
 import transactionsRouter from "./routes/transactions.js";
 import goalRouter from "./routes/Goal.routes.js";
 import globalRouter from "./routes/settings.routes.js";
+import userRouter from "./routes/user.routes.js";
 
 dotenv.config();
 
@@ -45,7 +46,7 @@ app.get("/health", (req, res) => {
 app.use(express.json());
 // AUTH ROUTES
 app.use("/auth", authRouter);
-
+app.use("/user", userRouter);
 // TRANSACTION ROUTES
 app.use("/settings", globalRouter);
 app.use("/transactions", transactionsRouter);

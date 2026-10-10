@@ -43,4 +43,19 @@ router.get("/uploaded", requireAuth, async (req, res) => {
   }
 });
 
+router.delete("/delete-account", requireAuth, async (req, res) => {
+  const userId = req.user.userId;
+  try {
+    await pool.query(
+      `DELETE FROM (users , goals , transactions , userPreferences , budgets)
+            WHERE user_id = $1`,
+      [userId],
+    );
+
+    res.json({ message: "User successfully deleted" });
+  } catch (error) {
+    res.status(500).json({ message: "unable to delete user account" });
+  }
+});
+
 export default router;
