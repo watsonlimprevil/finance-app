@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect } from "react";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
-
+import "settings.css";
 document.documentElement.setAttribute("data-theme", "dark");
 document.documentElement.style.setProperty("--accent-color", "#6366f1");
 export default function Settings() {
