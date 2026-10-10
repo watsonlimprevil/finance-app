@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRouter from "./routes/auth.js";
 import transactionsRouter from "./routes/transactions.js";
 import goalRouter from "./routes/Goal.routes.js";
+import globalRouter from "./routes/settings.routes.js";
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use(express.json());
 app.use("/auth", authRouter);
 
 // TRANSACTION ROUTES
+app.use("/settings", globalRouter);
 app.use("/transactions", transactionsRouter);
 app.use("/goals", goalRouter);
 
