@@ -28,7 +28,7 @@ export default function Settings() {
 
   const loadSettings = async () => {
     try {
-      const res = await api.get("/settings/global");
+      const res = await api.get("/settings/globalsettings");
       const data = res.data;
 
       const theme = data.preferences?.theme || "dark";
