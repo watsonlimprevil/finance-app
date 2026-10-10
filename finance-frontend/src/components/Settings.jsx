@@ -2,8 +2,7 @@ import { useState, useLayoutEffect } from "react";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import "./settings.css";
-document.documentElement.setAttribute("data-theme", "dark");
-document.documentElement.style.setProperty("--accent-color", "#6366f1");
+
 export default function Settings() {
   const navigate = useNavigate();
 
@@ -11,6 +10,14 @@ export default function Settings() {
     theme: "dark",
     accentColor: "#6366f1",
   });
+
+  useLayoutEffect(() => {
+    document.documentElement.setAttribute("data-theme", preferences.theme);
+    document.documentElement.style.setProperty(
+      "--accent-color",
+      preferences.accentColor,
+    );
+  }, [preferences]);
 
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
