@@ -7,7 +7,7 @@ import { requireAuth } from "../middleware/authe.js";
 
 const router = express.Router();
 
-router.get("/global", requireAuth, getGlobalSettings);
+router.get("/globalsettings", requireAuth, getGlobalSettings);
 router.post("/global", requireAuth, updateGlobalSettings);
 
 export default router;

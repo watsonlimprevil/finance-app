@@ -13,6 +13,9 @@ export const getGlobalSettings = async (req, res) => {
       return res.status(404).json({ error: "user not found" });
     }
     const preferences = preferenceRes.rows;
+    if (preferences.rows === 0) {
+      return res.json({ message: "no userpreferences yet" });
+    }
     res.json(preferences);
   } catch (error) {
     res.status(500).json({ error: "Error gettng preferneces" });
