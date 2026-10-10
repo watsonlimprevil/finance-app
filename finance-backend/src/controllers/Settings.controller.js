@@ -3,22 +3,22 @@ import pool from "../db.js";
 export const getGlobalSettings = async (req, res) => {
   try {
     const userId = req.user.userId;
+
     const preferenceRes = await pool.query(
-      `SELECT * FROM userPreferences 
-            WHERE user_id = $1`,
+      `SELECT * FROM userPreferences WHERE user_id = $1`,
       [userId],
     );
 
-    if (!preferenceRes) {
-      return res.status(404).json({ error: "user not found" });
-    }
     const preferences = preferenceRes.rows;
-    if (preferences.rows === 0) {
-      return res.json({ message: "no userpreferences yet" });
+
+    if (preferences.length === 0) {
+      return res.json({ message: "no user preferences yet" });
     }
-    res.json(preferences);
+
+    return res.json(preferences[0]); // return the actual preference object
   } catch (error) {
-    res.status(500).json({ error: "Error gettng preferneces" });
+    console.error(error);
+    return res.status(500).json({ error: "Error getting preferences" });
   }
 };
 
