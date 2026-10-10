@@ -22,16 +22,11 @@ router.post("/ask", requireAuth, async (req, res) => {
       [userId],
     );
 
-    const userPreferences = await pool.query(
-      `SELECT * FROM userPreferences where user_id = $1`,
-      [userId],
-    );
-
     const context = `
 User message: ${message}
 User transactions: ${JSON.stringify(transactions)}
 User budget: ${JSON.stringify(budgets)}
-User userPreferences: ${JSON.stringify(userPreferences)}
+
 App information: ${JSON.stringify(APP_KNOWLEDGE)}
     `;
 
