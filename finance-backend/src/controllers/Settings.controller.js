@@ -15,7 +15,7 @@ export const getGlobalSettings = async (req, res) => {
     const preferences = preferenceRes.rows;
     res.json(preferences);
   } catch (error) {
-    res.stats(500).json({ error: "Error gettng preferneces" });
+    res.status(500).json({ error: "Error gettng preferneces" });
   }
 };
 
