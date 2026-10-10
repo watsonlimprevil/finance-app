@@ -7,7 +7,7 @@ const router = express.Router();
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_KEY });
 
-router.post("/ask", authMiddleware, async (req, res) => {
+router.post("/ask", requireAuth, async (req, res) => {
   try {
     const { message } = req.body;
     const userId = req.user.userId;
