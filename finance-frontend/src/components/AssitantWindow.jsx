@@ -83,14 +83,14 @@ export default function AssistantWindow({ userState, onClose }) {
       {userState === "empty" ? (
         <>
           <button style={btnStyle} onClick={() => askAI("Help me add budget")}>
-            Create your first team
+            help me add budget
           </button>
 
           <button
             style={btnStyle}
             onClick={() => askAI("Help me add my transactions")}
           >
-            Create your first project
+            help me add my first transaction
           </button>
 
           <button style={btnStyle} onClick={() => askAI("help me add goals")}>
