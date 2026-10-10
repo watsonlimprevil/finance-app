@@ -14,7 +14,7 @@ router.post(
   async (req, res) => {
     try {
       const userId = req.user.userId;
-      const { name } = req.body;
+
       const result = await cloudinary.v2.uploader.upload(req.file.path);
       await pool.query(
         `INSERT into users avatarUrl = $1,
