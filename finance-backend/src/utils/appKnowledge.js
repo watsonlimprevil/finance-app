@@ -30,4 +30,14 @@ export const APP_KNOWLEDGE = {
     description:
       "settings you have access to add a profile photo change your profile photo and also change your password set new budget and change app theme ",
   },
+
+  managefinance: {
+    description:
+      "manage finance drop down you have access to see bugets and goals and set budget for specific spending catgerories",
+  },
+
+  addTransactions: {
+    description:
+      "to addTransactions first navigate to drop down to create a budget for the month then you can add transactions for the month",
+  },
 };
