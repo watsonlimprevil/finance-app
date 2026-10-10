@@ -1,6 +1,7 @@
 import { useState, useLayoutEffect } from "react";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
+
 document.documentElement.setAttribute("data-theme", "dark");
 document.documentElement.style.setProperty("--accent-color", "#6366f1");
 export default function Settings() {
@@ -300,7 +301,7 @@ export default function Settings() {
           Delete Account
         </button>
         {deleting && (
-          <div>
+          <div className="confirmation-box">
             <p>
               Are you sure you want to delete your account? this action cannot
               be undone
