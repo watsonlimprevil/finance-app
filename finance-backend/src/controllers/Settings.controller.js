@@ -10,7 +10,7 @@ export const getGlobalSettings = async (req, res) => {
     );
 
     if (!preferenceRes) {
-      return res.statsu(404).json({ error: "user not found" });
+      return res.status(404).json({ error: "user not found" });
     }
     const preferences = preferenceRes.rows;
     res.json(preferences);
