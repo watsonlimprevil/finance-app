@@ -6,6 +6,7 @@ import transactionsRouter from "./routes/transactions.js";
 import goalRouter from "./routes/Goal.routes.js";
 import globalRouter from "./routes/settings.routes.js";
 import userRouter from "./routes/user.routes.js";
+import assistanRouter from "./routes/assistant.routes.js";
 
 dotenv.config();
 
@@ -51,7 +52,7 @@ app.use("/user", userRouter);
 app.use("/settings", globalRouter);
 app.use("/transactions", transactionsRouter);
 app.use("/goals", goalRouter);
-
+app.use("/assistant", assistanRouter);
 app.listen(3000, () => {
   console.log("Finance backend running on port 3000");
 });
