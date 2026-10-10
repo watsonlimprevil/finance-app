@@ -21,7 +21,7 @@ export default function AssistantBubble({ onOpen }) {
       onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
       onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1.0)")}
     >
-      🧠 Need help?
+      🧠 Ask AI?
     </div>
   );
 }

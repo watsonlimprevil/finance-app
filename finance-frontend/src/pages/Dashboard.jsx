@@ -11,6 +11,8 @@ import MonthlyTrendChart from "../components/MonthlyTrendChart.jsx";
 import BudgetProgress from "../components/BudgetProgress.jsx";
 import SidebarMenu from "../components/SidebarMenu.jsx";
 import LowBalance from "../components/LowBalance.jsx";
+import AssistantBubble from "../components/AssistantBubble.jsx";
+import AssistantWindow from "../components/AssitantWindow.jsx";
 export default function Dashboard() {
   const [summary, setSummary] = useState(null);
   const [transactions, setTransactions] = useState([]);
@@ -34,6 +36,7 @@ export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [transactionError, setTransactionError] = useState("");
   const [lowBalanceModel, SetLowBalanceModel] = useState(false);
+  const [assistantOpen, setAssistantOpen] = useState(false);
 
   useEffect(() => {
     reloadAll();
@@ -94,6 +97,8 @@ export default function Dashboard() {
     console.log(res.data);
     setSummary(res.data);
   }
+
+  const userState = transactions.length === 0 ? "empty" : "active";
 
   async function loadTransactions() {
     const res = await api.get(
@@ -265,6 +270,14 @@ export default function Dashboard() {
             confirm={confirmDelete}
           />
         </div>
+        {assistantOpen ? (
+          <AssistantWindow
+            userState={userState}
+            onClose={() => setAssistantOpen(false)}
+          />
+        ) : (
+          <AssistantBubble onOpen={() => setAssistantOpen(true)} />
+        )}
       </div>
     </div>
   );
