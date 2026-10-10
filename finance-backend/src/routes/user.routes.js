@@ -72,7 +72,7 @@ router.get("/me", requireAuth, async (req, res) => {
     }
     return res.json(users);
   } catch (error) {
-    res.status(500).jeon({ error: "error getting user details" });
+    res.status(500).json({ error: "error getting user details" });
   }
 });
 
