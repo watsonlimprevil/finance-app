@@ -18,7 +18,7 @@ router.post(
       const result = await cloudinary.v2.uploader.upload(req.file.path);
       await pool.query(
         `INSERT into users avatarUrl = $1,
-            WHERE user_id = $2 `,
+            WHERE id = $2 `,
         [result.secure_url, userId],
       );
       res.json({ url: result.secure_url });
@@ -34,7 +34,7 @@ router.get("/uploaded", requireAuth, async (req, res) => {
 
   try {
     const users = await pool.query(
-      `SELECT avatarUrl from users WHERE user_id = $1`,
+      `SELECT avatarUrl from users WHERE id = $1`,
       [userId],
     );
     const avatar = users[0].rows;
@@ -49,7 +49,7 @@ router.delete("/delete-account", requireAuth, async (req, res) => {
   try {
     await pool.query(
       `DELETE FROM (users , goals , transactions , userPreferences , budgets)
-            WHERE user_id = $1`,
+            WHERE id = $1`,
       [userId],
     );
 
@@ -62,7 +62,7 @@ router.delete("/delete-account", requireAuth, async (req, res) => {
 router.get("/me", requireAuth, async (req, res) => {
   const userId = req.user.userId;
   try {
-    const data = await pool.query(`SELECT * FROM users WHERE user_id = $1`, [
+    const data = await pool.query(`SELECT * FROM users WHERE id = $1`, [
       userId,
     ]);
 
