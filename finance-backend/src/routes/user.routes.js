@@ -17,11 +17,11 @@ router.post(
 
       const result = await cloudinary.v2.uploader.upload(req.file.path);
       await pool.query(
-        `INSERT into users avatarurl = $1,
+        `UPDATE  users SET avatarurl = $1,
             WHERE id = $2 `,
         [result.secure_url, userId],
       );
-      res.json({ url: result.secure_url });
+      res.json({ avatarurl: result.secure_url });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Upload failed" });
@@ -37,8 +37,11 @@ router.get("/uploaded", requireAuth, async (req, res) => {
       `SELECT avatarurl from users WHERE id = $1`,
       [userId],
     );
-    const avatar = users[0].rows;
-    res.json({ avatarurl: avatar.avatarurl });
+    if (users.rows.length === 0) {
+      return res.json({ avatarUrl: null });
+    }
+
+    res.json({ avatarUrl: result.rows[0].avatarurl });
   } catch (err) {
     res.status(500).json({ error: "Failed to load avatar" });
   }
