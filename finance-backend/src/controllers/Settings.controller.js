@@ -15,7 +15,7 @@ export const getGlobalSettings = async (req, res) => {
       return res.json({ message: "no user preferences yet" });
     }
 
-    return res.json(preferences[0]); // return the actual preference object
+    return res.json(preferences); // return the actual preference object
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Error getting preferences" });
@@ -30,6 +30,7 @@ export const updateGlobalSettings = async (req, res) => {
     await pool.query(
       `INSERT INTO userPreferences (preferences , user_id) 
       VALUES($1 , $2)
+      RETURNING *
       `,
       [preferences, userId],
     );
