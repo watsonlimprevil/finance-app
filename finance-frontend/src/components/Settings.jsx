@@ -11,13 +11,6 @@ export default function Settings() {
     accentColor: "#6366f1",
   });
 
-  useLayoutEffect(() => {
-    document.documentElement.setAttribute("data-theme", preferences?.theme);
-    document.documentElement.style.setProperty(
-      "--accent-color",
-      preferences?.accentColor,
-    );
-  }, [preferences]);
   console.log("testing debugging");
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -133,12 +126,12 @@ export default function Settings() {
           <div className="profile-section">
             {/* Avatar */}
             <div className="settings-field">
-              <label>Avatar{user.avatarUrl}</label>
+              <label>Avatar{user.avatarurl}</label>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "12px" }}
               >
                 <img
-                  src={user.avatarUrl || "/default-avatar.png"}
+                  src={user.avatarurl || "/default-avatar.png"}
                   alt="Avatar"
                   className="profile-avatar"
                   style={{
