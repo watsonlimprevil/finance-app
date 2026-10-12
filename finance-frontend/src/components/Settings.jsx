@@ -22,10 +22,10 @@ export default function Settings() {
   const loadSettings = async () => {
     try {
       const res = await api.get("/settings/globalsettings");
-      const data = res.data;
+      const results = res.data;
 
-      const theme = data.preferences?.theme || "dark";
-      const accent = data.prferences?.accentColor || "#b0b1d1";
+      const theme = results.preferences?.theme || "dark";
+      const accent = results.prferences?.accentColor || "#b0b1d1";
       setPreferences({ theme, accentColor: accent });
 
       applyTheme(theme);
