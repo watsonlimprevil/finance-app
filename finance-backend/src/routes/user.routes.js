@@ -38,7 +38,7 @@ router.get("/uploaded", requireAuth, async (req, res) => {
       [userId],
     );
     const avatar = users[0].rows;
-    res.json({ avatarUrl: avatar.avatarUrl });
+    res.json({ avatarurl: avatar.avatarurl });
   } catch (err) {
     res.status(500).json({ error: "Failed to load avatar" });
   }
