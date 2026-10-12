@@ -64,17 +64,19 @@ router.delete("/delete-account", requireAuth, async (req, res) => {
 
 router.get("/me", requireAuth, async (req, res) => {
   const userId = req.user.userId;
+
   try {
-    const data = await pool.query(`SELECT * FROM users WHERE id = $1`, [
+    const result = await pool.query(`SELECT * FROM users WHERE id = $1`, [
       userId,
     ]);
 
-    const users = data.rows;
-    if (users.length === 0) {
+    if (result.rows.length === 0) {
       return res.status(404).json({ message: "Unable to find user" });
     }
-    return res.json(users);
+
+    return res.json(result.rows[0]);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "error getting user details" });
   }
 });
