@@ -28,8 +28,9 @@ export const updateGlobalSettings = async (req, res) => {
     const { preferences } = req.body;
 
     await pool.query(
-      `INSERT INTO userPreferences preferences = $1 
-            WHERE user_id = $2`,
+      `INSERT INTO userPreferences (preferences , user_id) 
+      VALUES($1 , $2)
+      `,
       [preferences, userId],
     );
     res.json({ message: "succesfully updated preferences" });
