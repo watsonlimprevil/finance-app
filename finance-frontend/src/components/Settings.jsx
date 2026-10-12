@@ -18,7 +18,7 @@ export default function Settings() {
       preferences.accentColor,
     );
   }, [preferences]);
-
+  console.log("testing debugging");
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
@@ -32,7 +32,7 @@ export default function Settings() {
       const data = res.data;
 
       const theme = data.preferences?.theme || "dark";
-      const accent = data.prferences?.accentColor || "#6366f1";
+      const accent = data.prferences?.accentColor || "#b0b1d1";
       setPreferences({ theme, accentColor: accent });
 
       applyTheme(theme);
