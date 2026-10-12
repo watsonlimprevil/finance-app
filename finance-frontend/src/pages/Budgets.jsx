@@ -64,6 +64,7 @@ export default function Budgets() {
       const res = await api.post("/goals/addgoals", data);
       if (res.data.message === "successfully inputed goal") {
         alert("goals succesfully added");
+        setShowGoalsModal(false);
       }
       loadGoals();
     } catch (err) {
