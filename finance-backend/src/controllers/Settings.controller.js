@@ -5,7 +5,7 @@ export const getGlobalSettings = async (req, res) => {
     const userId = req.user.userId;
 
     const preferenceRes = await pool.query(
-      `SELECT * FROM userpreferences WHERE user_id = $1`,
+      `SELECT * FROM "userPreferences" WHERE user_id = $1`,
       [userId],
     );
 
@@ -28,7 +28,7 @@ export const updateGlobalSettings = async (req, res) => {
     const { preferences } = req.body;
 
     await pool.query(
-      `INSERT INTO userpreferences (preferences , user_id) 
+      `INSERT INTO "userPreferences" (preferences , user_id) 
       VALUES($1 , $2)
       RETURNING *
       `,
