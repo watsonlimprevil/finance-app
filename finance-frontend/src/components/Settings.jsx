@@ -43,7 +43,7 @@ export default function Settings() {
   const loadUser = async () => {
     try {
       const res = await api.get("/user/me");
-      setUser(res.data);
+      setUser(res.data?.users);
     } catch (error) {
       console.error("Fialed to load user", error);
     }
@@ -126,12 +126,12 @@ export default function Settings() {
           <div className="profile-section">
             {/* Avatar */}
             <div className="settings-field">
-              <label>Avatar{user.avatarurl}</label>
+              <label>Avatar{user?.avatarurl}</label>
               <div
                 style={{ display: "flex", alignItems: "center", gap: "12px" }}
               >
                 <img
-                  src={user.avatarurl || "/default-avatar.png"}
+                  src={user?.avatarurl || "/default-avatar.png"}
                   alt="Avatar"
                   className="profile-avatar"
                   style={{
