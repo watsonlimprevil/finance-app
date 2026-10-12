@@ -66,9 +66,11 @@ export default function Settings() {
 
   const handleSavePreferences = async () => {
     try {
-      await api.post("/settings/global", { preferences });
-      applyTheme(preferences?.theme || "dark");
-      applyAccent(preferences?.accentColor || "#6366f1");
+      const data = await api.post("/settings/global", { preferences });
+      const theme = data.preferences?.theme || "dark";
+      const accent = data.preferences.accentColor || "#6366f1";
+      applyTheme(theme);
+      applyAccent(accent);
       alert("Preferences saved");
     } catch (err) {
       alert("failed  to save preferences");
