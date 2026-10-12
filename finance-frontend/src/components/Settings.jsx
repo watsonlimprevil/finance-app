@@ -46,7 +46,7 @@ export default function Settings() {
   const loadUser = async () => {
     try {
       const res = await api.get("/user/me");
-      setUser(res.data?.users);
+      setUser(res.data);
     } catch (error) {
       console.error("Fialed to load user", error);
     }
