@@ -17,7 +17,7 @@ router.post(
 
       const result = await cloudinary.v2.uploader.upload(req.file.path);
       await pool.query(
-        `INSERT into users avatarUrl = $1,
+        `INSERT into users avatarurl = $1,
             WHERE id = $2 `,
         [result.secure_url, userId],
       );
@@ -34,7 +34,7 @@ router.get("/uploaded", requireAuth, async (req, res) => {
 
   try {
     const users = await pool.query(
-      `SELECT avatarUrl from users WHERE id = $1`,
+      `SELECT avatarurl from users WHERE id = $1`,
       [userId],
     );
     const avatar = users[0].rows;
