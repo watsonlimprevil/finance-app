@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import "./settings.css";
@@ -37,6 +37,9 @@ export default function Settings() {
 
   useLayoutEffect(() => {
     loadSettings();
+  }, []);
+
+  useEffect(() => {
     loadUser();
   }, []);
 
