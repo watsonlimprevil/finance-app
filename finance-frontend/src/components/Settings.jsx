@@ -12,10 +12,10 @@ export default function Settings() {
   });
 
   useLayoutEffect(() => {
-    document.documentElement.setAttribute("data-theme", preferences.theme);
+    document.documentElement.setAttribute("data-theme", preferences?.theme);
     document.documentElement.style.setProperty(
       "--accent-color",
-      preferences.accentColor,
+      preferences?.accentColor,
     );
   }, [preferences]);
   console.log("testing debugging");
@@ -67,8 +67,8 @@ export default function Settings() {
   const handleSavePreferences = async () => {
     try {
       await api.post("/settings/global", { preferences });
-      applyTheme(preferences.theme);
-      applyAccent(preferences.accentColor);
+      applyTheme(preferences?.theme);
+      applyAccent(preferences?.accentColor);
       alert("Preferences saved");
     } catch (err) {
       alert("failed  to save preferences");
