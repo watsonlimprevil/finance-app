@@ -159,7 +159,7 @@ export default function Settings() {
 
                       setUser((prev) => ({
                         ...prev,
-                        avatarUrl: res.data.avatarUrl,
+                        avatarurl: res.data.avatarurl,
                       }));
                     } catch (err) {
                       alert("Failed to update avatar");
