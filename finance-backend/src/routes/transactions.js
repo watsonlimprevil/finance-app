@@ -563,7 +563,7 @@ router.get("/insights", requireAuth, async (req, res) => {
     const ExpenseRes = await pool.query(
       `SELECT COALESCE(sum(amount),0) AS total 
       FROM transactions WHERE user_id = $1 
-      AND type = 'expense' 
+      AND type = expense 
       AND date >= date_trunc('month', CURRENT_DATE)`,
       [userId],
     );
@@ -580,7 +580,7 @@ router.get("/insights", requireAuth, async (req, res) => {
       `SELECT category SUM(amount)AS total 
       FROM transactions 
       WHERE user_id = $1
-      AND type = 'expense' 
+      AND type = expense
       AND date >= date_trunc('month' , CURRENT_DATE)
       GROUP BY category 
       ORDER BY total DESC 
