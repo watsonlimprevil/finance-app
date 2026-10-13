@@ -194,7 +194,7 @@ export default function Settings() {
               className="settings-btn"
               onClick={async () => {
                 try {
-                  await api.put("/api/user/update", {
+                  await api.put("/user/name", {
                     name: user.name,
                   });
                   alert("Profile updated");

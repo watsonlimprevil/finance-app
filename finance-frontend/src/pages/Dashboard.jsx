@@ -37,6 +37,7 @@ export default function Dashboard() {
   const [transactionError, setTransactionError] = useState("");
   const [lowBalanceModel, SetLowBalanceModel] = useState(false);
   const [assistantOpen, setAssistantOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     reloadAll();
@@ -48,6 +49,20 @@ export default function Dashboard() {
     const lowbalance = res.data.progress.monthly.percent > 90;
     if (lowbalance) {
       SetLowBalanceModel(true);
+    }
+  }
+
+  async function loadUser() {
+    try {
+      const result = await api.get("/user/me");
+      const users = result.data;
+      if (!users) {
+        console.log("unable to get user");
+        return;
+      }
+      setUser(users);
+    } catch (error) {
+      console.log("server error getting user", error);
     }
   }
 
@@ -154,6 +169,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard-layout">
       <div className="dashboard-content">
+        <h1>Welcome {user?.name || "back"}</h1>
         <h2>Dashboard</h2>
         <div className="card">
           <SidebarMenu />
