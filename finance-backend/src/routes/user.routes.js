@@ -81,7 +81,7 @@ router.get("/me", requireAuth, async (req, res) => {
   }
 });
 
-router.post("/name", requireAuth, async (req, res) => {
+router.put("/name", requireAuth, async (req, res) => {
   const userId = req.user.userId;
   const { name } = req.body;
   try {
