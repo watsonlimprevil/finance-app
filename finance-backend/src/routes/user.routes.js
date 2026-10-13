@@ -85,10 +85,10 @@ router.put("/name", requireAuth, async (req, res) => {
   const userId = req.user.userId;
   const { name } = req.body;
   try {
-    const data = await pool.query(
-      `UPDATE users SET name = $1 WHERE user_id = $2`,
-      [name, userId],
-    );
+    const data = await pool.query(`UPDATE users SET name = $1 WHERE id = $2`, [
+      name,
+      userId,
+    ]);
     const users = data.rows;
     if (!users) {
       return res.status(404).json({ error: "user not found" });
