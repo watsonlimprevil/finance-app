@@ -89,6 +89,7 @@ export default function Dashboard() {
       await loadTransactions();
       await loadTrends();
       await loadBudgetProgress();
+      await loadUser();
     } catch (error) {
       setError("Failed to load dashboard data");
     } finally {
