@@ -169,7 +169,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard-layout">
       <div className="dashboard-content">
-        <h1>Welcome {user?.name || "back"}</h1>
+        <h1>Welcome {user?.name}</h1>
         <h2>Dashboard</h2>
         <div className="card">
           <SidebarMenu />
