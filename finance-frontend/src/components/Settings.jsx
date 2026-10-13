@@ -22,10 +22,10 @@ export default function Settings() {
   const loadSettings = async () => {
     try {
       const res = await api.get("/settings/globalsettings");
-      const results = res.data;
+      const data = res.data;
 
-      const theme = results.preferences?.theme || "dark";
-      const accent = results.prferences?.accentColor || "#b0b1d1";
+      const theme = data.preferences?.theme || "dark";
+      const accent = data.prferences?.accentColor || "#b0b1d1";
       setPreferences({ theme, accentColor: accent });
 
       applyTheme(theme);
@@ -218,7 +218,7 @@ export default function Settings() {
         <div className="settings-field">
           <label>Theme</label>
           <select
-            value={preferences.theme}
+            value={preferences?.theme}
             onChange={(e) => {
               const theme = e.target.value;
               setPreferences({ ...preferences, theme });
