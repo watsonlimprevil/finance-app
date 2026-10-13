@@ -81,4 +81,24 @@ router.get("/me", requireAuth, async (req, res) => {
   }
 });
 
+router.post("/name", requireAuth, async (req, res) => {
+  const userId = req.user.userId;
+  const { name } = req.body;
+  try {
+    const data = await pool.query(
+      `UPDATE users SET name = $1 WHERE user_id = $2`,
+      [name, userId],
+    );
+    const users = data.rows;
+    if (!users) {
+      return res.status(404).json({ error: "user not found" });
+    }
+
+    res.json({ message: "Name successfully updated in the database" });
+  } catch (error) {
+    console.error("unable to add name to the database");
+    res.status(500).json({ error: "server error" });
+  }
+});
+
 export default router;
