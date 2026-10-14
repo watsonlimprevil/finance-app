@@ -105,11 +105,10 @@ router.put("/name", requireAuth, async (req, res) => {
 router.post("/sendCode", requireAuth, async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { email } = req.body;
-    const users = await pool.query(
-      `SELECT * FROM users WHERE user_id = $1 and email = $2`,
-      [userId, email],
-    );
+
+    const users = await pool.query(`SELECT * FROM users WHERE user_id = $1 `, [
+      userId,
+    ]);
 
     const user = users.rows[0];
 
@@ -122,7 +121,7 @@ router.post("/sendCode", requireAuth, async (req, res) => {
     const result = await pool.query(
       `INSERT into verificationcode (email , code , expiresat) 
     VALUES($1, $2) RETURNING *`,
-      [email, code, date],
+      [user.email, code, date],
     );
     const verified = await sendVerificationEmail(email, code);
     if (verified) {
