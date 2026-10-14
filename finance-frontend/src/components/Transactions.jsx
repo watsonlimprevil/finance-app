@@ -28,6 +28,9 @@ export default function TransactionsPage({ transactions, startEdit, remove }) {
               placeholder="search transactions"
             />
             <button onClick={() => setOpenSearchBar(false)}>cancel</button>
+            {search.trim === ""
+              ? setOpenSearchBar(false)
+              : setOpenSearchBar(true)}
           </div>
         )}
       </div>
