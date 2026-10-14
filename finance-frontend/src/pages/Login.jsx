@@ -192,7 +192,7 @@ export default function Login() {
               please be aware that a code will be sent to the email on file we
               have for you and code is valid for 10 minutes
             </p>
-            <button onClick={sendVerificationCode}>Proceed</button>
+            <button onClick={() => sendVerificationCode(true)}>Proceed</button>
             <button onClick={() => setShowVerification(false)}>Cancel</button>
           </div>
         )}
