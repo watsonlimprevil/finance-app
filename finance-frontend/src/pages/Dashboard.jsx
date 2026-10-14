@@ -13,7 +13,7 @@ import SidebarMenu from "../components/SidebarMenu.jsx";
 import LowBalance from "../components/LowBalance.jsx";
 import AssistantBubble from "../components/AssistantBubble.jsx";
 import AssistantWindow from "../components/AssitantWindow.jsx";
-import { filterGraphicalNotStackedItems } from "recharts/types/state/selectors/axisSelectors.js";
+
 export default function Dashboard() {
   const [summary, setSummary] = useState(null);
   const [transactions, setTransactions] = useState([]);
