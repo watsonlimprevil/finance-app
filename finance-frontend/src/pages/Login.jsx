@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
+import VerificationForm from "../components/VerificationForm";
 export default function Login() {
   const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showVerification, setShowVerification] = useState(false);
+  const [sendVerification, setSendVerification] = useState(false);
 
   async function handleLogin() {
     if (!email || !password) {
@@ -30,6 +33,19 @@ export default function Login() {
     nav("/dashboard");
     setLoading(false);
   }
+
+  async function sendVerificationCode() {
+    try {
+      const res = await api.post("/user/sendcode");
+      if (res.ok) {
+        alert("verfication code has been sent");
+        setSendVerification(true);
+      }
+    } catch (error) {
+      console.log("error sending verification code", error);
+    }
+  }
+
   return (
     <div
       style={{
@@ -131,6 +147,26 @@ export default function Login() {
           </div>
         )}
         <span
+          onClick={() => setShowVerification(true)}
+          style={{
+            marginTop: "25px",
+            padding: "10px 18px",
+            borderRadius: "25px",
+            border: "1px solid #00eaff",
+            color: "#00eaff",
+            fontSize: "15px",
+            fontWeight: "600",
+            textAlign: "center",
+            width: "70%",
+            marginLeft: "auto",
+            display: "block",
+            marginRight: "auto",
+            transition: "all 0.25 ease",
+          }}
+        >
+          Forgot password
+        </span>
+        <span
           onClick={() => nav("/register")}
           style={{
             marginTop: "25px",
@@ -150,6 +186,19 @@ export default function Login() {
         >
           Dont have a account? Register here
         </span>
+        {showVerification && (
+          <div>
+            <p>
+              please be aware that a code will be sent to the email on file we
+              have for you and code is valid for 10 minutes
+            </p>
+            <button onClick={sendVerificationCode}>Proceed</button>
+            <button onClick={() => setShowVerification(false)}>Cancel</button>
+          </div>
+        )}
+        {sendVerification && (
+          <VerificationForm onclose={() => setSendVerification(false)} />
+        )}
       </div>
     </div>
   );
