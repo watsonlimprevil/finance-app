@@ -37,10 +37,9 @@ export default function Login() {
   async function sendVerificationCode() {
     try {
       const res = await api.post("/user/sendcode");
-      if (res.ok) {
-        alert("verfication code has been sent");
-        setSendVerification(true);
-      }
+
+      alert("verfication code has been sent");
+      setSendVerification(true);
     } catch (error) {
       console.log("error sending verification code", error);
     }
