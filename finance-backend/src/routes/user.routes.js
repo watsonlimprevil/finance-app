@@ -102,7 +102,7 @@ router.put("/name", requireAuth, async (req, res) => {
   }
 });
 
-router.post("/sendCode", requireAuth, async (req, res) => {
+router.get("/sendCode", requireAuth, async (req, res) => {
   try {
     const userId = req.user.userId;
 
