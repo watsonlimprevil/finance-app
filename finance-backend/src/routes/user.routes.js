@@ -110,11 +110,11 @@ router.post("/sendCode", requireAuth, async (req, res) => {
       userId,
     ]);
 
-    const user = users.rows[0];
-
-    if (!user) {
+    if (users.rows.length === 0) {
       return res.status(404).json({ error: "user not found" });
     }
+    const user = users.rows[0];
+
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     const date = new Date(Date.now() + 1000 * 60 * 10);
 
