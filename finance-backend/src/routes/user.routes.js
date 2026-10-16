@@ -102,11 +102,11 @@ router.put("/name", requireAuth, async (req, res) => {
   }
 });
 
-router.get("/sendCode", requireAuth, async (req, res) => {
+router.post("/sendCode", requireAuth, async (req, res) => {
   try {
     const userId = req.user.userId;
 
-    const users = await pool.query(`SELECT * FROM users WHERE user_id = $1 `, [
+    const users = await pool.query(`SELECT * FROM users WHERE id = $1 `, [
       userId,
     ]);
 
@@ -120,7 +120,7 @@ router.get("/sendCode", requireAuth, async (req, res) => {
 
     const result = await pool.query(
       `INSERT into verificationcode (email , code , expiresat) 
-    VALUES($1, $2) RETURNING *`,
+    VALUES($1, $2 , $3) RETURNING *`,
       [user.email, code, date],
     );
     const verified = await sendVerificationEmail(email, code);
