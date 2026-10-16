@@ -6,4 +6,5 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 console.log("DATABASE_URLS:", process.env.DATABASE_URL);
+console.log("testing debugging");
 export default pool;
