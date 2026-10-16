@@ -8,7 +8,7 @@ export default function VerificationForm({ onclose }) {
 
   async function handleVerify() {
     try {
-      const res = await api.post("/user/getpost", { email, newPassword, code });
+      const res = await api.post("/user/getcode", { email, newPassword, code });
       if (res.ok) {
         alert("password updated succesfully");
       }
@@ -32,7 +32,7 @@ export default function VerificationForm({ onclose }) {
       <input
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
-        type="password"
+        type=" new password"
         placeholder="enter your password"
       />
       <button onClick={handleVerify}>Reset Password</button>
