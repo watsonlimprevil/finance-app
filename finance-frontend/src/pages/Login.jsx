@@ -36,7 +36,7 @@ export default function Login() {
 
   async function sendVerificationCode() {
     try {
-      const res = await api.get("/user/sendcode");
+      const res = await api.post("/user/sendcode");
 
       alert("verfication code has been sent");
       setSendVerification(true);
