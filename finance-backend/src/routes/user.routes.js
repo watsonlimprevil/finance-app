@@ -105,9 +105,9 @@ router.put("/name", requireAuth, async (req, res) => {
 router.post("/sendCode", requireAuth, async (req, res) => {
   try {
     const userId = req.user.userId;
-
-    const users = await pool.query(`SELECT * FROM users WHERE id = $1 `, [
-      userId,
+    const email = "limprevil35@gmail.com";
+    const users = await pool.query(`SELECT * FROM users WHERE email = $1 `, [
+      email,
     ]);
 
     if (users.rows.length === 0) {
