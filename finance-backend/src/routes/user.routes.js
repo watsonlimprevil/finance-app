@@ -123,7 +123,7 @@ router.post("/sendCode", requireAuth, async (req, res) => {
     VALUES($1, $2 , $3) RETURNING *`,
       [user.email, code, date],
     );
-    const verified = await sendVerificationEmail(email, code);
+    const verified = await sendVerificationEmail(user.email, code);
     if (verified) {
       res.json({ message: "email sent" });
     }
