@@ -4,7 +4,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function sendVerificationEmail(email, code) {
   try {
     await resend.emails.send({
-      from: "TeamsApp <limprevil35@gmail.com>",
+      from: "TeamsApp <teamsapp.uk>",
       to: email,
       subject: "Your verification code",
       html: `
