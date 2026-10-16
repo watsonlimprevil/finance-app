@@ -4,6 +4,7 @@ import pool from "../db.js";
 import multer from "multer";
 import cloudinary from "../utils/cloudinary.js";
 import { sendVerificationEmail } from "../utils/email.js";
+import bcrypt from "bcrypt";
 
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
@@ -142,7 +143,7 @@ router.post("/getcode", requireAuth, async (req, res) => {
       userId,
     ]);
     const user = data.rows;
-    if (data.length === 0) {
+    if (user.length === 0) {
       return res.status(404).json({ message: "user not found" });
     }
 
@@ -161,9 +162,11 @@ router.post("/getcode", requireAuth, async (req, res) => {
       return res.status(400).json({ message: "code is already expired" });
     }
 
+    const password = await bcrypt.hash(newPassword, 10);
+
     const insertNewPassword = await pool.query(
       `UPDATE users set password = $1 where id = $2`,
-      [newPassword, userId],
+      [password, userId],
     );
 
     res.json({ message: "password successfully updated" });
