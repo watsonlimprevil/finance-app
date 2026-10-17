@@ -167,9 +167,17 @@ router.post("/getcode", requireAuth, async (req, res) => {
     const password = await bcrypt.hash(newPassword, 10);
 
     const insertNewPassword = await pool.query(
-      `UPDATE users set password = $1 where id = $2`,
+      `UPDATE users set password_hash = $1 where id = $2`,
       [password, userId],
     );
+
+    //const twentyFourHoursAhead = Date.now() + 86_400_000;
+
+    //if (twentyFourHoursAhead) {
+    //await pool.query(`DELETE * FROM verificationcode where email = $1`, [
+    // email,
+    // ]);
+    //}
 
     res.json({ message: "password successfully updated" });
   } catch (err) {
