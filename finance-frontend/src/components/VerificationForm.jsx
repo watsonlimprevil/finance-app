@@ -10,7 +10,7 @@ export default function VerificationForm({ onclose }) {
   async function handleVerify() {
     try {
       const res = await api.post("/user/getcode", { email, newPassword, code });
-      if (res.ok) {
+      if (res.message === "password successfully updated") {
         alert("password updated succesfully");
       } else {
         setError(res.message);
