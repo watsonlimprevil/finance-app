@@ -69,7 +69,9 @@ export default function OnboardingModal({ onFinish, user }) {
 
             <button
               style={{ ...btn, background: "transparent", color: "#ccc" }}
-              onClick={onFinish}
+              onClick={() => {
+                (onFinish, localStorage.removeItem("token"));
+              }}
             >
               Skip
             </button>
@@ -144,7 +146,11 @@ export default function OnboardingModal({ onFinish, user }) {
                   <li>Change the theme and appeaarence of the app</li>
                   <li>Change your password hassle free</li>
                 </ul>
-                <button onClick={() => nav("/budgets")}>
+                <button
+                  onClick={() => {
+                    (nav("/budgets"), localStorage.removeItem("token"));
+                  }}
+                >
                   💸Lets Created a Budget to Begin!!💸
                 </button>
               </>

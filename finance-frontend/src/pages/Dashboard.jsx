@@ -13,6 +13,7 @@ import SidebarMenu from "../components/SidebarMenu.jsx";
 import LowBalance from "../components/LowBalance.jsx";
 import AssistantBubble from "../components/AssistantBubble.jsx";
 import AssistantWindow from "../components/AssitantWindow.jsx";
+import OnboardingModal from "../components/OnboardModal.jsx";
 
 export default function Dashboard() {
   const [summary, setSummary] = useState(null);
@@ -40,6 +41,17 @@ export default function Dashboard() {
   const [assistantOpen, setAssistantOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [openSearchBar, setOpenSearchBar] = useState(false);
+  const [onboarding, setOnboarding] = useState(false);
+
+  useEffect(() => {
+    function loadonbording() {
+      const onboard = localStorage.getItem("token");
+      if (onboard) {
+        setOnboarding(true);
+      }
+    }
+    loadonbording();
+  }, []);
 
   useEffect(() => {
     reloadAll();
@@ -165,6 +177,15 @@ export default function Dashboard() {
         <h1>Dashboard</h1>
         <p style={{ color: "red" }}>{error}</p>
         <button onClick={reloadAll}>Retry</button>
+      </div>
+    );
+  }
+
+  if (onboarding) {
+    return (
+      <div className="dashboard-layout">
+        <h1>Dashboard</h1>
+        <OnboardingModal />
       </div>
     );
   }
