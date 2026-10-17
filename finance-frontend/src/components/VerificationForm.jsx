@@ -5,12 +5,15 @@ export default function VerificationForm({ onclose }) {
   const [newPassword, setNewPassword] = useState("");
   const [code, setCode] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
   async function handleVerify() {
     try {
       const res = await api.post("/user/getcode", { email, newPassword, code });
       if (res.ok) {
         alert("password updated succesfully");
+      } else {
+        setError(res.message);
       }
     } catch (err) {
       console.log("unable to update password");
@@ -18,6 +21,7 @@ export default function VerificationForm({ onclose }) {
   }
   return (
     <div className="verification-form">
+      {error && <p>{error}</p>}
       <input
         value={email}
         onChange={(e) => setEmail(e.target.value)}
