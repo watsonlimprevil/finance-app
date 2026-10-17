@@ -157,8 +157,8 @@ router.post("/getcode", requireAuth, async (req, res) => {
     }
 
     const codeBase = verified.rows[0];
-    const TEN_MINUTES_MS = 10 * 60 * 1000;
-    if (codeBase.expiresat > TEN_MINUTES_MS) {
+    const TEN_MINUTES_MS = new Date(Date.now() + 1000 * 60 * 10);
+    if (TEN_MINUTES_MS > codeBase.expiresat) {
       return res.status(400).json({ message: "code is already expired" });
     }
 
