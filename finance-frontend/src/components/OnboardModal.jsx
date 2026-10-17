@@ -1,7 +1,8 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function OnboardingModal({ onFinish, user }) {
   const [step, setStep] = useState(1);
+  const nav = useNavigate();
 
   const containerStyle = {
     position: "fixed",
@@ -43,18 +44,27 @@ export default function OnboardingModal({ onFinish, user }) {
       <div style={modalStyle}>
         {step === 1 && (
           <>
-            <h2 style={{ marginBottom: "10px" }}>
-              Welcome {user?.name} to BudgetSense
-            </h2>
-            <p style={{ lineHeight: "1.5", marginBottom: "20px" }}>
-              This app helps track manage and give insights on your finance all
-              at the touch of your fingertips!!
-            </p>
+            <h1 style={{ marginBottom: "10px" }}>
+              Welcome {user?.name} to BudgetSense🤖
+            </h1>
+            <h2>📊Welcome to the dashboard section! here you can</h2>
+            <ul>
+              <li>View your various monthly transactions</li>
+              <li>➕Add new monthly transactions</li>
+              <li>
+                📈We have graphs and charts that gives a breakdown of your
+                comings and outgoings for the month
+              </li>
+              <li>🤏🏾sort and filter through your various transactions</li>
+            </ul>
             <button
               style={{ ...btn, background: "#2575fc", color: "white" }}
-              onClick={() => setStep(2)}
+              onClick={() => {
+                setStep(2);
+                nav("/budgets");
+              }}
             >
-              Next
+              🔥 Let me show you around
             </button>
 
             <button
@@ -67,23 +77,31 @@ export default function OnboardingModal({ onFinish, user }) {
         )}
         {step === 2 && (
           <>
-            <h2 style={{ marginBottom: "10px" }}>What you can do here🚀</h2>
+            <h2 style={{ marginBottom: "10px" }}>
+              Welcome to the budget and goals sections🚀
+            </h2>
+            <span>
+              welcome to one of my favourite sections of the app here you can
+            </span>
             <ul>
-              <li>📌Create and manage teams</li>
-              <li>📁Build projects with tasks</li>
-              <li>⌛Track your activity and progress</li>
-              <li>🤖 Use the Ai assistant to plan and organize</li>
-              <li>📊 View insight and productivity stats</li>
+              <li>💴Add monthly budget</li>
+              <li>💴Add budget by various categories</li>
+              <li>💴Add and track money goals</li>
             </ul>
             <button
               style={{ ...btn, background: "#2575fc", color: "white" }}
-              onClick={() => setStep(3)}
+              onClick={() => {
+                setStep(3);
+                nav("/insights");
+              }}
             >
               Next
             </button>
             <button
               style={{ ...btn, background: "transparent", color: "#ccc" }}
-              onClick={() => setStep(1)}
+              onClick={() => {
+                (setStep(1), nav("/dashboard"));
+              }}
             >
               Back
             </button>
@@ -93,17 +111,19 @@ export default function OnboardingModal({ onFinish, user }) {
           <>
             <h2 style={{ marginBottom: "10px" }}>Lets get started 🎯</h2>
             <p style={{ lineHeight: "1.5", marginBottom: "20px" }}>
-              You can begin by creating ypur first team or project. Or let the
-              Ai assitant help you set everything up.
+              🔎 Welcome to insights here you track your average daily spending
+              and aswell as sepending per category. and also you can ask ai on
+              advice your various money goals🔎
             </p>
 
             <button
               style={{ ...btn, background: "#1e1e1e", color: "#ccc" }}
               onClick={() => {
-                onFinish();
+                setStep(4);
+                nav("/settings");
               }}
             >
-              Create your first team
+              Lets go check out settings 🛠️
             </button>
 
             <button
@@ -112,19 +132,23 @@ export default function OnboardingModal({ onFinish, user }) {
                 onFinish();
               }}
             >
-              Create your first Project
+              skip Settings
             </button>
-            <button
-              style={{ ...btn, background: "#2575fc", color: "#ccc" }}
-              onClick={onFinish}
-            >
-              Finish
-            </button>
-            <button
-              style={{ ...btn, background: "transparent", color: "#ccc" }}
-            >
-              Back
-            </button>
+            {step === 4 && (
+              <>
+                <h2>Welcome to the Settings page. here you can..🛠️</h2>
+
+                <ul>
+                  <li>🧑🏾‍🏫Add profile picture</li>
+                  <li>Logout from your account</li>
+                  <li>Change the theme and appeaarence of the app</li>
+                  <li>Change your password hassle free</li>
+                </ul>
+                <button onClick={() => nav("/budgets")}>
+                  💸Lets Created a Budget to Begin!!💸
+                </button>
+              </>
+            )}
           </>
         )}
       </div>
