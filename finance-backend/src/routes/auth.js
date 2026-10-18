@@ -75,10 +75,9 @@ router.post("/register", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const exists = await pool.query(
-      `SELECT * FROM users where email = $1 RETURNING *`,
-      [email],
-    );
+    const exists = await pool.query(`SELECT * FROM users where email = $1 `, [
+      email,
+    ]);
 
     if (exists.rows.length > 0) {
       return res.status(400).json({ error: "email is already in use" });
