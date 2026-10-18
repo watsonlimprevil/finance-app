@@ -8,6 +8,10 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassowrd] = useState("");
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState("");
+  const [code, setCode] = useState("");
+  const [showCode, setShowCode] = useState(false);
+  const [showPassword, setShowpassword] = useState(false);
 
   async function handleSignUp() {
     if (password !== confirmPassword) {
@@ -16,12 +20,37 @@ export default function Register() {
     }
     const res = await api.post("/auth/register", { email, password });
     if (!res.ok) {
-      setError("unable to complete login");
+      setError("unable to complete registration");
       return;
     }
     localStorage.setItem("token", res.data.token);
     nav("/");
     setError(null);
+  }
+
+  async function sendVerificationcode() {
+    try {
+      const res = await api.post("/sendverificationcode", { email });
+      if (res.message === "verfication code successfully sent") {
+        alert("code has been set to your email");
+        setShowCode(true);
+      }
+    } catch (err) {
+      alert("eror sendding code");
+      console.log("error sending code", err);
+    }
+  }
+
+  async function checkVerificationCode() {
+    try {
+      const res = await api.post("/auth/checkverificationcode", { code });
+      if (res.message === "code successfully verified") {
+        setShowpassword(true);
+      }
+    } catch (err) {
+      setError("code is not correct");
+      console.log("error verifying the user code", err);
+    }
   }
 
   return (
