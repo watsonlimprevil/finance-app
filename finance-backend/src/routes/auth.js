@@ -42,12 +42,13 @@ router.post("/sendVerificationCode", async (req, res) => {
 
 router.post("/checkVerificationCode", async (req, res) => {
   const { code, email } = req.body;
+  const DBcode = Number(code);
 
   try {
     const verifyRes = await pool.query(
       `SELECT * FROM verificationcode WHERE email = $1 
       AND code = $2`,
-      [email, code],
+      [email, DBcode],
     );
     console.log("adding log statement to restart the container");
 
