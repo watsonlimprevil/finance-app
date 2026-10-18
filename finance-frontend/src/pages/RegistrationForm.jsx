@@ -69,127 +69,137 @@ export default function RegistrationForm() {
         transition: "filter 0.3s ease",
       }}
     >
-      <input
-        placeholder="Enter your email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+      <div
         style={{
-          width: "100%",
-          padding: "14px",
-          marginBottom: "15px",
-          borderRadius: "10px",
-          border: "none",
-          background: "#1e1e1e",
-          color: "white",
-          fontSize: "16px",
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,0,0,0.55)",
+          backdropFilter: "blur(2px)",
         }}
-      />
-
-      <input
-        placeholder="Enter your name..."
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "14px",
-          marginBottom: "15px",
-          borderRadius: "10px",
-          border: "none",
-          background: "#1e1e1e",
-          color: "white",
-          fontSize: "16px",
-        }}
-      />
-      <button
-        style={{
-          width: "100%",
-          padding: "14px",
-          borderRadius: "10px",
-          border: "none",
-          background: "linear-gradient(135deg, #6a11cb , #2575fc)",
-          color: "white",
-          fontSize: "18px",
-          fontWeight: "600",
-          cursor: "pointer",
-        }}
-        onClick={sendVerificationcode}
       >
-        Verify Email
-      </button>
-      {error && <div>{error}</div>}
+        <h1>Lets create your Account!</h1>
+        <input
+          placeholder="Enter your email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "14px",
+            marginBottom: "15px",
+            borderRadius: "10px",
+            border: "none",
+            background: "#1e1e1e",
+            color: "white",
+            fontSize: "16px",
+          }}
+        />
 
-      {showCode && (
-        <div>
-          <input
-            value={code}
-            type="number"
-            placeholder="enter the code"
-            style={{
-              width: "100%",
-              padding: "14px",
-              marginBottom: "15px",
-              borderRadius: "10px",
-              border: "none",
-              background: "#1e1e1e",
-              color: "white",
-              fontSize: "16px",
-            }}
-          />
-          <button
-            style={{
-              width: "100%",
-              padding: "14px",
-              borderRadius: "10px",
-              border: "none",
-              background: "linear-gradient(135deg, #6a11cb , #2575fc)",
-              color: "white",
-              fontSize: "18px",
-              fontWeight: "600",
-              cursor: "pointer",
-            }}
-            onClick={checkVerificationCode}
-          >
-            Verify code
-          </button>
-        </div>
-      )}
+        <input
+          placeholder="Enter your name..."
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "14px",
+            marginBottom: "15px",
+            borderRadius: "10px",
+            border: "none",
+            background: "#1e1e1e",
+            color: "white",
+            fontSize: "16px",
+          }}
+        />
+        <button
+          style={{
+            width: "100%",
+            padding: "14px",
+            borderRadius: "10px",
+            border: "none",
+            background: "linear-gradient(135deg, #6a11cb , #2575fc)",
+            color: "white",
+            fontSize: "18px",
+            fontWeight: "600",
+            cursor: "pointer",
+          }}
+          onClick={sendVerificationcode}
+        >
+          Verify Email
+        </button>
+        {error && <div>{error}</div>}
 
-      {showPassword && (
-        <div>
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            style={{
-              width: "100%",
-              padding: "14px",
-              marginBotttom: "15px",
-              borderRadius: "10px",
-              border: "none",
-              background: "#1e1e1e",
-              color: "white",
-              fontSize: "16px",
-            }}
-          />
-          <button
-            style={{
-              width: "100%",
-              padding: "14px",
-              borderRadius: "10px",
-              border: "none",
-              background: "linear-gradient(135deg, #6a11cb , #2575fc)",
-              color: "white",
-              fontSize: "18px",
-              fontWeight: "600",
-              cursor: "pointer",
-            }}
-            onClick={handleSignUp}
-          >
-            SignUp
-          </button>
-        </div>
-      )}
+        {showCode && (
+          <div>
+            <input
+              value={code}
+              type="number"
+              placeholder="enter the code"
+              style={{
+                width: "100%",
+                padding: "14px",
+                marginBottom: "15px",
+                borderRadius: "10px",
+                border: "none",
+                background: "#1e1e1e",
+                color: "white",
+                fontSize: "16px",
+              }}
+            />
+            <button
+              style={{
+                width: "100%",
+                padding: "14px",
+                borderRadius: "10px",
+                border: "none",
+                background: "linear-gradient(135deg, #6a11cb , #2575fc)",
+                color: "white",
+                fontSize: "18px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+              onClick={checkVerificationCode}
+            >
+              Verify code
+            </button>
+          </div>
+        )}
+
+        {showPassword && (
+          <div>
+            <input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "14px",
+                marginBotttom: "15px",
+                borderRadius: "10px",
+                border: "none",
+                background: "#1e1e1e",
+                color: "white",
+                fontSize: "16px",
+              }}
+            />
+            <button
+              style={{
+                width: "100%",
+                padding: "14px",
+                borderRadius: "10px",
+                border: "none",
+                background: "linear-gradient(135deg, #6a11cb , #2575fc)",
+                color: "white",
+                fontSize: "18px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+              onClick={handleSignUp}
+            >
+              SignUp
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
