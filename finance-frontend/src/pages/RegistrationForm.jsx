@@ -20,7 +20,7 @@ export default function RegistrationForm() {
       return;
     }
     const res = await api.post("/auth/register", { email, password });
-    if (!res.ok) {
+    if (!res.data.token) {
       setError("unable to complete registration");
       return;
     }
