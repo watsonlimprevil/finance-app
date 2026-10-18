@@ -15,7 +15,7 @@ router.post("/sendVerificationCode", async (req, res) => {
     ]);
 
     if (existing.rows.length > 0) {
-      await pool.query(`DELETE * from users WHERE email = $1`, [email]);
+      await pool.query(`DELETE  from users WHERE email = $1`, [email]);
     }
 
     // 3. Insert user
@@ -31,7 +31,7 @@ router.post("/sendVerificationCode", async (req, res) => {
     const verified = await sendVerificationEmail(users.email, code);
     if (verified.success) {
       return res
-        .status(204)
+        .status(200)
         .json({ message: "verfication code successfully sent" });
     }
   } catch (err) {
