@@ -44,7 +44,10 @@ export default function RegistrationForm() {
 
   async function checkVerificationCode() {
     try {
-      const res = await api.post("/auth/checkverificationcode", { code });
+      const res = await api.post("/auth/checkverificationcode", {
+        code,
+        email,
+      });
       if (res.message === "code successfully verified") {
         setShowpassword(true);
       }
