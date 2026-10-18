@@ -45,7 +45,7 @@ router.post("/checkVerificationCode", async (req, res) => {
 
   try {
     const verifyRes = await pool.query(
-      `SELECT * FROM verficationcode WHERE email = $1 
+      `SELECT * FROM verificationcode WHERE email = $1 
       AND code = $2`,
       [email, code],
     );
@@ -61,6 +61,8 @@ router.post("/checkVerificationCode", async (req, res) => {
     if (expired > TEN_MINUTE_MS) {
       return res.status(400).json({ message: "code is already expired" });
     }
+
+    await pool.query(`DELETE FROM verificationcode where email = $1 `, [email]);
     res.json({ message: "code successfully verified" });
   } catch (err) {
     console.error("unable to verify code", err);
