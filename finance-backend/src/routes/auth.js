@@ -64,7 +64,7 @@ router.post("/checkVerificationCode", async (req, res) => {
     }
 
     await pool.query(`DELETE FROM verificationcode where email = $1 `, [email]);
-    res.json({ message: "code successfully verified" });
+    return res.json({ message: "code successfully verified" });
   } catch (err) {
     console.error("unable to verify code", err);
     res.status(500).json({ error: "server error" });
@@ -80,7 +80,7 @@ router.post("/register", async (req, res) => {
       [email],
     );
 
-    if (exists) {
+    if (exists.rows.length > 0) {
       return res.status(400).json({ error: "email is already in use" });
     }
 
@@ -98,7 +98,7 @@ router.post("/register", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );
-    res.status(201).json({ token, user });
+    return res.status(201).json({ token, user });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "server error" });
