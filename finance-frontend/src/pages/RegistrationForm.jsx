@@ -118,6 +118,78 @@ export default function RegistrationForm() {
       >
         Verify Email
       </button>
+      {error && <div>{error}</div>}
+
+      {showCode && (
+        <div>
+          <input
+            value={code}
+            type="number"
+            placeholder="enter the code"
+            style={{
+              width: "100%",
+              padding: "14px",
+              marginBottom: "15px",
+              borderRadius: "10px",
+              border: "none",
+              background: "#1e1e1e",
+              color: "white",
+              fontSize: "16px",
+            }}
+          />
+          <button
+            style={{
+              width: "100%",
+              padding: "14px",
+              borderRadius: "10px",
+              border: "none",
+              background: "linear-gradient(135deg, #6a11cb , #2575fc)",
+              color: "white",
+              fontSize: "18px",
+              fontWeight: "600",
+              cursor: "pointer",
+            }}
+            onClick={checkVerificationCode}
+          >
+            Verify code
+          </button>
+        </div>
+      )}
+
+      {showPassword && (
+        <div>
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "14px",
+              marginBotttom: "15px",
+              borderRadius: "10px",
+              border: "none",
+              background: "#1e1e1e",
+              color: "white",
+              fontSize: "16px",
+            }}
+          />
+          <button
+            style={{
+              width: "100%",
+              padding: "14px",
+              borderRadius: "10px",
+              border: "none",
+              background: "linear-gradient(135deg, #6a11cb , #2575fc)",
+              color: "white",
+              fontSize: "18px",
+              fontWeight: "600",
+              cursor: "pointer",
+            }}
+            onClick={handleSignUp}
+          >
+            SignUp
+          </button>
+        </div>
+      )}
     </div>
   );
 }

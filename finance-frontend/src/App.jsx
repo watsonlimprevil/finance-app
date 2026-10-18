@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
-import Register from "./pages/Register";
 
 import Dashboard from "./pages/Dashboard.jsx";
 import Transactions from "./components/Transactions";
@@ -12,12 +11,13 @@ import Layout from "./components/Layout";
 import AddTransaction from "./components/AddTransactions";
 import Budgets from "./pages/Budgets";
 import ProtectedRoute from "./components/ProtectedRoute";
+import RegistrationForm from "./pages/RegistrationForm.jsx";
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="transactionSettings" element={<TransactionSettings />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<RegistrationForm />} />
         <Route path="/" element={<Login />} />
 
         <Route path="/dashboard" element={<Dashboard />} />
