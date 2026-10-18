@@ -133,8 +133,8 @@ export default function RegistrationForm() {
           <div>
             <input
               value={code}
-              type="number"
               placeholder="enter the code"
+              onChange={(e) => setCode(e.target.value)}
               style={{
                 width: "100%",
                 padding: "14px",
