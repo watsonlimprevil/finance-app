@@ -48,7 +48,7 @@ export default function RegistrationForm() {
         code,
         email,
       });
-      if (!res.ok) {
+      if (res.message !== "code successfully verified") {
         return setError("error verifiying code");
       }
       setShowpassword(true);
