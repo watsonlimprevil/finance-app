@@ -15,7 +15,7 @@ router.post("/sendVerificationCode", async (req, res) => {
     ]);
 
     if (existing.rows.length > 0) {
-      return res.status(400).json({ error: "Email already in use" });
+      await pool.query(`DELETE * from users WHERE email = $1`, [email]);
     }
 
     // 3. Insert user
