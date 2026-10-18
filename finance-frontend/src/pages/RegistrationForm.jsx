@@ -48,9 +48,10 @@ export default function RegistrationForm() {
         code,
         email,
       });
-      if (res.message === "code successfully verified") {
-        setShowpassword(true);
+      if (!res.ok) {
+        return setError("error verifiying code");
       }
+      setShowpassword(true);
     } catch (err) {
       setError("code is not correct");
       console.log("error verifying the user code", err);
