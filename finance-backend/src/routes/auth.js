@@ -10,7 +10,7 @@ router.post("/sendVerificationCode", async (req, res) => {
 
   try {
     // 1. Check if user exists
-    const existing = await pool.query("SELECT id FROM users WHERE email = $1", [
+    const existing = await pool.query("SELECT * FROM users WHERE email = $1", [
       email,
     ]);
 
