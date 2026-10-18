@@ -31,7 +31,7 @@ export default function RegistrationForm() {
 
   async function sendVerificationcode() {
     try {
-      const res = await api.post("/sendVerificationCode", { email });
+      const res = await api.post("auth/sendVerificationCode", { email });
       if (res.message === "verfication code successfully sent") {
         alert("code has been set to your email");
         setShowCode(true);
