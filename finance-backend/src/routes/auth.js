@@ -30,7 +30,9 @@ router.post("/sendVerificationCode", async (req, res) => {
 
     const verified = await sendVerificationEmail(users.email, code);
     if (verified.success) {
-      res.status(204).json({ message: "verfication code successfully sent" });
+      return res
+        .status(204)
+        .json({ message: "verfication code successfully sent" });
     }
   } catch (err) {
     console.error(err);
@@ -40,11 +42,12 @@ router.post("/sendVerificationCode", async (req, res) => {
 
 router.post("/checkVerificationCode", async (req, res) => {
   const { code } = req.body;
+  const dbCode = Number(code);
   try {
     const verifyRes = await pool.query(
       `SELECT * FROM verficationcode WHERE code = $1 
       RETURNING *`,
-      [code],
+      [dbCode],
     );
 
     const userVerify = verifyRes.rows[0];
