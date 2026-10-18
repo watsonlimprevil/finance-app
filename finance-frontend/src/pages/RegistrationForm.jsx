@@ -15,7 +15,7 @@ export default function RegistrationForm() {
   const [name, setName] = useState("");
 
   async function handleSignUp() {
-    if (password !== confirmPassword) {
+    if (password.trim() !== confirmPassword.trim()) {
       setError("password not the same");
       return;
     }
@@ -173,7 +173,25 @@ export default function RegistrationForm() {
           <div>
             <input
               type="password"
+              value={password}
+              placeholder="enter your password"
               onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "14px",
+                marginBotttom: "15px",
+                borderRadius: "10px",
+                border: "none",
+                background: "#1e1e1e",
+                color: "white",
+                fontSize: "16px",
+              }}
+            />
+            <input
+              type="password"
+              placeholder="confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassowrd(e.target.value)}
               style={{
                 width: "100%",
                 padding: "14px",
