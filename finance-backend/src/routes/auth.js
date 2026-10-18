@@ -49,6 +49,7 @@ router.post("/checkVerificationCode", async (req, res) => {
       RETURNING *`,
       [dbCode],
     );
+    console.log("adding log statement to restart the container");
 
     const userVerify = verifyRes.rows[0];
     if (!userVerify) {
