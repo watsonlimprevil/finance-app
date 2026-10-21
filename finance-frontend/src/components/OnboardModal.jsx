@@ -60,8 +60,8 @@ export default function OnboardingModal({ onFinish, user }) {
             <button
               style={{ ...btn, background: "#2575fc", color: "white" }}
               onClick={() => {
-                setStep(2);
                 nav("/budgets");
+                setStep(2);
               }}
             >
               🔥 Let me show you around
@@ -93,8 +93,8 @@ export default function OnboardingModal({ onFinish, user }) {
             <button
               style={{ ...btn, background: "#2575fc", color: "white" }}
               onClick={() => {
-                setStep(3);
                 nav("/insights");
+                setStep(3);
               }}
             >
               Next
@@ -102,7 +102,7 @@ export default function OnboardingModal({ onFinish, user }) {
             <button
               style={{ ...btn, background: "transparent", color: "#ccc" }}
               onClick={() => {
-                (setStep(1), nav("/dashboard"));
+                (nav("/dashboard"), setStep(1));
               }}
             >
               Back
@@ -121,8 +121,8 @@ export default function OnboardingModal({ onFinish, user }) {
             <button
               style={{ ...btn, background: "#1e1e1e", color: "#ccc" }}
               onClick={() => {
-                setStep(4);
                 nav("/settings");
+                setStep(4);
               }}
             >
               Lets go check out settings 🛠️
