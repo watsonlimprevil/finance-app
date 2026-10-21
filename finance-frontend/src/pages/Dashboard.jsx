@@ -48,6 +48,7 @@ export default function Dashboard() {
       const onboard = localStorage.getItem("token");
       if (onboard) {
         setOnboarding(true);
+        setError("");
       }
     }
     reloadAll();
