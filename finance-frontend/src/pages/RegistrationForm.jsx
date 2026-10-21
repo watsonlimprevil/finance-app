@@ -25,7 +25,7 @@ export default function RegistrationForm() {
       return;
     }
     localStorage.setItem("token", res.data.token);
-    nav("/");
+    nav("/dashboard");
     setError(null);
   }
 
