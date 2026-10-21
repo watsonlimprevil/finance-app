@@ -178,18 +178,16 @@ export default function Dashboard() {
     );
   }
 
-  {
-    onboarding && (
-      <div className="dashboard-layout">
-        <h1>Dashboard</h1>
-        <OnboardingModal onFinish={() => setOnboarding(false)} />
-      </div>
-    );
-  }
-
   return (
     <div className="dashboard-layout">
       <div className="dashboard-content">
+        {onboarding && (
+          <OnboardingModal
+            onFinish={() => {
+              setOnboarding(false);
+            }}
+          />
+        )}
         <h1>Welcome {user?.name || ""}</h1>
         <h2>Dashboard</h2>
         <div className="card">
@@ -198,6 +196,7 @@ export default function Dashboard() {
         {lowBalanceModel && (
           <LowBalance onClose={() => SetLowBalanceModel(false)} />
         )}
+
         <div className="card">
           <Summary summary={summary} />
         </div>
