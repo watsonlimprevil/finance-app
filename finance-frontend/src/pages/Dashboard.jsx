@@ -182,7 +182,7 @@ export default function Dashboard() {
     onboarding && (
       <div className="dashboard-layout">
         <h1>Dashboard</h1>
-        <OnboardingModal onFinish={setOnboarding(false)} />
+        <OnboardingModal onFinish={() => setOnboarding(false)} />
       </div>
     );
   }
