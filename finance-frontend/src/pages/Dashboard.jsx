@@ -48,7 +48,6 @@ export default function Dashboard() {
       const onboard = localStorage.getItem("token");
       if (onboard) {
         setOnboarding(true);
-        setError("");
       }
     }
     reloadAll();
@@ -103,7 +102,7 @@ export default function Dashboard() {
       await loadBudgetProgress();
       await loadUser();
     } catch (error) {
-      setError("Failed to load dashboard data");
+      console.log("error loading data");
     } finally {
       setLoading(false);
     }
@@ -173,7 +172,7 @@ export default function Dashboard() {
     return (
       <div className="dashboard-layout">
         <h1>Dashboard</h1>
-        <p style={{ color: "red" }}>{error}</p>
+        <p style={{ color: "red" }}>Error Loading financial Data</p>
         <button onClick={reloadAll}>Retry</button>
       </div>
     );
