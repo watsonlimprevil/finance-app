@@ -50,11 +50,8 @@ export default function Dashboard() {
         setOnboarding(true);
       }
     }
-    loadonbording();
-  }, []);
-
-  useEffect(() => {
     reloadAll();
+    loadonbording();
   }, []);
 
   async function loadBudgetProgress() {
