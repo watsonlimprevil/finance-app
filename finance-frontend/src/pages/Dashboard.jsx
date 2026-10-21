@@ -178,15 +178,11 @@ export default function Dashboard() {
     );
   }
 
-  if (onboarding) {
-    return (
+  {
+    onboarding && (
       <div className="dashboard-layout">
         <h1>Dashboard</h1>
-        <OnboardingModal
-          onFinish={() => {
-            (setOnboarding(false), localStorage.removeItem("token"));
-          }}
-        />
+        <OnboardingModal onFinish={setOnboarding(false)} />
       </div>
     );
   }
