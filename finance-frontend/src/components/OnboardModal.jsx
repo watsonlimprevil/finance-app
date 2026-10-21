@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-export default function OnboardingModal({ onFinish, user }) {
+export default function OnboardingModal({ onboarding, onFinish, user }) {
+  if (!onboarding) return null;
   const [step, setStep] = useState(1);
   const nav = useNavigate();
 
