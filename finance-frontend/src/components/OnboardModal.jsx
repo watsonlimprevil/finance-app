@@ -70,9 +70,7 @@ export default function OnboardingModal({ onboarding, onFinish, user }) {
 
             <button
               style={{ ...btn, background: "transparent", color: "#ccc" }}
-              onClick={() => {
-                (onFinish, localStorage.removeItem("token"));
-              }}
+              onClick={onFinish}
             >
               Skip
             </button>

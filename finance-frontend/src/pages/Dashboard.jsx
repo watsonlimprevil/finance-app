@@ -185,7 +185,7 @@ export default function Dashboard() {
           <OnboardingModal
             onboarding={onboarding}
             onFinish={() => {
-              setOnboarding(false);
+              (setOnboarding(false), localStorage.removeItem("token"));
             }}
           />
         )}
