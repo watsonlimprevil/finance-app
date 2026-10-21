@@ -12,6 +12,7 @@ import AddTransaction from "./components/AddTransactions";
 import Budgets from "./pages/Budgets";
 import ProtectedRoute from "./components/ProtectedRoute";
 import RegistrationForm from "./pages/RegistrationForm.jsx";
+import LayoutOnboard from "./components/LayoutForOnboard.jsx";
 export default function App() {
   return (
     <BrowserRouter>
@@ -54,6 +55,13 @@ export default function App() {
         />
         <Route path="/addtransactions" element={<AddTransaction />} />
         <Route path="/budgets" element={<Budgets />} />
+      </Routes>
+      <Routes>
+        <Route element={<LayoutOnboard />}>
+          <Route path="/budgets" element={<Budgets />} />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/insights" element={<Insights />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
