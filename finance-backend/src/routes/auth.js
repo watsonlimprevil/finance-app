@@ -99,7 +99,7 @@ router.post("/register", async (req, res) => {
     );
     return res.status(201).json({ token, user });
   } catch (err) {
-    console.error(err);
+    console.error("testin debugging", err);
     res.status(500).json({ error: "server error" });
   }
 });
