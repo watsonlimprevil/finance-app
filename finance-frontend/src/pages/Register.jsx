@@ -24,6 +24,7 @@ export default function Register() {
       return;
     }
     localStorage.setItem("token", res.data.token);
+    localStorage.setItem("onboarding", "true");
     nav("/");
     setError(null);
   }

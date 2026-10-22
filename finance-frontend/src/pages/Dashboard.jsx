@@ -45,7 +45,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     function loadonbording() {
-      const onboard = localStorage.getItem("token");
+      const onboard = localStorage.getItem("onboarding");
       if (onboard) {
         setOnboarding(true);
       }
@@ -189,7 +189,7 @@ export default function Dashboard() {
           <OnboardingModal
             onboarding={onboarding}
             onFinish={() => {
-              setOnboarding(false);
+              (setOnboarding(false), localStorage.removeItem("onboarding"));
             }}
           />
         )}

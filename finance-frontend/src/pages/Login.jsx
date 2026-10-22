@@ -29,6 +29,7 @@ export default function Login() {
       alert("invalid credentials");
       return;
     }
+    localStorage.removeItem("onboarding");
     localStorage.setItem("token", res?.data.token);
     nav("/dashboard");
     setLoading(false);
