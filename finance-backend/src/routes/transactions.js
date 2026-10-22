@@ -354,6 +354,10 @@ router.get("/budgets", requireAuth, async (req, res) => {
   ORDER BY category ASC`,
       [userId],
     );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "no budget history " });
+    }
     res.json({ budgets: result.rows });
   } catch (error) {
     console.error(error);
