@@ -36,6 +36,10 @@ export default function RegistrationForm() {
       if (res.message === "verfication code successfully sent") {
         alert("code has been set to your email");
       }
+      if (res.message === "invalid email") {
+        alert("invalid email , please provide correct email");
+        return;
+      }
 
       setShowCode(true);
     } catch (err) {
