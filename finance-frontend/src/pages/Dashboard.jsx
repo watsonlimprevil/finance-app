@@ -78,9 +78,21 @@ export default function Dashboard() {
   }
 
   async function addTransaction(data) {
-    await api.post(`/transactions`, data);
+    try {
+      const budgetData = await api.get("/transactions/budgets");
+      if (!budgetData.data) {
+        alert(
+          "need to add a budget for the month before adding any transaction",
+        );
+        return;
+      }
 
-    reloadAll(); // refresh dashboard data
+      await api.post(`/transactions`, data);
+
+      reloadAll(); // refresh dashboard data
+    } catch (err) {
+      console.log("error adding transaction", err);
+    }
   }
 
   async function reloadAll() {
