@@ -25,6 +25,7 @@ export default function RegistrationForm() {
       return;
     }
     localStorage.setItem("token", res?.data?.token);
+    localStorage.setItem("onboarding", "true");
     nav("/dashboard");
     setError(null);
   }
@@ -35,7 +36,7 @@ export default function RegistrationForm() {
       if (res.message === "verfication code successfully sent") {
         alert("code has been set to your email");
       }
-      localStorage.removeItem("token");
+
       setShowCode(true);
     } catch (err) {
       alert("eror sendding code");
