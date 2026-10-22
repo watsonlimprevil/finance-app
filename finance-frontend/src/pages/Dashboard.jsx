@@ -78,14 +78,6 @@ export default function Dashboard() {
   }
 
   async function addTransaction(data) {
-    const budgetData = await api.get("/transactions/budgets");
-    const budget = budgetData.data.budgets;
-    if (!budget) {
-      setTransactionError(
-        "Budget must be set First before adding any transaction",
-      );
-      return;
-    }
     await api.post(`/transactions`, data);
 
     reloadAll(); // refresh dashboard data
