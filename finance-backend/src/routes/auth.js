@@ -15,7 +15,7 @@ router.post("/sendVerificationCode", async (req, res) => {
     ]);
 
     if (existing.rows.length > 0) {
-      await pool.query(`DELETE  from users WHERE email = $1`, [email]);
+      return res.status(404).json({ message: "invalid email" });
     }
 
     // 3. Insert user
