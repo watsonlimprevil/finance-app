@@ -24,7 +24,7 @@ export default function RegistrationForm() {
       setError("unable to complete registration");
       return;
     }
-    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("token", res?.data?.token);
     nav("/dashboard");
     setError(null);
   }
