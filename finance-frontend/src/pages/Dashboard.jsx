@@ -42,6 +42,7 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [openSearchBar, setOpenSearchBar] = useState(false);
   const [onboarding, setOnboarding] = useState(false);
+  const [addTransactionError, setAddTransactionError] = useState(null);
 
   useEffect(() => {
     function loadonbording() {
@@ -81,7 +82,7 @@ export default function Dashboard() {
     try {
       const budgetData = await api.get("/transactions/budgets");
       if (budgetData.data.budgets.length === 0) {
-        setError(
+        setAddTransactionError(
           "need to add a budget for the month before adding any transaction",
         );
         return;
@@ -221,7 +222,7 @@ export default function Dashboard() {
         >
           + Add Transaction
         </button>
-        {error && <p>{error}</p>}
+        {addTransactionError && <p>{addTransactionError}</p>}
         <AddTransactionModal
           show={showModal}
           onClose={() => setShowModal(false)}
