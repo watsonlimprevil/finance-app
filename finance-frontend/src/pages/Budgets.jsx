@@ -46,7 +46,7 @@ export default function Budgets() {
     const montlyBugetCheck = await api.get(`/transactions/budgets/progress`);
     const monthybudget = montlyBugetCheck.data?.monthly?.budget;
 
-    if (monthybudget.length > 1) {
+    if (monthybudget === 0) {
       alert(
         "cannot add new monthly budget without deleting current monthly budget",
       );
