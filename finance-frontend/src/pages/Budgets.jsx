@@ -76,7 +76,7 @@ export default function Budgets() {
   }
   async function editGoals() {
     try {
-      const res = await api.put(`/goals/editGoals/${inCreaseGoal.id}`, {
+      const res = await api.patch(`/goals/editGoals/${inCreaseGoal.id}`, {
         newAmount,
       });
       if (res.data.message === "goal succesfully updated") {
@@ -185,7 +185,7 @@ export default function Budgets() {
             value={newAmount}
             onChange={(e) => setNewAmount(e.target.value)}
           />
-          <button onClick={editGoals}></button>
+          <button onClick={editGoals}> Edit Goal</button>
         </div>
       )}
 
