@@ -48,6 +48,22 @@
   }
 }
 
+:root[data-theme="light"] {
+  --bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --text: #111;
+  --text-secondary: #555;
+  --border: #ddd;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f0f0f;
+  --card-bg: #1a1a1a;
+  --text: #fff;
+  --text-secondary: #aaa;
+  --border: #333;
+}
+
 .card {
   background: var(--code-bg);
   color: var(--text);
