@@ -477,3 +477,23 @@
   padding: 2rem;
   border-radius: 12px;
 }
+
+.save-goal-btn {
+  background: #22c55e;
+  color: "white";
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-goal-btn {
+  background: #ef4444;
+  color: "white";
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
