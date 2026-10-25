@@ -14,6 +14,9 @@ export default function Budgets() {
   const [showGoalsModal, setShowGoalsModal] = useState(false);
   const [error, setError] = useState("");
   const [goals, setGoals] = useState([]);
+  const [inCreaseGoal, setIncreaseGoal] = useState(false);
+  const [newCurrentGoal, setNewCurrentGoal] = useState("");
+  const [newAmount, setNewAmount] = useState("");
   function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString("en-GB", {
       year: "numeric",
@@ -69,6 +72,22 @@ export default function Budgets() {
       loadGoals();
     } catch (err) {
       console.log("error adding goals", err);
+    }
+  }
+  async function editGoals() {
+    try {
+      const res = await api.put(`/goals/editGoals/${inCreaseGoal.id}`, {
+        newAmount,
+      });
+      if (res.data.message === "goal succesfully updated") {
+        setGoals((prev) =>
+          prev.find((p) =>
+            p.id === inCreaseGoal.id ? { ...p, current_amount: newAmount } : p,
+          ),
+        );
+      }
+    } catch (err) {
+      console.error("error editing goals", error);
     }
   }
   async function loadGoals() {
@@ -158,6 +177,17 @@ export default function Budgets() {
           onClose={() => setShowGoalsModal(false)}
         />
       )}
+      {inCreaseGoal && (
+        <div>
+          <input
+            type="number"
+            placeholder="new goal position..."
+            value={newAmount}
+            onChange={(e) => setNewAmount(e.target.value)}
+          />
+          <button onClick={editGoals}></button>
+        </div>
+      )}
 
       <section className="goals-section">
         <h2>Your Goals</h2>
@@ -172,6 +202,9 @@ export default function Budgets() {
               <span>
                 {g.current_amount} / {g.target_amount}
               </span>
+              <button onClick={() => setIncreaseGoal(g)}>
+                Edit Current Progress
+              </button>
             </div>
             <button
               className="delete-goal-btn"
