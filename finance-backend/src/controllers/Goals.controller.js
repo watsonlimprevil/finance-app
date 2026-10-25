@@ -74,7 +74,7 @@ export async function editGoals(req, res) {
     if (data.rows.length === 0) {
       return res.json({ message: "goal not found" });
     }
-    res.json({ message: "goal succesfully updated" });
+    return res.json({ message: "goal succesfully updated" });
   } catch (error) {
     console.error("error editing goals", error);
     res.status(500).json({ error: "error editing goal" });
