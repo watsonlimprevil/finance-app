@@ -67,7 +67,7 @@ export async function editGoals(req, res) {
 
   try {
     const data = await pool.query(
-      `UPDATE Goals SET currrent_amount = $1 
+      `UPDATE Goals SET current_amount = $1 
       WHERE id =$2 and user_id =$3`,
       [newAmount, id, userId],
     );
