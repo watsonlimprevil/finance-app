@@ -7,7 +7,7 @@ export default function Settings() {
   const navigate = useNavigate();
 
   const [preferences, setPreferences] = useState({
-    theme: "dark",
+    theme: "system",
     accentColor: "#6366f1",
   });
 
