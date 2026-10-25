@@ -80,7 +80,7 @@ export default function Dashboard() {
   async function addTransaction(data) {
     try {
       const budgetData = await api.get("/transactions/budgets");
-      if (budgetData.data.message === "no budget history") {
+      if (budgetData.data.budgets.length === 0) {
         setError(
           "need to add a budget for the month before adding any transaction",
         );
