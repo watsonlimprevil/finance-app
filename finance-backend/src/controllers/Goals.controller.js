@@ -68,7 +68,7 @@ export async function editGoals(req, res) {
   try {
     const data = await pool.query(
       `UPDATE Goals SET current_amount = $1 
-      WHERE id =$2 and user_id =$3`,
+      WHERE id =$2 and user_id =$3 RETURNING *`,
       [newAmount, id, userId],
     );
     if (data.rows.length === 0) {
