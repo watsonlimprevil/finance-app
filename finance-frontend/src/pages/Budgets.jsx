@@ -185,6 +185,7 @@ export default function Budgets() {
             placeholder="new goal position..."
             value={newAmount}
             onChange={(e) => setNewAmount(e.target.value)}
+            className="goal-input"
           />
           <button onClick={editGoals} className="save-goals-btn">
             {" "}

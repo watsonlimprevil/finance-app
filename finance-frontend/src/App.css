@@ -497,3 +497,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
 }
+
+.goal-input {
+  width: 20rem;
+}
