@@ -85,6 +85,7 @@ export default function Budgets() {
             p.id === inCreaseGoal.id ? { ...p, current_amount: newAmount } : p,
           ),
         );
+        setIncreaseGoal(false);
       }
     } catch (err) {
       console.error("error editing goals", error);
@@ -186,6 +187,7 @@ export default function Budgets() {
             onChange={(e) => setNewAmount(e.target.value)}
           />
           <button onClick={editGoals}> Edit Goal</button>
+          <button onClick={() => setIncreaseGoal(false)}>Cancel</button>
         </div>
       )}
 
