@@ -59,3 +59,24 @@ export async function deleteGoals(req, res) {
     res.status(500).json({ error: "error deleting goal" });
   }
 }
+
+export async function editGoals(req, res) {
+  const { id } = req.params;
+  const userId = req.user.userId;
+  const { newAmount } = req.body;
+
+  try {
+    const data = await pool.query(
+      `UPDATE Goals SET currrent_amount = $1 
+      WHERE id =$2 and user_id =$3`,
+      [newAmount, id, userId],
+    );
+    if (data.rows.length === 0) {
+      return res.json({ message: "goal not found" });
+    }
+    res.json({ message: "goal succesfully updated" });
+  } catch (error) {
+    console.error("error editing goals", error);
+    res.status(500).json({ error: "error editing goal" });
+  }
+}
