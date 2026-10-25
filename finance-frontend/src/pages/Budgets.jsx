@@ -44,11 +44,11 @@ export default function Budgets() {
 
   async function addBudget() {
     const montlyBugetCheck = await api.get(`/transactions/budgets/progress`);
-    const monthybudget = montlyBugetCheck.data.monthly.budget;
+    const monthybudget = montlyBugetCheck.data?.monthly?.budget;
 
     if (monthybudget.length > 1) {
       alert(
-        "cannot add new monthly budget with deleting current monthly budget",
+        "cannot add new monthly budget without deleting current monthly budget",
       );
       return;
     }
