@@ -80,8 +80,8 @@ export default function Dashboard() {
   async function addTransaction(data) {
     try {
       const budgetData = await api.get("/transactions/budgets");
-      if (!budgetData.data) {
-        alert(
+      if (budgetData.data.message === "no budget history") {
+        setError(
           "need to add a budget for the month before adding any transaction",
         );
         return;
@@ -221,12 +221,13 @@ export default function Dashboard() {
         >
           + Add Transaction
         </button>
-
+        {error && <p>{error}</p>}
         <AddTransactionModal
           show={showModal}
           onClose={() => setShowModal(false)}
           onAdd={addTransaction}
         />
+
         {transactionError && <p>{transactionError}</p>}
 
         <div className="card">

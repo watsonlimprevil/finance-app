@@ -23,6 +23,7 @@ export default function Register() {
       setError("unable to complete registration");
       return;
     }
+
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("onboarding", "true");
     nav("/");
