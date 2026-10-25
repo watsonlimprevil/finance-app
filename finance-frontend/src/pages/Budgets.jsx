@@ -81,7 +81,7 @@ export default function Budgets() {
       });
       if (res.data.message === "goal succesfully updated") {
         setGoals((prev) =>
-          prev.find((p) =>
+          prev.map((p) =>
             p.id === inCreaseGoal.id ? { ...p, current_amount: newAmount } : p,
           ),
         );
