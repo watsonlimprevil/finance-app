@@ -179,7 +179,7 @@ export default function Budgets() {
         />
       )}
       {inCreaseGoal && (
-        <div>
+        <div className="edit-goal-modal">
           <input
             type="number"
             placeholder="new goal position..."
