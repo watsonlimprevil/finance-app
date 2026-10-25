@@ -186,13 +186,13 @@ export default function Budgets() {
             value={newAmount}
             onChange={(e) => setNewAmount(e.target.value)}
           />
-          <button onClick={editGoals} className="save-goal-btn">
+          <button onClick={editGoals} className="save-goals-btn">
             {" "}
             Save
           </button>
           <button
             onClick={() => setIncreaseGoal(false)}
-            className="cancel-goal-btn"
+            className="cancel-goals-btn"
           >
             Cancel
           </button>

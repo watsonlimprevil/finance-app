@@ -478,7 +478,7 @@
   border-radius: 12px;
 }
 
-.save-goal-btn {
+.save-goals-btn {
   background: #22c55e;
   color: "white";
   border: none;
@@ -488,7 +488,7 @@
   cursor: pointer;
 }
 
-.cancel-goal-btn {
+.cancel-goals-btn {
   background: #ef4444;
   color: "white";
   border: none;
