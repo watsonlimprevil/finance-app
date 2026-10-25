@@ -593,6 +593,7 @@ router.get("/insights", requireAuth, async (req, res) => {
     );
 
     const highestCategory = categoryRes.rows[0] || null;
+    
 
     const totalTransactions = Number(transactions.rows[0].total);
     res.json({ dailySpend, totalTransactions, highestCategory });
@@ -601,5 +602,7 @@ router.get("/insights", requireAuth, async (req, res) => {
     res.status(500).json({ message: "error getting insights" });
   }
 });
+
+
 
 export default router;
