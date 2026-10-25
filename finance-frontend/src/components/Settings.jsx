@@ -57,7 +57,7 @@ export default function Settings() {
   };
 
   const applyAccent = (color) => {
-    document.documentElement.setProperty("--accent-color", color);
+    document.documentElement.style.setProperty("--accent-color", color);
   };
 
   const handleSavePreferences = async () => {
