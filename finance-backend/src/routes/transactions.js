@@ -477,7 +477,7 @@ router.get("/budgets/progress", requireAuth, async (req, res) => {
 
     // Monthly budget progress
     if (monthlyBudget) {
-      const amount = Number(monthlyBudget.amount);
+      const amount = Number(monthlyBudget.amount) || 0;
       const percent =
         amount === 0 ? 0 : Math.min((monthlyExpenses / amount) * 100, 100);
 
