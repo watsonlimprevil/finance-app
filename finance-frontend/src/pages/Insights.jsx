@@ -5,7 +5,7 @@ export default function Insights() {
   const [summary, setSummary] = useState(null);
 
   async function getInsights() {
-    const res = await api.get("/transactions/insights");
+    const res = await api.get("/api/transactions/insights");
     setSummary(res.data);
   }
   useEffect(() => {

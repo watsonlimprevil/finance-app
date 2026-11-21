@@ -33,20 +33,22 @@ export default function Budgets() {
 
   async function loadBudgets() {
     setLoading(true);
-    const res = await api.get(`/transactions/budgets`);
+    const res = await api.get(`/api/transactions/budgets`);
 
     const result = await res.data;
     setBudgets(result.budgets);
     setLoading(false);
   }
   async function loadBudgetProgress() {
-    const res = await api.get(`/transactions/budgets/progress`);
+    const res = await api.get(`/api/transactions/budgets/progress`);
 
     setBudgetProgress(res.data.progress);
   }
 
   async function addBudget() {
-    const montlyBugetCheck = await api.get(`/transactions/budgets/progress`);
+    const montlyBugetCheck = await api.get(
+      `/api/transactions/budgets/progress`,
+    );
     const monthybudget = montlyBugetCheck.data?.monthly?.budget;
 
     if (monthybudget === 0) {
@@ -76,7 +78,7 @@ export default function Budgets() {
   }
   async function editGoals() {
     try {
-      const res = await api.patch(`/goals/editGoals/${inCreaseGoal.id}`, {
+      const res = await api.patch(`/api/goals/editGoals/${inCreaseGoal.id}`, {
         newAmount,
       });
       if (res.data.message === "goal succesfully updated") {
@@ -92,17 +94,17 @@ export default function Budgets() {
     }
   }
   async function loadGoals() {
-    const res = await api.get("/goals/getgoals");
+    const res = await api.get("/api/goals/getgoals");
     setGoals(res.data);
   }
   async function deleteBudget(id) {
-    await api.delete(`/transactions/budgets/${id}`);
+    await api.delete(`/api/transactions/budgets/${id}`);
     loadBudgets();
   }
 
   async function DeleteGoal(id) {
     try {
-      const res = await api.delete(`/goals/deletegoals/${id}`);
+      const res = await api.delete(`/api/goals/deletegoals/${id}`);
 
       setGoals((prev) => prev.filter((g) => g.id !== id));
     } catch (error) {

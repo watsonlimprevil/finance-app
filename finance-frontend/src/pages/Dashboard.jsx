@@ -56,7 +56,7 @@ export default function Dashboard() {
   }, []);
 
   async function loadBudgetProgress() {
-    const res = await api.get(`/transactions/budgets/progress`);
+    const res = await api.get(`/api/transactions/budgets/progress`);
 
     const lowbalance = res.data.progress.monthly.percent > 90;
     if (lowbalance) {
@@ -80,7 +80,7 @@ export default function Dashboard() {
 
   async function addTransaction(data) {
     try {
-      const budgetData = await api.get("/transactions/budgets");
+      const budgetData = await api.get("/api/transactions/budgets");
       if (budgetData.data.budgets.length === 0) {
         setAddTransactionError(
           "need to add a budget for the month before adding any transaction",
@@ -125,7 +125,7 @@ export default function Dashboard() {
     return () => clearTimeout(timeout);
   }, [search]);
   async function loadSummary() {
-    const res = await api.get("/transactions/summary");
+    const res = await api.get("/api/transactions/summary");
     console.log(res.data);
     setSummary(res.data);
   }
@@ -134,7 +134,7 @@ export default function Dashboard() {
 
   async function loadTransactions() {
     const res = await api.get(
-      `/transactions?page=${page}&limit=${limit}&type=${typeFilter}&category=${categoryFilter}&startDate=${startDate}&endDate=${endDate}&sort=${sort}&order=${order}`,
+      `/api/transactions?page=${page}&limit=${limit}&type=${typeFilter}&category=${categoryFilter}&startDate=${startDate}&endDate=${endDate}&sort=${sort}&order=${order}`,
     );
     setTransactions(res.data.transactions);
     setTotalPages(Math.ceil(res.data.total / limit));

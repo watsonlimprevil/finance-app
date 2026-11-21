@@ -17,7 +17,7 @@ export default function Login() {
       return;
     }
     setLoading(true);
-    const res = await api.post("/auth/login", { email, password });
+    const res = await api.post("/api/auth/login", { email, password });
 
     if (!res?.data?.token) {
       setError("error logging in");
@@ -37,7 +37,7 @@ export default function Login() {
 
   async function sendVerificationCode() {
     try {
-      const res = await api.post("/user/sendcode");
+      const res = await api.post("/api/user/sendcode");
 
       alert("verfication code has been sent");
       setSendVerification(true);

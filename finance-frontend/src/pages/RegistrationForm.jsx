@@ -19,7 +19,7 @@ export default function RegistrationForm() {
       setError("password not the same");
       return;
     }
-    const res = await api.post("/auth/register", { email, password });
+    const res = await api.post("/api/auth/register", { email, password });
     if (!res.data.token) {
       setError("unable to complete registration");
       return;
@@ -32,7 +32,7 @@ export default function RegistrationForm() {
 
   async function sendVerificationcode() {
     try {
-      const res = await api.post("auth/sendVerificationCode", { email });
+      const res = await api.post("/api/auth/sendVerificationCode", { email });
       if (res.message === "verfication code successfully sent") {
         alert("code has been set to your email");
       }

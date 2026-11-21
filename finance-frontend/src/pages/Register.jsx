@@ -18,7 +18,7 @@ export default function Register() {
       setError("password not the same");
       return;
     }
-    const res = await api.post("/auth/register", { email, password });
+    const res = await api.post("/api/auth/register", { email, password });
     if (!res.ok) {
       setError("unable to complete registration");
       return;
@@ -45,7 +45,7 @@ export default function Register() {
 
   async function checkVerificationCode() {
     try {
-      const res = await api.post("/auth/checkverificationcode", { code });
+      const res = await api.post("/api/auth/checkverificationcode", { code });
       if (res.message === "code successfully verified") {
         setShowpassword(true);
       }
