@@ -15,6 +15,7 @@ app.use(
   cors({
     origin: (origin, callback) => {
       const allowed = [
+        "https://watsondev.co.uk",
         "http://localhost:5173",
         /\.vercel\.app$/, // allow ANY Vercel deployment
       ];
