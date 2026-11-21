@@ -46,13 +46,13 @@ app.get("/health", (req, res) => {
 
 app.use(express.json());
 // AUTH ROUTES
-app.use("/auth", authRouter);
-app.use("/user", userRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 // TRANSACTION ROUTES
-app.use("/settings", globalRouter);
-app.use("/transactions", transactionsRouter);
-app.use("/goals", goalRouter);
-app.use("/assistant", assistanRouter);
+app.use("/api/settings", globalRouter);
+app.use("/api/transactions", transactionsRouter);
+app.use("/api/goals", goalRouter);
+app.use("/api/assistant", assistanRouter);
 app.listen(3000, () => {
   console.log("Finance backend running on port 3000");
 });

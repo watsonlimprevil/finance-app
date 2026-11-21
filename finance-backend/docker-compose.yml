@@ -15,6 +15,9 @@ services:
 
     networks:
       - finance-network
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   postgres:
     image: postgres:15
@@ -31,6 +34,11 @@ services:
 
     networks:
       - finance-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finance_user -d finance_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   pgadmin:
     image: dpage/pgadmin4
@@ -47,3 +55,7 @@ services:
       - finance-network
 volumes:
   postgres_data:
+
+networks:
+  finance-network:
+    driver: bridge
