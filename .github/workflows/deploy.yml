@@ -60,7 +60,7 @@ jobs:
           ssh -i ~/.ssh/id_ed25519 \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
           " 
-          echo '=== Backend Logs === 
+          echo '=== Backend Logs ==='
           docker logs finance-backend --tail 50
 
           echo '=== Frontend Logs ==='
