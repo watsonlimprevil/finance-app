@@ -26,4 +26,4 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_ed25519 \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-          "echo Connected Successfully"
+          "cd /root/finance-app && git pull && docker-compose up -d --build"
