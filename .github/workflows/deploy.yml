@@ -1,4 +1,4 @@
-name: deploy Finance App
+name: Deploy Finance App
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install Frontend dependencies
+      - name: Install Frontend Dependencies
         run: |
           cd finance-frontend
           npm ci
@@ -28,7 +28,7 @@ jobs:
           cd finance-frontend
           npm run build
 
-      - name: Install Backend dependencies
+      - name: Install Backend Dependencies
         run: |
           cd finance-backend
           npm ci
@@ -41,69 +41,16 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: validate Docker compose
+      - name: Validate Docker Compose
         run: |
           docker compose config
+
   deploy:
     needs: validate
     runs-on: ubuntu-latest
 
-  steps:
-    - name: checkout Repo
-      uses: actions/checkout@v4
-    - name: setup SSH key
-      run: |
-        mkdir -p ~/.ssh
-         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-         chmod 600 ~/.ssh/id_ed25519
-
-    - name: Add VPS To known Hosts
-      run: |
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-
-    - name: Deploy yo VPS
-      run: |
-        ssh -i ~/.ssh/id_ed25519 \
-        ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-        "
-        set -e 
-
-        cd /root/finance-app
-        echo '=== Pulling Latest Code === ' 
-        git pull
-
-        echo '=== Rebuilding Container ===' 
-        docker-compose up -d --build
-
-        echo '=== Running Containers ==='
-        docker ps 
-
-        echo '=== Inspecting Container Health ==='
-        docker inspect -f '{{.State.Running}}' finance-backend
-        docker inspect -f '{{.State.Running}}' finance-frontend
-        docker inspect -f '{{.State.Running}}' finance-postgres
-
-        "
-
-    - name: verify frontebd
-      run: |
-        curl -I https://${{ secrets.SSH_HOST }}
-
-    - name: verify Backend
-      run: |
-        curl -I https://${{ secrets.SSH_HOST }}/api
-
-  diagnostics:
-    if: failure()
-    needs:
-      - build
-      - validate
-      - deploy
-
-    runs-on: ubuntu-latest
-
     steps:
-      - name: setup SSH key
+      - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
@@ -113,11 +60,73 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: collect Logs
+      - name: Deploy To VPS
         run: |
           ssh -i ~/.ssh/id_ed25519 \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
           "
+          set -e
+
+          cd /root/finance-app
+
+          echo '=== Pulling Latest Code ==='
+          git pull
+
+          echo '=== Rebuilding Containers ==='
+          docker-compose up -d --build
+
+          echo '=== Running Containers ==='
+          docker ps
+
+          echo '=== Inspecting Container Health ==='
+          docker inspect -f '{{.State.Running}}' finance-backend
+          docker inspect -f '{{.State.Running}}' finance-frontend
+          docker inspect -f '{{.State.Running}}' finance-postgres
+          "
+
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify Frontend
+        run: |
+          curl -I https://${{ secrets.SSH_HOST }}
+
+      - name: Verify Backend
+        run: |
+          curl -I https://${{ secrets.SSH_HOST }}/api
+
+  diagnostics:
+    if: failure()
+
+    needs:
+      - build
+      - validate
+      - deploy
+      - verify
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Add VPS To Known Hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Collect Logs
+        run: |
+          ssh -i ~/.ssh/id_ed25519 \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+          "
+          echo '=== Backend Logs ==='
           docker logs finance-backend --tail 50
+
+          echo '=== Frontend Logs ==='
           docker logs finance-frontend --tail 50
           "
