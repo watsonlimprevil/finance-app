@@ -1,0 +1,14 @@
+name: deploy Finance App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout Repo
+        uses: actions/checkout@v4
