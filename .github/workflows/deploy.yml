@@ -29,7 +29,7 @@ jobs:
           "
           set -e 
 
-          cd /root/finance-App
+          cd /root/finance-app
           echo '=== Pulling Latest Code === ' 
           git pull
 
