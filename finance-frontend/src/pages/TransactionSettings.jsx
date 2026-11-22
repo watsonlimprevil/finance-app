@@ -9,7 +9,7 @@ export default function TransactionSettings() {
   async function loadTransactions() {
     setLoading(true);
     try {
-      const res = await api.get("/transactions");
+      const res = await api.get("/api/transactions");
       const data = res.data.transactions;
       setTransactions(data);
     } catch (error) {

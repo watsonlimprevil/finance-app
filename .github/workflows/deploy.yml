@@ -22,8 +22,15 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Test SSH Connection
+      - name: Deploy yo VPS
         run: |
           ssh -i ~/.ssh/id_ed25519 \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-          "cd /root/finance-app && git pull && docker-compose up -d --build"
+          "cd /root/finance-app && \
+          git pull && \ 
+          docker-compose up -d --build && \
+          docker ps"
+
+      - name: verify Application
+        run: |
+          curl -I https://${{ secrets.SSH_HOST }}
