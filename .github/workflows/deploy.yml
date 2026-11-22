@@ -26,10 +26,46 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_ed25519 \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-          "cd /root/finance-app && \
-          git pull && \ 
-          docker-compose up -d --build && \
-          docker ps"
+          "
+          set -e 
+
+          cd /root/finance-App
+          echo '=== Pulling Latest Code === ' 
+          git pull
+
+          echo '=== Rebuilding Container ===' 
+          docker-compose up -d --build
+
+          echo '=== Running Containers ==='
+          docker ps 
+
+          echo '=== Inspecting Container Health ==='
+          docker inspect -f '{{.State.Runnig}}' finance-backend
+          docker inspect -f '{{.State.Running}}' finance-frontend
+          docker inspect -f '{{.state.Running}}' finance-postgres
+
+          "
+
+      - name: verify frontebd
+        run: |
+          curl -I https://${{ secrets.SSH_HOST }}
+
+      - name: verify Backend
+        run: |
+          curl -I https://${{ secrets.SSH_HOST }}/api
+
+      - name: Deployment Diagnostics
+        if: failure()
+        run: |
+          ssh -i ~/.ssh/id_ed25519 \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+          " 
+          echo '=== Backend Logs === 
+          docker logs finance-backend --tail 50
+
+          echo '=== Frontend Logs ==='
+          docker logs finance-frontend --tail 50
+          "
 
       - name: verify Application
         run: |
