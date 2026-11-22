@@ -40,7 +40,7 @@ jobs:
           docker ps 
 
           echo '=== Inspecting Container Health ==='
-          docker inspect -f '{{.State.Runnig}}' finance-backend
+          docker inspect -f '{{.State.Running}}' finance-backend
           docker inspect -f '{{.State.Running}}' finance-frontend
           docker inspect -f '{{.state.Running}}' finance-postgres
 
