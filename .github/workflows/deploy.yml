@@ -45,8 +45,57 @@ jobs:
         run: |
           docker compose config
 
-  deploy:
+  build-backend-image:
     needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Login To GHCR
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+
+      - name: Build Backend Image
+        run: |
+          docker build \
+            -t ghcr.io/watsonlimprevil/finance-backend:latest \
+            -f finance-backend/Dockerfile \
+            ./finance-backend
+
+      - name: Push Backend Image
+        run: |
+          docker push ghcr.io/watsonlimprevil/finance-backend:latest
+
+  build-frontend-image:
+    needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Login To GHCR
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+
+      - name: Build Frontend Image
+        run: |
+          docker build \
+            -t ghcr.io/watsonlimprevil/finance-frontend:latest \
+            -f finance-frontend/Dockerfile \
+            ./finance-frontend
+
+      - name: Push Frontend Image
+        run: |
+          docker push ghcr.io/watsonlimprevil/finance-frontend:latest
+
+  deploy:
+    needs:
+      - build-backend-image
+      - build-frontend-image
+
     runs-on: ubuntu-latest
 
     steps:
@@ -60,7 +109,7 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy To VPS
+      - name: Deploy Images
         run: |
           ssh -i ~/.ssh/id_ed25519 \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
@@ -69,19 +118,11 @@ jobs:
 
           cd /root/finance-app
 
-          echo '=== Pulling Latest Code ==='
-          git pull
+          docker compose pull
 
-          echo '=== Rebuilding Containers ==='
-          docker-compose up -d --build
+          docker compose up -d
 
-          echo '=== Running Containers ==='
           docker ps
-
-          echo '=== Inspecting Container Health ==='
-          docker inspect -f '{{.State.Running}}' finance-backend
-          docker inspect -f '{{.State.Running}}' finance-frontend
-          docker inspect -f '{{.State.Running}}' finance-postgres
           "
 
   verify:
@@ -103,6 +144,8 @@ jobs:
     needs:
       - build
       - validate
+      - build-backend-image
+      - build-frontend-image
       - deploy
       - verify
 
@@ -124,9 +167,7 @@ jobs:
           ssh -i ~/.ssh/id_ed25519 \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
           "
-          echo '=== Backend Logs ==='
           docker logs finance-backend --tail 50
 
-          echo '=== Frontend Logs ==='
           docker logs finance-frontend --tail 50
           "
