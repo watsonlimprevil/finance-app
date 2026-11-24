@@ -118,9 +118,9 @@ jobs:
 
           cd /root/finance-app
 
-          docker-compose pull
+          docker compose pull
 
-          docker-compose up -d
+          docker compose up -d
 
           docker ps
           "
