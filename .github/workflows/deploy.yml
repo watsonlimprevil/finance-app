@@ -69,7 +69,7 @@ jobs:
         run: |
           docker push ghcr.io/watsonlimprevil/finance-backend:latest
 
-          docker push ghcr.io/watsonlimprevil/finance-backend:&{{ github.sha }} \
+          docker push ghcr.io/watsonlimprevil/finance-backend:${{ github.sha }} \
 
   build-frontend-image:
     needs: validate
