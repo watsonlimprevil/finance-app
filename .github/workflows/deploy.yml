@@ -60,13 +60,16 @@ jobs:
       - name: Build Backend Image
         run: |
           docker build \
-            -t ghcr.io/watsonlimprevil/finance-backend:latest \
-            -f finance-backend/Dockerfile \
-            ./finance-backend
+          -t ghcr.io/watsonlimprevil/finance-backend:latest \
+          -t ghcr.io/watsonlimprevil/finance-backend:${{ github.sha }} \
+          -f finance-backend/Dockerfile \
+          ./finance-backend
 
       - name: Push Backend Image
         run: |
           docker push ghcr.io/watsonlimprevil/finance-backend:latest
+
+          docker push ghcr.io/watsonlimprevil/finance-backend:&{{ github.sha }} \
 
   build-frontend-image:
     needs: validate
@@ -84,6 +87,7 @@ jobs:
         run: |
           docker build \
             -t ghcr.io/watsonlimprevil/finance-frontend:latest \
+            -t ghcr.io/watsonlimprevil/finance-frontend:${{ github.sha }} \
             -f finance-frontend/Dockerfile \
             ./finance-frontend
 
@@ -91,6 +95,7 @@ jobs:
         run: |
           docker push ghcr.io/watsonlimprevil/finance-frontend:latest
 
+          docker push ghcr.io/watsonlimprevil/finance-frontend:${{ github.sha }}
   deploy:
     needs:
       - build-backend-image
