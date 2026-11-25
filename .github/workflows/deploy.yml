@@ -45,8 +45,31 @@ jobs:
         run: |
           docker compose config
 
-  build-backend-image:
+  security-scan:
     needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Audit Backend Dependencies
+        run: |
+          cd finance-backend
+          npm audit --audit-level=high
+
+      - name: Audit Frontend Dependencies
+        run: |
+          cd finance-frontend
+          npm audit --audit-level=high
+
+  build-backend-image:
+    needs: security-scan
     runs-on: ubuntu-latest
 
     steps:
@@ -69,10 +92,10 @@ jobs:
         run: |
           docker push ghcr.io/watsonlimprevil/finance-backend:latest
 
-          docker push ghcr.io/watsonlimprevil/finance-backend:${{ github.sha }} \
+          docker push ghcr.io/watsonlimprevil/finance-backend:${{ github.sha }}
 
   build-frontend-image:
-    needs: validate
+    needs: security-scan
     runs-on: ubuntu-latest
 
     steps:
@@ -149,6 +172,7 @@ jobs:
     needs:
       - build
       - validate
+      - security-scan
       - build-backend-image
       - build-frontend-image
       - deploy
