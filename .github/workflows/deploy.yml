@@ -119,6 +119,29 @@ jobs:
           docker push ghcr.io/watsonlimprevil/finance-frontend:latest
 
           docker push ghcr.io/watsonlimprevil/finance-frontend:${{ github.sha }}
+
+  container-security-scan:
+    needs:
+      - build-backend-image
+      - build-frontend-image
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Trivy Backend scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ghcr.io/watsonlimprevil/finance-backend:latest
+          format: table
+          severity: CRITICAL,high
+
+      - name: Run Trivy Frontend scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ghcr.io/watsonlimprevil/finance-frontend:latest
+          format: table
+          severity: CRITICAL,high
+
   deploy:
     needs:
       - build-backend-image
@@ -175,6 +198,7 @@ jobs:
       - security-scan
       - build-backend-image
       - build-frontend-image
+      - container-security-scan
       - deploy
       - verify
 
