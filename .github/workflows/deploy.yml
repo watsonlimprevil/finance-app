@@ -45,8 +45,35 @@ jobs:
         run: |
           docker compose config
 
-  security-scan:
+  codeql-analysis:
     needs: validate
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Initialize codeql
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  security-scan:
+    needs: codeql-analysis
     runs-on: ubuntu-latest
 
     steps:
@@ -128,6 +155,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Login To GHCR
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+
       - name: Run Trivy Backend scan
         uses: aquasecurity/trivy-action@master
         with:
@@ -144,8 +175,7 @@ jobs:
 
   deploy:
     needs:
-      - build-backend-image
-      - build-frontend-image
+      - container-security-scan
 
     runs-on: ubuntu-latest
 
@@ -195,6 +225,7 @@ jobs:
     needs:
       - build
       - validate
+      - codeql-analysis
       - security-scan
       - build-backend-image
       - build-frontend-image
