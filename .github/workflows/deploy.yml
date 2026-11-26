@@ -45,6 +45,14 @@ jobs:
         run: |
           docker compose config
 
+  test-ghcr-auth:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test GHCR Login
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }} docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin"
+
   codeql-analysis:
     needs: validate
     runs-on: ubuntu-latest
