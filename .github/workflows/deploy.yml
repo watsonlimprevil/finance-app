@@ -203,6 +203,10 @@ jobs:
 
           echo '${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u '${{ secrets.GHCR_USERNAME }}' --password-stdin'
 
+          docker pull ghcr.io/watsonlimprevil/finance-backend:latest
+
+          docker pull ghcr.io/watsonlimprevil/finance-frontend:latest
+
           docker compose pull
 
           docker compose up -d
