@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: Test GHCR Login
         run: |
-          echo "${{ secrets.GHCR_TOKEN }} docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin"
+          echo "${{ secrets.GHCR_TOKEN }}" docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
 
   codeql-analysis:
     needs: validate
@@ -209,7 +209,7 @@ jobs:
 
           cd /root/finance-app
 
-          echo '${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u '${{ secrets.GHCR_USERNAME }}' --password-stdin'
+          echo '${{ secrets.GHCR_TOKEN }}' | docker login ghcr.io -u '${{ secrets.GHCR_USERNAME }}' --password-stdin'
 
           docker pull ghcr.io/watsonlimprevil/finance-backend:latest
 
